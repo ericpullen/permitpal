@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Permit Pal — Kentucky Practice</title>
+  <meta name="description" content="See it. Hear it. Tap it. A free, visual way to practice for the Kentucky permit test — made for every kind of learner." />
+  <meta name="theme-color" content="#2E9E6B" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+
+  <!-- START -->
+  <section id="screen-start" class="screen center">
+    <div class="start-card">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 120 120" width="96" height="96">
+          <rect width="120" height="120" rx="26" fill="#2E9E6B"/>
+          <rect x="50" y="20" width="20" height="80" fill="#fff" opacity=".9"/>
+          <rect x="54" y="34" width="12" height="16" fill="#2E9E6B"/>
+          <rect x="54" y="62" width="12" height="16" fill="#2E9E6B"/>
+          <circle cx="60" cy="60" r="0" fill="none"/>
+        </svg>
+      </div>
+      <h1>Permit Pal</h1>
+      <p class="tagline">See it. Hear it. Tap it.</p>
+      <p class="subtag">Practice for the Kentucky permit test — made for every kind of learner.</p>
+      <button id="btn-start" class="btn big">Start</button>
+      <p class="fineprint">Free to use. Works on your phone. Your progress stays on your device.</p>
+    </div>
+  </section>
+
+  <!-- HOME -->
+  <section id="screen-home" class="screen hidden">
+    <header class="home-head">
+      <h2>What do you want to practice?</h2>
+    </header>
+
+    <div class="modes">
+      <button id="btn-mixed" class="mode-btn">🔀 <span>Mixed practice</span></button>
+      <button id="btn-mock" class="mode-btn">📝 <span>Practice test</span></button>
+      <button id="btn-review" class="mode-btn hidden">🎯 <span>Review weak spots (<span id="review-count">0</span>)</span></button>
+    </div>
+
+    <h3 class="section-label">Lessons</h3>
+    <div id="home-modules" class="module-grid"><p class="note">Loading…</p></div>
+
+    <button id="btn-settings" class="settings-fab" aria-label="Settings">⚙️</button>
+  </section>
+
+  <!-- PLAY -->
+  <section id="screen-play" class="screen hidden">
+    <div class="topbar">
+      <button id="btn-home" class="icon-btn" aria-label="Back to menu">‹</button>
+      <div id="dots" class="dots" aria-hidden="true"></div>
+      <button id="btn-mute" class="icon-btn" aria-label="Sound">🔊</button>
+      <button id="btn-settings" class="icon-btn" aria-label="Settings">⚙️</button>
+    </div>
+
+    <p id="play-title" class="play-title"></p>
+    <p id="prompt" class="prompt"></p>
+
+    <div id="scene" class="scene-wrap" role="group" aria-label="Tap the picture to answer"></div>
+
+    <div id="choices" class="choices hidden"></div>
+
+    <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+
+    <button id="btn-next" class="btn next hidden">Next</button>
+  </section>
+
+  <!-- DONE -->
+  <section id="screen-done" class="screen center hidden">
+    <div class="done-card">
+      <div id="done-summary"></div>
+      <div class="done-actions">
+        <button id="btn-again" class="btn">Practice again</button>
+        <button id="btn-home-2" class="btn ghost">Back to menu</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <div id="panel-settings" class="panel">
+    <div class="panel-inner">
+      <div class="panel-head">
+        <h3>Settings</h3>
+        <button id="btn-settings-close" class="icon-btn" aria-label="Close">✕</button>
+      </div>
+      <label class="row"><span>Sound &amp; voice</span><input id="set-sound" type="checkbox" /></label>
+      <label class="row"><span>Animations</span><input id="set-motion" type="checkbox" /></label>
+      <label class="row"><span>Easy-to-read font</span><input id="set-font" type="checkbox" /></label>
+      <label class="row"><span>Higher contrast</span><input id="set-contrast" type="checkbox" /></label>
+      <p class="panel-note">These options are saved on this device.</p>
+    </div>
+  </div>
+
+  <script src="src/scenekit.js"></script>
+  <script src="src/speech.js"></script>
+  <script src="src/progress.js"></script>
+  <script src="src/settings.js"></script>
+  <script src="src/engine.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>

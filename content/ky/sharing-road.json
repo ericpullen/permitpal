@@ -1,0 +1,64 @@
+{
+  "module": "sharing-road",
+  "title": "Sharing the Road",
+  "description": "Bicycles, motorcycles, big trucks, and work zones.",
+  "scenarios": [
+    {
+      "id": "share-bicycle",
+      "concept": "Passing a bicycle",
+      "manualRef": "Sharing the Road",
+      "interaction": "choose-one",
+      "prompt": "You are passing a person on a bicycle. How much room should you give?",
+      "scene": { "template": "road", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true }, { "lane": "right", "at": "top", "dir": "up", "color": "#5BA89A", "decor": true } ] },
+      "choices": [
+        { "id": "three", "label": "At least 3 feet of space", "correct": true },
+        { "id": "inches", "label": "A few inches is fine" },
+        { "id": "none", "label": "No extra room needed" }
+      ],
+      "feedback": {
+        "correct": "Yes — give a bicycle at least 3 feet of space when you pass.",
+        "inches": "That's too close. Give a bicycle at least 3 feet. Try again.",
+        "none": "Bicycles need room — at least 3 feet when passing. Try again.",
+        "default": "Give a bicycle at least 3 feet of space. Try again."
+      }
+    },
+    {
+      "id": "share-truck-blindspot",
+      "concept": "Truck blind spots",
+      "manualRef": "Sharing the Road",
+      "interaction": "choose-one",
+      "prompt": "A big truck is next to you. Where is it most dangerous to drive?",
+      "scene": { "template": "road", "cars": [ { "lane": "left", "at": "mid", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choices": [
+        { "id": "blind", "label": "Right beside it, where the driver can't see you", "correct": true },
+        { "id": "far", "label": "Far in front, where it can see you" },
+        { "id": "behind", "label": "Well behind it with space" }
+      ],
+      "feedback": {
+        "correct": "Yes — trucks have big blind spots on the sides. If you can't see the driver's mirror, they can't see you.",
+        "far": "Being well in front where the driver can see you is safer. The danger is right beside the truck. Try again.",
+        "behind": "Staying back with space is safe. The danger zone is right alongside the truck. Try again.",
+        "default": "The danger is beside the truck, in its blind spot. Try again."
+      }
+    },
+    {
+      "id": "share-work-zone",
+      "concept": "Work zones",
+      "manualRef": "Work Zones",
+      "interaction": "choose-one",
+      "prompt": "You see orange signs and workers ahead. What should you do?",
+      "scene": { "template": "row", "items": [ { "type": "sign", "name": "workZone", "size": 48, "decor": true } ] },
+      "choices": [
+        { "id": "slow", "label": "Slow down and watch for workers", "correct": true },
+        { "id": "same", "label": "Keep the same speed" },
+        { "id": "fast", "label": "Speed up to get through" }
+      ],
+      "feedback": {
+        "correct": "Yes — slow down in work zones and watch for people. Fines are often higher here too.",
+        "same": "Slow down in a work zone — people are working close to the road. Try again.",
+        "fast": "Never speed up in a work zone. Slow down and stay alert. Try again.",
+        "default": "Slow down and watch for workers. Try again."
+      }
+    }
+  ]
+}

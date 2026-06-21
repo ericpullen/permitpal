@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://permitpal/schema/scenario.schema.json",
+  "title": "Permit Pal lesson file",
+  "type": "object",
+  "required": ["module", "title", "scenarios"],
+  "properties": {
+    "module": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "_note": { "type": "string" },
+    "scenarios": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/scenario" }
+    }
+  },
+  "definitions": {
+    "scenario": {
+      "type": "object",
+      "required": ["id", "concept", "interaction", "prompt", "scene", "feedback"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "concept": { "type": "string" },
+        "manualRef": { "type": "string" },
+        "interaction": { "enum": ["tap-target", "tap-zone", "choose-one"] },
+        "prompt": { "type": "string" },
+        "audio": { "type": ["string", "null"] },
+        "hint": { "type": "string" },
+        "reward": { "enum": ["markZone"] },
+        "scene": {
+          "type": "object",
+          "required": ["template"],
+          "properties": {
+            "template": { "enum": ["intersection", "road", "merge", "roundabout", "row"] }
+          }
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "key": { "type": "string" },
+              "correct": { "type": "boolean" }
+            }
+          }
+        },
+        "feedback": {
+          "type": "object",
+          "required": ["correct"],
+          "properties": {
+            "correct": { "type": "string" },
+            "default": { "type": "string" }
+          },
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "permitpal",
+  "version": "1.0.0",
+  "description": "A free, visual-first study tool for the Kentucky driving (permit) test.",
+  "license": "MIT",
+  "scripts": {
+    "validate": "node scripts/validate.js",
+    "test": "node scripts/validate.js && node test/e2e.js",
+    "start": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "module": "facts",
+  "title": "Good-to-Know Rules",
+  "description": "Important driving rules and numbers to remember.",
+  "_note": "Verify every Kentucky-specific number against the current Kentucky Driver Manual before publishing.",
+  "scenarios": [
+    {
+      "id": "fact-following",
+      "concept": "Following distance",
+      "manualRef": "Following Distance",
+      "interaction": "choose-one",
+      "prompt": "How far behind the car in front should you stay, at least?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "3s", "decor": true } ] },
+      "choices": [
+        { "id": "three", "label": "About 3 seconds of space", "correct": true },
+        { "id": "half", "label": "Half a second" },
+        { "id": "touch", "label": "As close as possible" }
+      ],
+      "feedback": {
+        "correct": "Yes — keep at least a 3-second gap. Add more in rain or snow.",
+        "half": "Half a second is far too close. Keep at least 3 seconds. Try again.",
+        "touch": "Stay back at least 3 seconds so you have time to stop. Try again.",
+        "default": "Keep at least a 3-second following distance. Try again."
+      }
+    },
+    {
+      "id": "fact-headlights",
+      "concept": "When to use headlights",
+      "manualRef": "Headlights",
+      "interaction": "choose-one",
+      "prompt": "When should your headlights be on?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "\u2600", "decor": true } ] },
+      "choices": [
+        { "id": "nightrain", "label": "At night and when it's raining", "correct": true },
+        { "id": "neveronly", "label": "Only when it's pitch black" },
+        { "id": "never", "label": "Almost never" }
+      ],
+      "feedback": {
+        "correct": "Yes — use headlights at night and in rain, fog, or low light so others can see you.",
+        "neveronly": "Turn them on for any low light or rain, not just full dark. Try again.",
+        "never": "Headlights help others see you — use them at night and in bad weather. Try again.",
+        "default": "Use headlights at night and in rain or fog. Try again."
+      }
+    },
+    {
+      "id": "fact-move-over",
+      "concept": "Move-over law",
+      "manualRef": "Move Over Law",
+      "interaction": "choose-one",
+      "prompt": "You see a police car or ambulance stopped ahead with flashing lights. What should you do?",
+      "scene": { "template": "road", "cars": [ { "lane": "left", "at": "top", "dir": "up", "color": "#E74C3C", "label": "EMS", "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choices": [
+        { "id": "moveover", "label": "Slow down and move over a lane if you can", "correct": true },
+        { "id": "same", "label": "Drive past at the same speed" },
+        { "id": "stop", "label": "Stop in the middle of the road" }
+      ],
+      "feedback": {
+        "correct": "Yes — slow down and, if you can, move over a lane to give them room. It's the law.",
+        "same": "Slow down and move over for stopped emergency vehicles. Try again.",
+        "stop": "Don't stop in the lane — slow down and move over if you can. Try again.",
+        "default": "Slow down and move over for stopped emergency vehicles. Try again."
+      }
+    },
+    {
+      "id": "fact-seatbelt",
+      "concept": "Seat belts",
+      "manualRef": "Occupant Protection",
+      "interaction": "choose-one",
+      "prompt": "Who should wear a seat belt in the car?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "\u2713", "decor": true } ] },
+      "choices": [
+        { "id": "everyone", "label": "Everyone in the car", "correct": true },
+        { "id": "driver", "label": "Only the driver" },
+        { "id": "front", "label": "Only people in front" }
+      ],
+      "feedback": {
+        "correct": "Yes — everyone should buckle up, in every seat, every trip.",
+        "driver": "Not just the driver — everyone in the car should buckle up. Try again.",
+        "front": "Everyone, front and back, should wear a seat belt. Try again.",
+        "default": "Everyone in the car should wear a seat belt. Try again."
+      }
+    },
+    {
+      "id": "fact-texting",
+      "concept": "Phones while driving",
+      "manualRef": "Distracted Driving",
+      "interaction": "choose-one",
+      "prompt": "You get a text while driving. What should you do?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "\ud83d\udcf5", "decor": true } ] },
+      "choices": [
+        { "id": "wait", "label": "Leave it until you've parked", "correct": true },
+        { "id": "quick", "label": "Read it quickly at a red light" },
+        { "id": "drive", "label": "Type back while driving" }
+      ],
+      "feedback": {
+        "correct": "Yes — don't text and drive. Wait until you are safely parked.",
+        "quick": "It's safest to wait until you're parked, not while you're driving. Try again.",
+        "drive": "Texting while driving is dangerous and against the law. Wait until parked. Try again.",
+        "default": "Don't text while driving — wait until you're parked. Try again."
+      }
+    },
+    {
+      "id": "fact-bac",
+      "concept": "Alcohol limit",
+      "manualRef": "Alcohol and Driving",
+      "interaction": "choose-one",
+      "prompt": "Drinking alcohol changes how you drive. What is the safest choice?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "0", "decor": true } ] },
+      "choices": [
+        { "id": "none", "label": "Don't drink at all before driving", "correct": true },
+        { "id": "little", "label": "A little is always fine" },
+        { "id": "buzzed", "label": "Drive if you feel okay" }
+      ],
+      "feedback": {
+        "correct": "Yes — the safest choice is zero. Alcohol slows you down even when you feel fine, and drivers under 21 must have none.",
+        "little": "Even a little alcohol affects driving. The safe choice is none. Try again.",
+        "buzzed": "Alcohol fools you into feeling okay. The safe choice is none before driving. Try again.",
+        "default": "The safe choice is no alcohol before driving. Try again."
+      }
+    }
+  ]
+}

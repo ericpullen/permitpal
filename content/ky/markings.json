@@ -1,0 +1,99 @@
+{
+  "module": "markings",
+  "title": "Road Lines",
+  "description": "What the painted lines mean: passing, direction, lane changes, and where to stop.",
+  "scenarios": [
+    {
+      "id": "mark-pass",
+      "concept": "Dashed vs solid yellow (passing)",
+      "manualRef": "Pavement Markings",
+      "interaction": "choose-one",
+      "prompt": "Tap the road where you are allowed to pass.",
+      "scene": { "template": "row", "items": [
+        { "id": "dash", "type": "miniRoad", "line": { "color": "yellow", "pattern": "dashed" }, "cars": [ { "dir": "up", "color": "#2F6FB0" } ], "correct": true, "caption": "dashed line" },
+        { "id": "solid", "type": "miniRoad", "line": { "color": "yellow", "pattern": "solid" }, "cars": [ { "dir": "up", "color": "#2F6FB0" } ], "key": "solid", "caption": "solid line" }
+      ] },
+      "feedback": {
+        "correct": "Yes! A dashed yellow line means you may pass when it's safe.",
+        "solid": "A solid yellow line means no passing. The dashed line is where you can pass. Try again.",
+        "default": "You may pass where the yellow line is dashed. Try again."
+      },
+      "hint": "dash"
+    },
+    {
+      "id": "mark-yellow-white",
+      "concept": "Yellow vs white meaning",
+      "manualRef": "Pavement Markings",
+      "interaction": "choose-one",
+      "prompt": "Tap the road where cars go in opposite directions.",
+      "scene": { "template": "row", "items": [
+        { "id": "yellow", "type": "miniRoad", "line": { "color": "yellow", "pattern": "solid" }, "cars": [ { "lane": "left", "dir": "down", "color": "#E0883E" }, { "lane": "right", "dir": "up", "color": "#2F6FB0" } ], "correct": true, "caption": "yellow line" },
+        { "id": "white", "type": "miniRoad", "line": { "color": "white", "pattern": "dashed" }, "cars": [ { "lane": "left", "dir": "up", "color": "#5BA89A" }, { "lane": "right", "dir": "up", "color": "#2F6FB0" } ], "key": "white", "caption": "white line" }
+      ] },
+      "feedback": {
+        "correct": "Right! A yellow line separates cars going opposite ways.",
+        "white": "Those cars go the same way — that's a white line. Yellow lines separate opposite directions. Try again.",
+        "default": "Yellow lines separate traffic going opposite ways. Try again."
+      },
+      "hint": "yellow"
+    },
+    {
+      "id": "mark-double-yellow",
+      "concept": "Double solid yellow (no passing)",
+      "manualRef": "Pavement Markings",
+      "interaction": "choose-one",
+      "prompt": "Tap the road where passing is NOT allowed.",
+      "scene": { "template": "row", "items": [
+        { "id": "dash", "type": "miniRoad", "line": { "color": "yellow", "pattern": "dashed" }, "cars": [ { "dir": "up", "color": "#2F6FB0" } ], "key": "dash", "caption": "dashed" },
+        { "id": "double", "type": "miniRoad", "line": { "color": "yellow", "pattern": "double" }, "cars": [ { "dir": "up", "color": "#2F6FB0" } ], "correct": true, "caption": "double solid" }
+      ] },
+      "feedback": {
+        "correct": "Yes — two solid yellow lines mean no passing in either direction.",
+        "dash": "The dashed line is where you CAN pass. The double solid lines mean no passing. Try again.",
+        "default": "Double solid yellow lines mean no passing. Try again."
+      },
+      "hint": "double"
+    },
+    {
+      "id": "mark-lane-change",
+      "concept": "White lines and changing lanes",
+      "manualRef": "Pavement Markings",
+      "interaction": "choose-one",
+      "prompt": "Both roads go one way. Tap the one where you may change lanes.",
+      "scene": { "template": "row", "items": [
+        { "id": "dash", "type": "miniRoad", "line": { "color": "white", "pattern": "dashed" }, "cars": [ { "lane": "left", "dir": "up", "color": "#5BA89A" }, { "lane": "right", "dir": "up", "color": "#2F6FB0" } ], "correct": true, "caption": "dashed white" },
+        { "id": "solid", "type": "miniRoad", "line": { "color": "white", "pattern": "solid" }, "cars": [ { "lane": "left", "dir": "up", "color": "#5BA89A" }, { "lane": "right", "dir": "up", "color": "#2F6FB0" } ], "key": "solid", "caption": "solid white" }
+      ] },
+      "feedback": {
+        "correct": "Yes — a dashed white line means you may change lanes when it's safe.",
+        "solid": "A solid white line means stay in your lane. The dashed line is where you may change. Try again.",
+        "default": "You may change lanes where the white line is dashed. Try again."
+      },
+      "hint": "dash"
+    },
+    {
+      "id": "mark-crosswalk-stop",
+      "concept": "Where to stop at a crosswalk",
+      "manualRef": "Pavement Markings",
+      "interaction": "tap-zone",
+      "prompt": "Tap where your car should stop.",
+      "scene": {
+        "template": "road", "crosswalk": true, "marker": [235, 150],
+        "zones": [
+          { "id": "before", "rect": [200, 148, 70, 182], "correct": true },
+          { "id": "onwalk", "rect": [200, 80, 70, 58], "key": "onwalk" },
+          { "id": "past", "rect": [200, 0, 70, 80], "key": "past" }
+        ],
+        "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ]
+      },
+      "feedback": {
+        "correct": "Yes! Stop at the white line, before the crosswalk. That keeps the walkway clear for people.",
+        "onwalk": "That's the crosswalk, where people walk. Stop just before it, at the white line. Try again.",
+        "past": "That's too far — you'd be in the intersection. Stop at the white line before the crosswalk. Try again.",
+        "default": "Stop at the white line before the crosswalk. Try again."
+      },
+      "hint": "before",
+      "reward": "markZone"
+    }
+  ]
+}

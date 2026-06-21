@@ -1,0 +1,216 @@
+{
+  "module": "right-of-way",
+  "title": "Who Goes First",
+  "description": "Right-of-way at stops, yields, turns, crosswalks, and special situations.",
+  "scenarios": [
+    {
+      "id": "row-4way-simultaneous",
+      "concept": "Four-way stop, same time",
+      "manualRef": "Right-of-Way",
+      "interaction": "tap-target",
+      "prompt": "Both cars stop at the same time. Tap the car that goes first.",
+      "scene": {
+        "template": "intersection", "kind": "cross", "control": "stop-all",
+        "cars": [
+          { "id": "you", "from": "south", "label": "YOU", "key": "you" },
+          { "id": "other", "from": "east", "correct": true }
+        ]
+      },
+      "feedback": {
+        "correct": "Right! When two cars stop at the same time, the car on the right goes first.",
+        "you": "When you both stop at the same time, the car on your right goes first. Try again.",
+        "default": "When you stop at the same time, the car on the right goes first. Try again."
+      },
+      "hint": "other"
+    },
+    {
+      "id": "row-4way-first",
+      "concept": "Four-way stop, first to arrive",
+      "manualRef": "Right-of-Way",
+      "interaction": "tap-target",
+      "prompt": "The other car stopped before you did. Tap the car that goes first.",
+      "scene": {
+        "template": "intersection", "kind": "cross", "control": "stop-all",
+        "cars": [
+          { "id": "you", "from": "south", "label": "YOU", "key": "you" },
+          { "id": "other", "from": "north", "correct": true }
+        ]
+      },
+      "feedback": {
+        "correct": "Yes! The first car to stop is the first to go.",
+        "you": "The other car stopped first, so it goes first. You wait your turn. Try again.",
+        "default": "The car that stopped first goes first. Try again."
+      },
+      "hint": "other"
+    },
+    {
+      "id": "row-tee",
+      "concept": "T-intersection",
+      "manualRef": "Right-of-Way",
+      "interaction": "tap-target",
+      "prompt": "Your small road ends at a bigger road. Tap the car that goes first.",
+      "scene": {
+        "template": "intersection", "kind": "tee", "control": "none",
+        "cars": [
+          { "id": "you", "from": "south", "label": "YOU", "key": "you" },
+          { "id": "thru", "from": "west", "correct": true }
+        ]
+      },
+      "feedback": {
+        "correct": "Right! Cars already on the main road go first. You wait, then pull out when it's clear.",
+        "you": "Your road ends at the bigger road, so you give way. The car on the main road goes first. Try again.",
+        "default": "The car on the main road goes first. Try again."
+      },
+      "hint": "thru"
+    },
+    {
+      "id": "row-uncontrolled",
+      "concept": "Uncontrolled intersection",
+      "manualRef": "Right-of-Way",
+      "interaction": "tap-target",
+      "prompt": "There are no signs or lights. You both arrive together. Tap the car that goes first.",
+      "scene": {
+        "template": "intersection", "kind": "cross", "control": "none",
+        "cars": [
+          { "id": "you", "from": "south", "label": "YOU", "key": "you" },
+          { "id": "other", "from": "east", "correct": true }
+        ]
+      },
+      "feedback": {
+        "correct": "Yes! With no signs, you give way to the car on your right.",
+        "you": "With no signs, the car on your right goes first. Try again.",
+        "default": "Give way to the car on the right. Try again."
+      },
+      "hint": "other"
+    },
+    {
+      "id": "row-yield-merge",
+      "concept": "Yield / merging",
+      "manualRef": "Right-of-Way",
+      "interaction": "tap-target",
+      "prompt": "You have a yield sign. Tap the car that goes first.",
+      "scene": {
+        "template": "merge",
+        "cars": [
+          { "id": "main", "role": "main", "correct": true },
+          { "id": "you", "role": "you", "key": "you" }
+        ]
+      },
+      "feedback": {
+        "correct": "Yes! A yield sign means slow down and let the other car go first, then go when it's clear.",
+        "you": "Yield means you wait and let the car already on the road go first. Try again.",
+        "default": "Yield means let the other car go first. Try again."
+      },
+      "hint": "main"
+    },
+    {
+      "id": "row-left-turn",
+      "concept": "Turning left vs. oncoming",
+      "manualRef": "Right-of-Way",
+      "interaction": "tap-target",
+      "prompt": "You want to turn left. Tap the car that goes first.",
+      "scene": {
+        "template": "road", "turnArrow": "left",
+        "cars": [
+          { "id": "oncoming", "lane": "left", "at": "top", "dir": "down", "correct": true },
+          { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "key": "you" }
+        ]
+      },
+      "feedback": {
+        "correct": "Yes! When you turn left, you let oncoming cars going straight go first.",
+        "you": "The car coming straight toward you goes first when you're turning left. Try again.",
+        "default": "Let oncoming traffic go first when turning left. Try again."
+      },
+      "hint": "oncoming"
+    },
+    {
+      "id": "row-roundabout",
+      "concept": "Roundabout entry",
+      "manualRef": "Right-of-Way",
+      "interaction": "tap-target",
+      "prompt": "You are entering a roundabout. Tap the car that goes first.",
+      "scene": {
+        "template": "roundabout",
+        "cars": [
+          { "id": "circ", "role": "circulating", "correct": true },
+          { "id": "you", "role": "you", "key": "you" }
+        ]
+      },
+      "feedback": {
+        "correct": "Yes! Cars already in the roundabout go first. You wait for a gap, then enter.",
+        "you": "You yield when entering — cars already going around go first. Try again.",
+        "default": "Yield to traffic already in the roundabout. Try again."
+      },
+      "hint": "circ"
+    },
+    {
+      "id": "row-pedestrian",
+      "concept": "Pedestrian in crosswalk",
+      "manualRef": "Pedestrians",
+      "interaction": "tap-target",
+      "prompt": "Someone is walking in the crosswalk. Tap who goes first.",
+      "scene": {
+        "template": "road", "crosswalk": true,
+        "ped": { "id": "ped", "onCrosswalk": true, "correct": true },
+        "cars": [
+          { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "key": "you" }
+        ]
+      },
+      "feedback": {
+        "correct": "Yes! People in the crosswalk always go first. Wait until they finish crossing.",
+        "you": "Let the person finish crossing first — pedestrians have the right-of-way. Try again.",
+        "default": "The person in the crosswalk goes first. Try again."
+      },
+      "hint": "ped"
+    },
+    {
+      "id": "row-emergency",
+      "concept": "Emergency vehicle approaching",
+      "manualRef": "Emergency Vehicles",
+      "interaction": "choose-one",
+      "prompt": "An ambulance behind you has its lights and siren on. Tap what you should do.",
+      "scene": {
+        "template": "road",
+        "cars": [
+          { "id": "you", "lane": "right", "at": "mid", "dir": "up", "label": "YOU", "decor": true },
+          { "id": "ems", "lane": "right", "at": "bottom", "dir": "up", "color": "#E74C3C", "label": "EMS", "decor": true }
+        ]
+      },
+      "choices": [
+        { "id": "right", "label": "Pull to the right and stop", "correct": true },
+        { "id": "fast", "label": "Speed up to get out of the way" },
+        { "id": "stay", "label": "Stop right where you are" }
+      ],
+      "feedback": {
+        "correct": "Yes! Pull over to the right edge and stop until the emergency vehicle passes.",
+        "fast": "Don't speed up — pull to the right and stop so it can pass safely. Try again.",
+        "stay": "Move to the right first, then stop — don't block the lane. Try again.",
+        "default": "Pull to the right and stop. Try again."
+      }
+    },
+    {
+      "id": "row-school-bus",
+      "concept": "School bus with red lights",
+      "manualRef": "School Buses",
+      "interaction": "choose-one",
+      "prompt": "The school bus ahead has red flashing lights and its stop arm out. Tap what you should do.",
+      "scene": {
+        "template": "road", "bus": { "cy": 150 },
+        "cars": [
+          { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true }
+        ]
+      },
+      "choices": [
+        { "id": "stop", "label": "Stop and wait until the lights stop", "correct": true },
+        { "id": "pass", "label": "Pass slowly and carefully" },
+        { "id": "honk", "label": "Honk and drive around" }
+      ],
+      "feedback": {
+        "correct": "Yes! Red flashing lights mean stop and wait until they turn off and the stop arm folds in.",
+        "pass": "Never pass a stopped school bus with red lights flashing — children may be crossing. Stop and wait. Try again.",
+        "honk": "Stop and wait quietly until the red lights turn off. Try again.",
+        "default": "Stop and wait for the red lights to turn off. Try again."
+      }
+    }
+  ]
+}

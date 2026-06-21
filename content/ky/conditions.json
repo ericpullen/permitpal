@@ -1,0 +1,64 @@
+{
+  "module": "conditions",
+  "title": "Weather & Conditions",
+  "description": "Driving in rain, fog, snow, at night, and across railroad tracks.",
+  "scenarios": [
+    {
+      "id": "cond-rain",
+      "concept": "Rain and hydroplaning",
+      "manualRef": "Adverse Conditions",
+      "interaction": "choose-one",
+      "prompt": "The road is wet from rain. What should you do?",
+      "scene": { "template": "road", "cars": [ { "lane": "right", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choices": [
+        { "id": "slow", "label": "Slow down and keep more distance", "correct": true },
+        { "id": "same", "label": "Drive the same as on a dry day" },
+        { "id": "fast", "label": "Go faster to finish sooner" }
+      ],
+      "feedback": {
+        "correct": "Yes — wet roads are slippery. Slow down and leave extra space to stop.",
+        "same": "Wet roads need extra care. Slow down and keep more distance. Try again.",
+        "fast": "Going fast on wet roads can make you slide. Slow down. Try again.",
+        "default": "Slow down and keep extra distance on wet roads. Try again."
+      }
+    },
+    {
+      "id": "cond-fog",
+      "concept": "Driving in fog",
+      "manualRef": "Adverse Conditions",
+      "interaction": "choose-one",
+      "prompt": "It's foggy and hard to see. Which lights should you use?",
+      "scene": { "template": "road", "cars": [ { "lane": "right", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choices": [
+        { "id": "low", "label": "Low beams (regular headlights)", "correct": true },
+        { "id": "high", "label": "High beams (brights)" },
+        { "id": "none", "label": "No lights at all" }
+      ],
+      "feedback": {
+        "correct": "Yes — use low beams in fog. High beams bounce off the fog and make it harder to see.",
+        "high": "High beams reflect off fog and blind you. Use low beams. Try again.",
+        "none": "You still need lights in fog — use low beams. Try again.",
+        "default": "Use low beams in fog. Try again."
+      }
+    },
+    {
+      "id": "cond-railroad",
+      "concept": "Railroad crossing",
+      "manualRef": "Railroad Crossings",
+      "interaction": "choose-one",
+      "prompt": "The railroad lights are flashing and the gate is coming down. What should you do?",
+      "scene": { "template": "road", "railroad": true, "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choices": [
+        { "id": "stop", "label": "Stop and wait for the train to pass", "correct": true },
+        { "id": "race", "label": "Drive across quickly before the train" },
+        { "id": "around", "label": "Drive around the gate" }
+      ],
+      "feedback": {
+        "correct": "Yes — stop and wait. Never try to beat a train or go around the gate.",
+        "race": "Never try to beat a train — stop and wait. Try again.",
+        "around": "Never drive around a lowered gate. Stop and wait for the train. Try again.",
+        "default": "Stop and wait for the train. Try again."
+      }
+    }
+  ]
+}

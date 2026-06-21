@@ -1,0 +1,197 @@
+{
+  "module": "signs",
+  "title": "Road Signs",
+  "description": "Recognize signs by shape, color, and meaning.",
+  "scenarios": [
+    {
+      "id": "sign-stop",
+      "concept": "Stop sign",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Tap the sign that means STOP.",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "stop", "correct": true },
+        { "id": "b", "type": "sign", "name": "yield", "key": "yield" },
+        { "id": "c", "type": "sign", "name": "speedLimit", "arg": 35, "key": "speed" }
+      ] },
+      "feedback": {
+        "correct": "That's the stop sign — eight sides and red. Come to a full stop.",
+        "yield": "That's a yield sign. The stop sign is the red one with eight sides. Try again.",
+        "speed": "That's a speed limit sign. The stop sign is the red eight-sided one. Try again.",
+        "default": "The stop sign is red with eight sides. Try again."
+      },
+      "hint": "a"
+    },
+    {
+      "id": "sign-yield",
+      "concept": "Yield sign",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Tap the sign that means YIELD (let others go first).",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "doNotEnter", "key": "dne" },
+        { "id": "b", "type": "sign", "name": "yield", "correct": true },
+        { "id": "c", "type": "sign", "name": "stop", "key": "stop" }
+      ] },
+      "feedback": {
+        "correct": "Right — the upside-down red and white triangle means yield: let others go, then go when clear.",
+        "dne": "That one means Do Not Enter. The yield sign is the triangle pointing down. Try again.",
+        "stop": "That's a stop sign. Yield is the triangle pointing down. Try again.",
+        "default": "Yield is the downward red-and-white triangle. Try again."
+      },
+      "hint": "b"
+    },
+    {
+      "id": "sign-do-not-enter",
+      "concept": "Do Not Enter",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Tap the sign that means DO NOT ENTER.",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "doNotEnter", "correct": true },
+        { "id": "b", "type": "sign", "name": "noUTurn", "key": "nou" },
+        { "id": "c", "type": "sign", "name": "oneWay", "arg": "left", "key": "one" }
+      ] },
+      "feedback": {
+        "correct": "Yes — the red circle with a white bar means do not enter. Don't drive in.",
+        "nou": "That means No U-Turn. Do Not Enter is the red circle with a white bar. Try again.",
+        "one": "That's a One Way sign. Do Not Enter is the red circle with a white bar. Try again.",
+        "default": "Do Not Enter is the red circle with a white bar. Try again."
+      },
+      "hint": "a"
+    },
+    {
+      "id": "sign-warning-shape",
+      "concept": "Warning signs are yellow diamonds",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Warning signs are yellow diamonds. Tap the warning sign.",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "stop", "key": "stop" },
+        { "id": "b", "type": "sign", "name": "curve", "correct": true },
+        { "id": "c", "type": "sign", "name": "speedLimit", "arg": 45, "key": "speed" }
+      ] },
+      "feedback": {
+        "correct": "Yes! Yellow diamond signs warn you about what's ahead — here, a curve.",
+        "stop": "That's a stop sign (a regulatory sign). Warning signs are yellow diamonds. Try again.",
+        "speed": "That's a speed limit sign. Warning signs are the yellow diamonds. Try again.",
+        "default": "Warning signs are yellow and diamond-shaped. Try again."
+      },
+      "hint": "b"
+    },
+    {
+      "id": "sign-railroad",
+      "concept": "Railroad crossing",
+      "manualRef": "Railroad Crossings",
+      "interaction": "choose-one",
+      "prompt": "Tap the sign that warns of a railroad crossing.",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "school", "key": "school" },
+        { "id": "b", "type": "sign", "name": "railroad", "correct": true },
+        { "id": "c", "type": "sign", "name": "curve", "key": "curve" }
+      ] },
+      "feedback": {
+        "correct": "Yes — the round yellow sign with the X and two R's means a railroad crossing is ahead.",
+        "school": "That's a school sign. The railroad sign is round and yellow with an X. Try again.",
+        "curve": "That warns of a curve. The railroad sign is round and yellow with an X. Try again.",
+        "default": "The railroad sign is round, yellow, with an X and two R's. Try again."
+      },
+      "hint": "b"
+    },
+    {
+      "id": "sign-pedestrian",
+      "concept": "Pedestrian crossing",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Tap the sign that warns people may be crossing.",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "pedestrianXing", "correct": true },
+        { "id": "b", "type": "sign", "name": "merge", "key": "merge" },
+        { "id": "c", "type": "sign", "name": "workZone", "key": "work" }
+      ] },
+      "feedback": {
+        "correct": "Yes — the yellow diamond with a person means watch for people crossing.",
+        "merge": "That one means a lane is merging. The pedestrian sign shows a person walking. Try again.",
+        "work": "That's a road-work sign. The pedestrian sign shows a person walking. Try again.",
+        "default": "Look for the yellow sign with a walking person. Try again."
+      },
+      "hint": "a"
+    },
+    {
+      "id": "sign-school",
+      "concept": "School zone",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Tap the sign that means you are near a school.",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "workZone", "key": "work" },
+        { "id": "b", "type": "sign", "name": "school", "correct": true },
+        { "id": "c", "type": "sign", "name": "yield", "key": "yield" }
+      ] },
+      "feedback": {
+        "correct": "Yes — the green five-sided sign with children means a school zone. Slow down and watch for kids.",
+        "work": "That's an orange road-work sign. The school sign is the five-sided green one. Try again.",
+        "yield": "That's a yield sign. The school sign is the five-sided green one with children. Try again.",
+        "default": "The school sign has five sides and shows children. Try again."
+      },
+      "hint": "b"
+    },
+    {
+      "id": "sign-work-zone",
+      "concept": "Road work (orange)",
+      "manualRef": "Work Zones",
+      "interaction": "choose-one",
+      "prompt": "Orange signs mean road work. Tap the road-work sign.",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "curve", "key": "curve" },
+        { "id": "b", "type": "sign", "name": "workZone", "correct": true },
+        { "id": "c", "type": "sign", "name": "pedestrianXing", "key": "ped" }
+      ] },
+      "feedback": {
+        "correct": "Yes — orange means a work zone. Slow down and watch for workers.",
+        "curve": "That yellow sign warns of a curve. Road-work signs are orange. Try again.",
+        "ped": "That's a pedestrian sign. Road-work signs are orange. Try again.",
+        "default": "Road-work signs are orange. Try again."
+      },
+      "hint": "b"
+    },
+    {
+      "id": "sign-no-left",
+      "concept": "No left turn",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Tap the sign that means NO LEFT TURN.",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "noUTurn", "key": "nou" },
+        { "id": "b", "type": "sign", "name": "noLeftTurn", "correct": true },
+        { "id": "c", "type": "sign", "name": "oneWay", "arg": "right", "key": "one" }
+      ] },
+      "feedback": {
+        "correct": "Yes — the left arrow with a red slash means you can't turn left here.",
+        "nou": "That means No U-Turn. No Left Turn shows a left arrow with a slash. Try again.",
+        "one": "That's a One Way sign. No Left Turn shows a left arrow with a slash. Try again.",
+        "default": "Look for the left arrow crossed out. Try again."
+      },
+      "hint": "b"
+    },
+    {
+      "id": "sign-speed-limit",
+      "concept": "Speed limit",
+      "manualRef": "Speed Limits",
+      "interaction": "choose-one",
+      "prompt": "Tap the sign that shows the speed limit.",
+      "scene": { "template": "row", "items": [
+        { "id": "a", "type": "sign", "name": "speedLimit", "arg": 55, "correct": true },
+        { "id": "b", "type": "sign", "name": "doNotEnter", "key": "dne" },
+        { "id": "c", "type": "sign", "name": "curve", "key": "curve" }
+      ] },
+      "feedback": {
+        "correct": "Yes — the white sign with a number is the speed limit. Don't drive faster than that.",
+        "dne": "That's a Do Not Enter sign. The speed limit is the white sign with a number. Try again.",
+        "curve": "That warns of a curve. The speed limit is the white sign with a number. Try again.",
+        "default": "The speed limit is the white rectangle with a number. Try again."
+      },
+      "hint": "a"
+    }
+  ]
+}

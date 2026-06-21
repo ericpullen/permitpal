@@ -1,0 +1,193 @@
+{
+  "module": "signals",
+  "title": "Traffic Lights",
+  "description": "What each light, arrow, and pedestrian signal tells you to do.",
+  "scenarios": [
+    {
+      "id": "sig-red",
+      "concept": "Solid red light",
+      "manualRef": "Traffic Signals",
+      "interaction": "choose-one",
+      "prompt": "The light is solid red. Tap what you should do.",
+      "scene": { "template": "row", "items": [ { "type": "signal", "state": "red", "decor": true } ] },
+      "choices": [
+        { "id": "stop", "label": "Stop and wait", "correct": true },
+        { "id": "slow", "label": "Slow down but keep going" },
+        { "id": "go", "label": "Go if no one is around" }
+      ],
+      "feedback": {
+        "correct": "Yes — a red light means come to a full stop and wait for green.",
+        "slow": "Red means a full stop, not just slowing down. Try again.",
+        "go": "Even if it's empty, red means stop and wait. Try again.",
+        "default": "Red means stop and wait. Try again."
+      }
+    },
+    {
+      "id": "sig-yellow",
+      "concept": "Solid yellow light",
+      "manualRef": "Traffic Signals",
+      "interaction": "choose-one",
+      "prompt": "The light turns solid yellow. Tap what you should do.",
+      "scene": { "template": "row", "items": [ { "type": "signal", "state": "yellow", "decor": true } ] },
+      "choices": [
+        { "id": "stop", "label": "Slow down and stop if you safely can", "correct": true },
+        { "id": "fast", "label": "Speed up to beat the red" },
+        { "id": "ignore", "label": "Keep the same speed" }
+      ],
+      "feedback": {
+        "correct": "Yes — yellow means the light is about to turn red. Slow down and stop if you can do it safely.",
+        "fast": "Don't speed up on yellow — it means red is coming. Slow down and stop if safe. Try again.",
+        "ignore": "Yellow is a warning that red is next. Slow down and stop if you can. Try again.",
+        "default": "Yellow means slow down and stop if it's safe. Try again."
+      }
+    },
+    {
+      "id": "sig-green",
+      "concept": "Green light",
+      "manualRef": "Traffic Signals",
+      "interaction": "choose-one",
+      "prompt": "The light is green. Tap what you should do.",
+      "scene": { "template": "row", "items": [ { "type": "signal", "state": "green", "decor": true } ] },
+      "choices": [
+        { "id": "go", "label": "Go, if the way is clear", "correct": true },
+        { "id": "stop", "label": "Stop and wait" },
+        { "id": "blind", "label": "Go fast without looking" }
+      ],
+      "feedback": {
+        "correct": "Yes — green means go, but first make sure the way is clear.",
+        "stop": "Green means go (when it's clear), not stop. Try again.",
+        "blind": "Go on green, but always check that the way is clear first. Try again.",
+        "default": "Green means go when the way is clear. Try again."
+      }
+    },
+    {
+      "id": "sig-flash-red",
+      "concept": "Flashing red light",
+      "manualRef": "Traffic Signals",
+      "interaction": "choose-one",
+      "prompt": "The light is flashing red. Tap what you should do.",
+      "scene": { "template": "row", "items": [ { "type": "signal", "state": "flashRed", "decor": true } ] },
+      "choices": [
+        { "id": "stop", "label": "Treat it like a stop sign", "correct": true },
+        { "id": "go", "label": "Keep driving without stopping" },
+        { "id": "slow", "label": "Just slow down a little" }
+      ],
+      "feedback": {
+        "correct": "Yes — a flashing red light means the same as a stop sign: stop, then go when it's clear.",
+        "go": "A flashing red light means stop first, like a stop sign. Try again.",
+        "slow": "Flashing red means a full stop, like a stop sign. Try again.",
+        "default": "Flashing red means stop, like a stop sign. Try again."
+      }
+    },
+    {
+      "id": "sig-flash-yellow",
+      "concept": "Flashing yellow light",
+      "manualRef": "Traffic Signals",
+      "interaction": "choose-one",
+      "prompt": "The light is flashing yellow. Tap what you should do.",
+      "scene": { "template": "row", "items": [ { "type": "signal", "state": "flashYellow", "decor": true } ] },
+      "choices": [
+        { "id": "slow", "label": "Slow down and go with care", "correct": true },
+        { "id": "stop", "label": "Stop and wait for green" },
+        { "id": "fast", "label": "Speed up through it" }
+      ],
+      "feedback": {
+        "correct": "Yes — flashing yellow means slow down and go carefully. You don't have to stop.",
+        "stop": "You don't have to stop at flashing yellow — just slow down and go carefully. Try again.",
+        "fast": "Slow down at flashing yellow, don't speed up. Try again.",
+        "default": "Flashing yellow means slow down and go with care. Try again."
+      }
+    },
+    {
+      "id": "sig-green-arrow",
+      "concept": "Green arrow",
+      "manualRef": "Traffic Signals",
+      "interaction": "choose-one",
+      "prompt": "You see a green left arrow. Tap what it means.",
+      "scene": { "template": "row", "items": [ { "type": "signal", "state": "greenArrowLeft", "decor": true } ] },
+      "choices": [
+        { "id": "turn", "label": "You may turn left now — it's protected", "correct": true },
+        { "id": "straight", "label": "You must go straight" },
+        { "id": "stop", "label": "Stop and wait" }
+      ],
+      "feedback": {
+        "correct": "Yes — a green arrow means you can turn that way now, and oncoming traffic is stopped for you.",
+        "straight": "A green left arrow means you may turn left now. Try again.",
+        "stop": "A green arrow means go ahead and turn that way. Try again.",
+        "default": "A green arrow means you may turn that way now. Try again."
+      }
+    },
+    {
+      "id": "sig-red-arrow",
+      "concept": "Red arrow",
+      "manualRef": "Traffic Signals",
+      "interaction": "choose-one",
+      "prompt": "You see a red left arrow. Tap what it means.",
+      "scene": { "template": "row", "items": [ { "type": "signal", "state": "redArrowLeft", "decor": true } ] },
+      "choices": [
+        { "id": "wait", "label": "Do not turn — wait", "correct": true },
+        { "id": "turn", "label": "Turn left if no cars are coming" },
+        { "id": "go", "label": "Go straight instead" }
+      ],
+      "feedback": {
+        "correct": "Yes — a red arrow means you can't turn that way yet. Wait until it changes.",
+        "turn": "A red arrow means wait, even if it looks clear. Try again.",
+        "go": "A red arrow means stop and wait for that turn. Try again.",
+        "default": "A red arrow means wait — don't turn yet. Try again."
+      }
+    },
+    {
+      "id": "sig-identify-stop",
+      "concept": "Which light means stop",
+      "manualRef": "Traffic Signals",
+      "interaction": "choose-one",
+      "prompt": "Tap the light that means STOP.",
+      "scene": { "template": "row", "items": [
+        { "id": "g", "type": "signal", "state": "green", "key": "green", "caption": "" },
+        { "id": "r", "type": "signal", "state": "red", "correct": true },
+        { "id": "y", "type": "signal", "state": "yellow", "key": "yellow" }
+      ] },
+      "feedback": {
+        "correct": "Yes — the top red light means stop.",
+        "green": "Green means go. The red light (on top) means stop. Try again.",
+        "yellow": "Yellow means slow down. The red light means stop. Try again.",
+        "default": "Red, the top light, means stop. Try again."
+      },
+      "hint": "r"
+    },
+    {
+      "id": "sig-ped-walk",
+      "concept": "Walk signal",
+      "manualRef": "Pedestrians",
+      "interaction": "choose-one",
+      "prompt": "You see this signal at a crosswalk. Tap what it means.",
+      "scene": { "template": "row", "items": [ { "type": "pedSignal", "state": "walk", "decor": true } ] },
+      "choices": [
+        { "id": "walk", "label": "People may start crossing", "correct": true },
+        { "id": "stop", "label": "People must not cross" }
+      ],
+      "feedback": {
+        "correct": "Yes — the white walking person means it's okay to start crossing.",
+        "stop": "The walking person means people may cross. The orange hand means stop. Try again.",
+        "default": "The walking person means you may cross. Try again."
+      }
+    },
+    {
+      "id": "sig-ped-dont",
+      "concept": "Don't walk signal",
+      "manualRef": "Pedestrians",
+      "interaction": "choose-one",
+      "prompt": "You see this signal at a crosswalk. Tap what it means.",
+      "scene": { "template": "row", "items": [ { "type": "pedSignal", "state": "dontwalk", "decor": true } ] },
+      "choices": [
+        { "id": "stop", "label": "Do not start crossing", "correct": true },
+        { "id": "walk", "label": "It's fine to start crossing" }
+      ],
+      "feedback": {
+        "correct": "Yes — the orange hand means don't start crossing. Wait for the walking person.",
+        "walk": "The orange hand means don't start crossing yet. Try again.",
+        "default": "The raised hand means don't start crossing. Try again."
+      }
+    }
+  ]
+}
