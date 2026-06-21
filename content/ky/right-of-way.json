@@ -10,7 +10,7 @@
       "interaction": "tap-target",
       "prompt": "Both cars stop at the same time. Tap the car that goes first.",
       "scene": {
-        "template": "intersection", "kind": "cross", "control": "stop-all",
+        "template": "intersection", "kind": "cross", "control": "stop-all", "animate": true,
         "cars": [
           { "id": "you", "from": "south", "label": "YOU", "key": "you" },
           { "id": "other", "from": "east", "correct": true }
@@ -30,9 +30,9 @@
       "interaction": "tap-target",
       "prompt": "The other car stopped before you did. Tap the car that goes first.",
       "scene": {
-        "template": "intersection", "kind": "cross", "control": "stop-all",
+        "template": "intersection", "kind": "cross", "control": "stop-all", "animate": true,
         "cars": [
-          { "id": "you", "from": "south", "label": "YOU", "key": "you" },
+          { "id": "you", "from": "south", "label": "YOU", "key": "you", "delay": 0.55 },
           { "id": "other", "from": "north", "correct": true }
         ]
       },
@@ -50,10 +50,10 @@
       "interaction": "tap-target",
       "prompt": "You stopped first. Then a car pulls up on your right. Tap the car that goes first.",
       "scene": {
-        "template": "intersection", "kind": "cross", "control": "stop-all",
+        "template": "intersection", "kind": "cross", "control": "stop-all", "animate": true,
         "cars": [
           { "id": "you", "from": "south", "label": "YOU", "correct": true },
-          { "id": "other", "from": "east", "key": "other" }
+          { "id": "other", "from": "east", "key": "other", "delay": 0.55 }
         ]
       },
       "feedback": {
@@ -70,7 +70,7 @@
       "interaction": "tap-target",
       "prompt": "You both stop at the same time. The other car is on your left. Tap the car that goes first.",
       "scene": {
-        "template": "intersection", "kind": "cross", "control": "stop-all",
+        "template": "intersection", "kind": "cross", "control": "stop-all", "animate": true,
         "cars": [
           { "id": "you", "from": "south", "label": "YOU", "correct": true },
           { "id": "other", "from": "west", "key": "other" }
@@ -110,7 +110,7 @@
       "interaction": "tap-target",
       "prompt": "There are no signs or lights. You both arrive together. Tap the car that goes first.",
       "scene": {
-        "template": "intersection", "kind": "cross", "control": "none",
+        "template": "intersection", "kind": "cross", "control": "none", "animate": true,
         "cars": [
           { "id": "you", "from": "south", "label": "YOU", "key": "you" },
           { "id": "other", "from": "east", "correct": true }

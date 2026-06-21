@@ -136,13 +136,28 @@ body.high-contrast{ --ink:#0b1b26; --ink-soft:#2a3f4d; --sky:#ffffff; --line:#9b
 @keyframes shake{ 10%,90%{ transform:translateX(-2px);} 30%,70%{ transform:translateX(4px);} 50%{ transform:translateX(-5px);} }
 .scene .tap.wrong{ animation:shake .4s ease; transform-box:fill-box; transform-origin:center; }
 
+/* cars driving up to an intersection (each slides in along its approach) */
+@keyframes arriveS{ from{ transform:translateY(135px);} to{ transform:translateY(0);} }
+@keyframes arriveN{ from{ transform:translateY(-135px);} to{ transform:translateY(0);} }
+@keyframes arriveE{ from{ transform:translateX(135px);} to{ transform:translateX(0);} }
+@keyframes arriveW{ from{ transform:translateX(-135px);} to{ transform:translateX(0);} }
+.scene .arrive-south{ animation:arriveS .7s ease-out both; }
+.scene .arrive-north{ animation:arriveN .7s ease-out both; }
+.scene .arrive-east{ animation:arriveE .7s ease-out both; }
+.scene .arrive-west{ animation:arriveW .7s ease-out both; }
+
 body.reduce-motion .blink{ animation:none; opacity:1; }
 body.reduce-motion .chosen,
 body.reduce-motion .hintpulse,
-body.reduce-motion .tap.wrong{ animation:none; }
+body.reduce-motion .tap.wrong,
+body.reduce-motion .arrive-south,
+body.reduce-motion .arrive-north,
+body.reduce-motion .arrive-east,
+body.reduce-motion .arrive-west{ animation:none; }
 @media (prefers-reduced-motion:reduce){
   .blink{ animation:none; opacity:1; }
-  .chosen,.hintpulse,.tap.wrong{ animation:none; }
+  .chosen,.hintpulse,.tap.wrong,
+  .arrive-south,.arrive-north,.arrive-east,.arrive-west{ animation:none; }
 }
 
 @media (max-width:380px){

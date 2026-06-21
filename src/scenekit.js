@@ -213,11 +213,11 @@
   }
   // open a <g> with a combined class list + data attrs (+ optional id + aria label).
   // Tappable groups are keyboard-focusable buttons (the engine handles Enter/Space).
-  function openG(a, extraClasses, domId, aria) {
-    if (a && a.decor) return "<g" + (domId ? ' id="' + domId + '"' : "") + ">";
+  function openG(a, extraClasses, domId, aria, extra) {
+    if (a && a.decor) return "<g" + (domId ? ' id="' + domId + '"' : "") + (extra || "") + ">";
     var cls = ["tap"].concat(extraClasses || []).join(" ");
     var lbl = aria ? ' aria-label="' + esc(aria) + '"' : "";
-    return '<g class="' + cls + '" tabindex="0" role="button"' + lbl + dataAttrs(a) + (domId ? ' id="' + domId + '"' : "") + ">";
+    return '<g class="' + cls + '" tabindex="0" role="button"' + lbl + dataAttrs(a) + (domId ? ' id="' + domId + '"' : "") + (extra || "") + ">";
   }
   function wrapTap(a, inner, aria) { return openG(a, [], null, aria) + inner + "</g>"; }
 
@@ -253,6 +253,13 @@
     west: { cx: 78, cy: 232, dir: "right" }
   };
   var CROSS_SIGN = { south: [122, 300], north: [278, 100], east: [300, 278], west: [100, 122] };
+  // white stop line across the approaching (right-hand) lane, just before the intersection box
+  var STOP_BAR = {
+    south: '<rect x="202" y="272" width="66" height="7" fill="#fff"/>',
+    north: '<rect x="132" y="121" width="66" height="7" fill="#fff"/>',
+    east: '<rect x="272" y="132" width="7" height="66" fill="#fff"/>',
+    west: '<rect x="121" y="202" width="7" height="66" fill="#fff"/>'
+  };
 
   function tplIntersection(scene) {
     var kind = scene.kind || "cross";
@@ -270,30 +277,33 @@
       svg += '<line x1="0" y1="200" x2="120" y2="200" stroke="' + C.line + '" stroke-width="5" stroke-dasharray="20 16"/>';
       svg += '<line x1="280" y1="200" x2="400" y2="200" stroke="' + C.line + '" stroke-width="5" stroke-dasharray="20 16"/>';
     }
-    // control signs
+    // control signs + matching white stop lines
     var control = scene.control || "none";
-    (scene.cars || []).forEach(function () {});
     if (control === "stop-all") {
       Object.keys(CROSS_SIGN).forEach(function (k) {
         if (kind === "tee" && k === "north") return;
-        var p = CROSS_SIGN[k]; svg += '<g transform="translate(' + p[0] + ',' + p[1] + ')">' + stopSign(0, 0, 15) + '</g>';
+        var p = CROSS_SIGN[k]; svg += STOP_BAR[k] + '<g transform="translate(' + p[0] + ',' + p[1] + ')">' + stopSign(0, 0, 15) + '</g>';
       });
     } else if (control === "yield") {
       var p = CROSS_SIGN.south; svg += '<g transform="translate(' + (p[0] + 24) + ',' + p[1] + ')">' + yieldSign(0, 0, 16) + '</g>';
     } else if (control === "stop") {
-      // single stop sign on your (south / minor-road) approach, to the right of your lane
-      svg += '<g transform="translate(286, 292)">' + stopSign(0, 0, 15) + '</g>';
+      // single stop sign + stop line on your (south / minor-road) approach
+      svg += STOP_BAR.south + '<g transform="translate(286, 292)">' + stopSign(0, 0, 15) + '</g>';
     }
     // pedestrian (optional)
     if (scene.ped) {
       var pp = { north: [200, 70], south: [200, 330], east: [330, 200], west: [70, 200] }[scene.ped.at || "north"];
       svg += wrapTap(scene.ped, pedestrian(pp[0], pp[1], "#34495E"), "person crossing");
     }
-    // cars
+    // cars — optionally animate them driving up to the intersection (scene.animate),
+    // staggered by each car's optional `delay` so "same time" vs "first" reads visually.
     (scene.cars || []).forEach(function (c) {
       var pos = CROSS_POS[c.from] || CROSS_POS.south;
       var aria = (c.label ? c.label + ", " : "") + "car coming from the " + c.from;
-      svg += wrapTap(c, car(pos.cx, pos.cy, { dir: c.dir || pos.dir, color: c.color || (c.label === "YOU" ? C.you : C.other), label: c.label || "" }), aria);
+      var cls = scene.animate ? ["arrive-" + c.from] : [];
+      var extra = (scene.animate && c.delay) ? ' style="animation-delay:' + c.delay + 's"' : "";
+      svg += openG(c, cls, null, aria, extra) +
+        car(pos.cx, pos.cy, { dir: c.dir || pos.dir, color: c.color || (c.label === "YOU" ? C.you : C.other), label: c.label || "" }) + "</g>";
     });
     return svg + "</svg>";
   }
