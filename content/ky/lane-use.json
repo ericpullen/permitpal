@@ -26,23 +26,22 @@
       "id": "lane-turn-into-nearest",
       "concept": "Turn into the nearest lane",
       "manualRef": "Turning",
-      "interaction": "choose-one",
-      "prompt": "You are turning left onto a road with two lanes going your way. Which lane should you turn into?",
-      "scene": { "template": "road", "divider": "white", "arrows": "up", "turnArrow": "left", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
-      "choiceShow": 3,
-      "choices": [
-        { "id": "near", "label": "The left lane, nearest the center line", "correct": true },
-        { "id": "far", "label": "The right lane, nearest the curb" },
-        { "id": "any", "label": "Whichever lane is open" },
-        { "id": "shoulder", "label": "The shoulder, then merge over" }
-      ],
+      "interaction": "tap-zone",
+      "prompt": "You're turning left onto this road. Both top lanes go your way. Tap the lane you should turn into.",
+      "scene": {
+        "template": "turnInto", "marker": [110, 107],
+        "zones": [
+          { "id": "near", "correct": true, "rect": [8, 90, 197, 33], "aria": "the lane next to the center line" },
+          { "id": "far", "key": "far", "rect": [8, 55, 197, 32], "aria": "the far lane, by the curb" }
+        ]
+      },
       "feedback": {
-        "correct": "Yes — turn into the lane closest to the one you came from. On a left turn that's the left lane.",
-        "far": "Crossing to the far lane during a turn is risky. Turn into the nearest lane — the left one. Try again.",
-        "any": "Turn into the nearest lane, not just any lane. For a left turn, that's the left lane. Try again.",
-        "shoulder": "The shoulder isn't a driving lane. Turn into the left lane, nearest the center. Try again.",
-        "default": "Turn into the nearest lane — the left lane for a left turn. Try again."
-      }
+        "correct": "Yes! Turn into the lane next to the center line — the one closest to where you came from.",
+        "far": "That far lane makes you swing wide across the road. Turn into the lane next to the center line. Try again.",
+        "default": "Turn into the lane next to the center line, not the far one. Try again."
+      },
+      "hint": "near",
+      "reward": "markZone"
     },
     {
       "id": "lane-center-turn-purpose",

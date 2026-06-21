@@ -127,6 +127,11 @@
       centerTurnArrow(108, "up") + centerTurnArrow(292, "down");
   }
 
+  // A flat left-pointing direction arrow (used on the destination road of a turn).
+  function leftArrow(cx, cy) {
+    return '<path d="M' + (cx + 22) + ' ' + cy + ' H' + (cx - 20) + ' M' + (cx - 20) + ' ' + cy + ' l12 -8 M' + (cx - 20) + ' ' + cy + ' l12 8" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>';
+  }
+
   // Official public-domain MUTCD sign art, referenced from assets/signs/.
   // Rendered into a 2s x 2s box centered at (0,0); each sign's aspect ratio is preserved.
   // Used for the sign-recognition questions (the `row` template).
@@ -563,12 +568,49 @@
     return svg + "</svg>";
   }
 
+  // Turning left from the bottom approach onto a two-way road. The two lanes
+  // heading your way (above the yellow center line) are tappable so the learner
+  // picks which one to turn into: the near one, next to the center line.
+  function tplTurnInto(scene) {
+    var svg = '<svg class="scene" viewBox="0 0 400 400" role="img">' + grass();
+    // destination road across the top + your approach road from the bottom
+    svg += '<rect x="0" y="50" width="400" height="150" fill="' + C.road + '"/>';
+    svg += '<rect x="215" y="120" width="70" height="280" fill="' + C.road + '"/>';
+    // far curb (white edge) and the yellow center line (broken at the intersection)
+    svg += '<line x1="0" y1="54" x2="400" y2="54" stroke="#fff" stroke-width="4"/>';
+    svg += '<line x1="0" y1="125" x2="205" y2="125" stroke="' + C.line + '" stroke-width="5"/>';
+    svg += '<line x1="285" y1="125" x2="400" y2="125" stroke="' + C.line + '" stroke-width="5"/>';
+    // dashed white line between the two lanes going your way
+    svg += '<line x1="0" y1="88" x2="205" y2="88" stroke="#fff" stroke-width="4" stroke-dasharray="20 16"/>';
+    // both top lanes travel your way (to the left)
+    svg += leftArrow(120, 71) + leftArrow(120, 107);
+    // edge lines of your approach
+    svg += '<line x1="219" y1="200" x2="219" y2="400" stroke="#fff" stroke-width="4"/>';
+    svg += '<line x1="281" y1="200" x2="281" y2="400" stroke="#fff" stroke-width="4"/>';
+    // blue hint: your path up to the intersection, then bending left (lane left open)
+    svg += '<path d="M250 360 V172 Q250 150 216 150 M216 150 l12 -7 M216 150 l12 7" fill="none" stroke="#9fd9ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>';
+    // tappable destination lanes
+    (scene.zones || []).forEach(function (z) {
+      var r = z.rect;
+      svg += '<rect class="tap" tabindex="0" role="button" aria-label="' + esc(z.aria || "a lane") + '"' + dataAttrs(z) + ' x="' + r[0] + '" y="' + r[1] + '" width="' + r[2] + '" height="' + r[3] + '" rx="4" fill="transparent"/>';
+    });
+    // reward check mark on the correct lane
+    if (scene.marker) {
+      var m = scene.marker;
+      svg += '<g id="mark" style="opacity:0"><circle cx="' + m[0] + '" cy="' + m[1] + '" r="15" fill="' + C.correct + '"/><path d="M' + (m[0] - 6) + ' ' + m[1] + ' l4 4 l8 -8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>';
+    }
+    // your car, coming up the approach
+    svg += car(250, 345, { dir: "up", color: C.you, label: "YOU" });
+    return svg + "</svg>";
+  }
+
   var TEMPLATES = {
     intersection: tplIntersection,
     road: tplRoad,
     merge: tplMerge,
     roundabout: tplRoundabout,
-    row: tplRow
+    row: tplRow,
+    turnInto: tplTurnInto
   };
 
   function render(scene) {
