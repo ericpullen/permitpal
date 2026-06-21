@@ -10,15 +10,18 @@
       "interaction": "choose-one",
       "prompt": "The light is solid red. Tap what you should do.",
       "scene": { "template": "row", "items": [ { "type": "signal", "state": "red", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "stop", "label": "Stop and wait", "correct": true },
         { "id": "slow", "label": "Slow down but keep going" },
-        { "id": "go", "label": "Go if no one is around" }
+        { "id": "go", "label": "Go if no one is around" },
+        { "id": "rolling", "label": "Stop, then go when it's clear" }
       ],
       "feedback": {
         "correct": "Yes — a red light means come to a full stop and wait for green.",
         "slow": "Red means a full stop, not just slowing down. Try again.",
         "go": "Even if it's empty, red means stop and wait. Try again.",
+        "rolling": "That's what a flashing red means. A solid red means wait for green. Try again.",
         "default": "Red means stop and wait. Try again."
       }
     },
@@ -29,15 +32,18 @@
       "interaction": "choose-one",
       "prompt": "The light turns solid yellow. Tap what you should do.",
       "scene": { "template": "row", "items": [ { "type": "signal", "state": "yellow", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "stop", "label": "Slow down and stop if you safely can", "correct": true },
         { "id": "fast", "label": "Speed up to beat the red" },
-        { "id": "ignore", "label": "Keep the same speed" }
+        { "id": "ignore", "label": "Keep the same speed" },
+        { "id": "slam", "label": "Slam on the brakes no matter what" }
       ],
       "feedback": {
         "correct": "Yes — yellow means the light is about to turn red. Slow down and stop if you can do it safely.",
         "fast": "Don't speed up on yellow — it means red is coming. Slow down and stop if safe. Try again.",
         "ignore": "Yellow is a warning that red is next. Slow down and stop if you can. Try again.",
+        "slam": "Don't slam the brakes — stop only if you can do it safely. Try again.",
         "default": "Yellow means slow down and stop if it's safe. Try again."
       }
     },
@@ -48,15 +54,18 @@
       "interaction": "choose-one",
       "prompt": "The light is green. Tap what you should do.",
       "scene": { "template": "row", "items": [ { "type": "signal", "state": "green", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "go", "label": "Go, if the way is clear", "correct": true },
         { "id": "stop", "label": "Stop and wait" },
-        { "id": "blind", "label": "Go fast without looking" }
+        { "id": "blind", "label": "Go fast without looking" },
+        { "id": "block", "label": "Go even if cars are still in the way" }
       ],
       "feedback": {
         "correct": "Yes — green means go, but first make sure the way is clear.",
         "stop": "Green means go (when it's clear), not stop. Try again.",
         "blind": "Go on green, but always check that the way is clear first. Try again.",
+        "block": "Wait until the intersection is clear before you go, even on green. Try again.",
         "default": "Green means go when the way is clear. Try again."
       }
     },
@@ -67,15 +76,18 @@
       "interaction": "choose-one",
       "prompt": "The light is flashing red. Tap what you should do.",
       "scene": { "template": "row", "items": [ { "type": "signal", "state": "flashRed", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "stop", "label": "Treat it like a stop sign", "correct": true },
         { "id": "go", "label": "Keep driving without stopping" },
-        { "id": "slow", "label": "Just slow down a little" }
+        { "id": "slow", "label": "Just slow down a little" },
+        { "id": "waitgreen", "label": "Wait for it to turn green" }
       ],
       "feedback": {
         "correct": "Yes — a flashing red light means the same as a stop sign: stop, then go when it's clear.",
         "go": "A flashing red light means stop first, like a stop sign. Try again.",
         "slow": "Flashing red means a full stop, like a stop sign. Try again.",
+        "waitgreen": "A flashing red won't turn green — treat it like a stop sign: stop, then go when clear. Try again.",
         "default": "Flashing red means stop, like a stop sign. Try again."
       }
     },
@@ -86,15 +98,18 @@
       "interaction": "choose-one",
       "prompt": "The light is flashing yellow. Tap what you should do.",
       "scene": { "template": "row", "items": [ { "type": "signal", "state": "flashYellow", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "slow", "label": "Slow down and go with care", "correct": true },
         { "id": "stop", "label": "Stop and wait for green" },
-        { "id": "fast", "label": "Speed up through it" }
+        { "id": "fast", "label": "Speed up through it" },
+        { "id": "fullstop", "label": "Come to a full stop, like a stop sign" }
       ],
       "feedback": {
         "correct": "Yes — flashing yellow means slow down and go carefully. You don't have to stop.",
         "stop": "You don't have to stop at flashing yellow — just slow down and go carefully. Try again.",
         "fast": "Slow down at flashing yellow, don't speed up. Try again.",
+        "fullstop": "A full stop is for flashing red. Flashing yellow means slow down and go with care. Try again.",
         "default": "Flashing yellow means slow down and go with care. Try again."
       }
     },
@@ -105,15 +120,18 @@
       "interaction": "choose-one",
       "prompt": "You see a green left arrow. Tap what it means.",
       "scene": { "template": "row", "items": [ { "type": "signal", "state": "greenArrowLeft", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "turn", "label": "You may turn left now — it's protected", "correct": true },
         { "id": "straight", "label": "You must go straight" },
-        { "id": "stop", "label": "Stop and wait" }
+        { "id": "stop", "label": "Stop and wait" },
+        { "id": "yield", "label": "Turn, but yield to oncoming cars" }
       ],
       "feedback": {
         "correct": "Yes — a green arrow means you can turn that way now, and oncoming traffic is stopped for you.",
         "straight": "A green left arrow means you may turn left now. Try again.",
         "stop": "A green arrow means go ahead and turn that way. Try again.",
+        "yield": "A green arrow is protected — oncoming traffic is stopped, so you don't have to yield. Try again.",
         "default": "A green arrow means you may turn that way now. Try again."
       }
     },
@@ -124,15 +142,18 @@
       "interaction": "choose-one",
       "prompt": "You see a red left arrow. Tap what it means.",
       "scene": { "template": "row", "items": [ { "type": "signal", "state": "redArrowLeft", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "wait", "label": "Do not turn — wait", "correct": true },
         { "id": "turn", "label": "Turn left if no cars are coming" },
-        { "id": "go", "label": "Go straight instead" }
+        { "id": "go", "label": "Go straight instead" },
+        { "id": "stopturn", "label": "Turn after stopping, like a red light" }
       ],
       "feedback": {
         "correct": "Yes — a red arrow means you can't turn that way yet. Wait until it changes.",
         "turn": "A red arrow means wait, even if it looks clear. Try again.",
         "go": "A red arrow means stop and wait for that turn. Try again.",
+        "stopturn": "You can't turn on a red arrow, even after stopping. Wait until it changes. Try again.",
         "default": "A red arrow means wait — don't turn yet. Try again."
       }
     },

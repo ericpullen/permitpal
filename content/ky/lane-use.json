@@ -31,15 +31,18 @@
       "scene": { "template": "row", "items": [
         { "type": "miniRoad", "line": { "color": "white", "pattern": "dashed" }, "cars": [ { "lane": "left", "dir": "up", "color": "#5BA89A" }, { "lane": "right", "dir": "up", "color": "#2F6FB0" } ], "decor": true }
       ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "signal", "label": "Signal, then check your mirror and blind spot", "correct": true },
         { "id": "quick", "label": "Turn the wheel quickly" },
-        { "id": "speed", "label": "Speed up and squeeze in" }
+        { "id": "speed", "label": "Speed up and squeeze in" },
+        { "id": "movefirst", "label": "Move over first, then signal" }
       ],
       "feedback": {
         "correct": "Yes — signal first, then check your mirrors and look over your shoulder before moving.",
         "quick": "Always signal and check your blind spot before moving over. Try again.",
         "speed": "Don't force it — signal, check, then move when there's a safe gap. Try again.",
+        "movefirst": "Signal and check first, then move — not the other way around. Try again.",
         "default": "Signal and check your blind spot first. Try again."
       }
     },
@@ -50,15 +53,18 @@
       "interaction": "choose-one",
       "prompt": "Which way do you drive around a roundabout?",
       "scene": { "template": "roundabout", "cars": [ { "role": "circulating", "decor": true }, { "role": "you", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "right", "label": "Enter to the right and go around left (counter-clockwise)", "correct": true },
         { "id": "left", "label": "Enter to the left" },
-        { "id": "straight", "label": "Drive straight across the middle" }
+        { "id": "straight", "label": "Drive straight across the middle" },
+        { "id": "clockwise", "label": "Go around to the right (clockwise)" }
       ],
       "feedback": {
         "correct": "Yes — you always go counter-clockwise, keeping to the right as you enter.",
         "left": "In the US you keep right and travel counter-clockwise. Try again.",
         "straight": "You drive around the circle, not across it. Try again.",
+        "clockwise": "In the US you go counter-clockwise, not clockwise. Try again.",
         "default": "Go around to the right, counter-clockwise. Try again."
       }
     }

@@ -176,15 +176,20 @@
           { "id": "ems", "lane": "right", "at": "bottom", "dir": "up", "color": "#E74C3C", "label": "EMS", "decor": true }
         ]
       },
+      "choiceShow": 3,
       "choices": [
         { "id": "right", "label": "Pull to the right and stop", "correct": true },
         { "id": "fast", "label": "Speed up to get out of the way" },
-        { "id": "stay", "label": "Stop right where you are" }
+        { "id": "stay", "label": "Stop right where you are" },
+        { "id": "left", "label": "Pull to the left and stop" },
+        { "id": "brake", "label": "Slam on your brakes" }
       ],
       "feedback": {
         "correct": "Yes! Pull over to the right edge and stop until the emergency vehicle passes.",
         "fast": "Don't speed up — pull to the right and stop so it can pass safely. Try again.",
         "stay": "Move to the right first, then stop — don't block the lane. Try again.",
+        "left": "Pull to the right, not the left, so the emergency vehicle can pass. Try again.",
+        "brake": "Don't slam your brakes — pull to the right edge and stop smoothly. Try again.",
         "default": "Pull to the right and stop. Try again."
       }
     },
@@ -200,15 +205,20 @@
           { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true }
         ]
       },
+      "choiceShow": 3,
       "choices": [
         { "id": "stop", "label": "Stop and wait until the lights stop", "correct": true },
         { "id": "pass", "label": "Pass slowly and carefully" },
-        { "id": "honk", "label": "Honk and drive around" }
+        { "id": "honk", "label": "Honk and drive around" },
+        { "id": "slow", "label": "Slow down but keep going" },
+        { "id": "nokids", "label": "Pass if you don't see any kids" }
       ],
       "feedback": {
         "correct": "Yes! Red flashing lights mean stop and wait until they turn off and the stop arm folds in.",
         "pass": "Never pass a stopped school bus with red lights flashing — children may be crossing. Stop and wait. Try again.",
         "honk": "Stop and wait quietly until the red lights turn off. Try again.",
+        "slow": "Slowing down isn't enough — you must fully stop and wait. Try again.",
+        "nokids": "Stop even if you don't see kids — they may be about to cross. Wait for the lights to turn off. Try again.",
         "default": "Stop and wait for the red lights to turn off. Try again."
       }
     }

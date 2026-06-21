@@ -10,15 +10,20 @@
       "interaction": "choose-one",
       "prompt": "You are passing a person on a bicycle. How much room should you give?",
       "scene": { "template": "road", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true }, { "lane": "right", "at": "top", "dir": "up", "color": "#5BA89A", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "three", "label": "At least 3 feet of space", "correct": true },
         { "id": "inches", "label": "A few inches is fine" },
-        { "id": "none", "label": "No extra room needed" }
+        { "id": "none", "label": "No extra room needed" },
+        { "id": "onefoot", "label": "About 1 foot" },
+        { "id": "honk", "label": "Honk and squeeze past" }
       ],
       "feedback": {
         "correct": "Yes — give a bicycle at least 3 feet of space when you pass.",
         "inches": "That's too close. Give a bicycle at least 3 feet. Try again.",
         "none": "Bicycles need room — at least 3 feet when passing. Try again.",
+        "onefoot": "One foot is too close. Give a bicycle at least 3 feet. Try again.",
+        "honk": "Don't squeeze past — give a bicycle at least 3 feet of room. Try again.",
         "default": "Give a bicycle at least 3 feet of space. Try again."
       }
     },
@@ -48,15 +53,18 @@
       "interaction": "choose-one",
       "prompt": "A big truck ahead is turning right. It swings out wide. What should you do?",
       "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "top", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "wait", "label": "Wait behind it — never squeeze in on its right", "correct": true },
         { "id": "squeeze", "label": "Slip past on the right by the curb" },
-        { "id": "honk", "label": "Honk so it turns faster" }
+        { "id": "honk", "label": "Honk so it turns faster" },
+        { "id": "beat", "label": "Speed up and pass before it turns" }
       ],
       "feedback": {
         "correct": "Yes — trucks swing wide to turn right. Stay back. Never squeeze between the truck and the curb.",
         "squeeze": "That spot is very dangerous. The truck can turn into you. Wait behind it. Try again.",
         "honk": "Honking won't help. Just wait behind the truck and give it room. Try again.",
+        "beat": "Don't try to beat a turning truck — wait behind it. Try again.",
         "default": "Wait behind the truck. Don't squeeze in on its right side. Try again."
       }
     },
@@ -67,15 +75,18 @@
       "interaction": "choose-one",
       "prompt": "You just passed a big truck. When is it safe to move back in front of it?",
       "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "mid", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "id": "you", "lane": "left", "at": "top", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "seemirror", "label": "When you can see the whole truck in your mirror", "correct": true },
         { "id": "rightaway", "label": "Right away, as soon as you pass" },
-        { "id": "tap", "label": "After you tap your brakes to warn it" }
+        { "id": "tap", "label": "After you tap your brakes to warn it" },
+        { "id": "bumper", "label": "As soon as your back bumper is past it" }
       ],
       "feedback": {
         "correct": "Yes — trucks need a lot of room to stop. Move over only when you can see the whole truck in your mirror.",
         "rightaway": "That's too soon. Trucks can't stop fast. Wait until you see the whole truck in your mirror. Try again.",
         "tap": "Never tap your brakes in front of a truck — it can't stop quickly. Pull ahead first. Try again.",
+        "bumper": "That's still too close. Wait until you can see the whole truck in your mirror. Try again.",
         "default": "Wait until you can see the whole truck in your mirror before moving over. Try again."
       }
     },
@@ -86,15 +97,18 @@
       "interaction": "choose-one",
       "prompt": "You are driving behind a big truck. How much space should you leave?",
       "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "top", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "extra", "label": "Extra space, so you can see and stop in time", "correct": true },
         { "id": "close", "label": "Stay close so no one cuts in" },
-        { "id": "same", "label": "The same space as behind a small car" }
+        { "id": "same", "label": "The same space as behind a small car" },
+        { "id": "draft", "label": "Tuck in close behind to save gas" }
       ],
       "feedback": {
         "correct": "Yes — leave extra space behind a truck. You can't see ahead of it, and the driver can't see you when you're close.",
         "close": "Too close is risky. You can't see the road ahead, and the truck can't see you. Back off. Try again.",
         "same": "A truck needs more space than a car. You can't see past it. Leave extra room. Try again.",
+        "draft": "Tucking in close is dangerous — you can't see ahead and the driver can't see you. Leave extra space. Try again.",
         "default": "Leave extra space behind a big truck. Try again."
       }
     },
@@ -105,15 +119,20 @@
       "interaction": "choose-one",
       "prompt": "You see orange signs and workers ahead. What should you do?",
       "scene": { "template": "row", "items": [ { "type": "sign", "name": "workZone", "size": 48, "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "slow", "label": "Slow down and watch for workers", "correct": true },
         { "id": "same", "label": "Keep the same speed" },
-        { "id": "fast", "label": "Speed up to get through" }
+        { "id": "fast", "label": "Speed up to get through" },
+        { "id": "weave", "label": "Change lanes a lot to get ahead" },
+        { "id": "honk", "label": "Honk at the workers" }
       ],
       "feedback": {
         "correct": "Yes — slow down in work zones and watch for people. Fines are often higher here too.",
         "same": "Slow down in a work zone — people are working close to the road. Try again.",
         "fast": "Never speed up in a work zone. Slow down and stay alert. Try again.",
+        "weave": "Don't weave between lanes in a work zone — slow down and stay in your lane. Try again.",
+        "honk": "Honking doesn't help — slow down and watch for workers. Try again.",
         "default": "Slow down and watch for workers. Try again."
       }
     }

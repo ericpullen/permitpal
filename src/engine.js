@@ -147,7 +147,7 @@
     if (ch) {
       if (sc.choices && sc.choices.length) {
         ch.classList.remove("hidden");
-        ch.innerHTML = shuffle(sc.choices.slice()).map(function (c) {
+        ch.innerHTML = pickChoices(sc).map(function (c) {
           return '<button class="choice tap-btn"' + (c.correct ? ' data-correct="1"' : "") +
             (c.key ? ' data-key="' + esc(c.key) + '"' : "") + (c.id ? ' data-id="' + esc(c.id) + '"' : "") +
             '>' + esc(c.label) + '</button>';
@@ -333,6 +333,18 @@
     else if (name === "oneWay") it.arg = Math.random() < 0.5 ? "left" : "right";
     return it;
   }
+  // Pick which answer buttons to show. With sc.choiceShow set, keep the correct
+  // answer(s) and a fresh random subset of the wrong ones (so the option set
+  // varies between attempts); otherwise show every choice. Always shuffled.
+  function pickChoices(sc) {
+    var list = sc.choices.slice();
+    var show = sc.choiceShow || 0;
+    if (!show || show >= list.length) return shuffle(list);
+    var correct = list.filter(function (c) { return c.correct; });
+    var wrongs = shuffle(list.filter(function (c) { return !c.correct; }));
+    return shuffle(correct.concat(wrongs.slice(0, Math.max(1, show - correct.length))));
+  }
+
   // Build a sign-recognition item set: the authored correct sign plus a fresh
   // random pick of safe distractor signs. scene.exclude drops look-alikes so a
   // category question (e.g. "tap the warning sign") can't get two valid answers.

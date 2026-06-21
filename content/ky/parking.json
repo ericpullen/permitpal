@@ -29,15 +29,20 @@
       "interaction": "choose-one",
       "prompt": "Where is it against the law to park?",
       "scene": { "template": "row", "items": [ { "type": "card", "text": "P", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "hydrant", "label": "In front of a fire hydrant", "correct": true },
         { "id": "space", "label": "In a marked parking space" },
-        { "id": "lot", "label": "In a parking lot" }
+        { "id": "lot", "label": "In a parking lot" },
+        { "id": "driveway", "label": "In your own driveway" },
+        { "id": "garage", "label": "In a parking garage" }
       ],
       "feedback": {
         "correct": "Yes — never park in front of a fire hydrant. Keep at least 15 feet away so firefighters can reach it fast.",
         "space": "Marked spaces are fine to park in. You can't park at a fire hydrant. Try again.",
         "lot": "Parking lots are for parking. The fire hydrant is the no-parking spot. Try again.",
+        "driveway": "Your own driveway is fine. The fire hydrant is the no-parking spot. Try again.",
+        "garage": "A parking garage is for parking. You can't park at a fire hydrant. Try again.",
         "default": "You can't park in front of a fire hydrant. Try again."
       }
     }

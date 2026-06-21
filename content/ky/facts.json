@@ -2,7 +2,7 @@
   "module": "facts",
   "title": "Good-to-Know Rules",
   "description": "Important driving rules and numbers to remember.",
-  "_note": "Verify every Kentucky-specific number against the current Kentucky Driver Manual before publishing.",
+  "_note": "Verify every Kentucky-specific number against the current Kentucky Driver Manual before publishing. Questions with choiceShow:3 keep the correct answer and rotate in a random subset of the wrong ones.",
   "scenarios": [
     {
       "id": "fact-following",
@@ -11,14 +11,19 @@
       "interaction": "choose-one",
       "prompt": "How far behind the car in front should you stay, at least?",
       "scene": { "template": "row", "items": [ { "type": "card", "text": "4s", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "four", "label": "About 4 seconds of space", "correct": true },
         { "id": "half", "label": "Half a second" },
+        { "id": "one", "label": "1 second" },
+        { "id": "two", "label": "2 seconds" },
         { "id": "touch", "label": "As close as possible" }
       ],
       "feedback": {
         "correct": "Yes — keep at least a 4-second gap. When the car ahead passes a sign, you should not reach it before you count to four. Add more in rain or snow.",
         "half": "Half a second is far too close. Keep at least 4 seconds. Try again.",
+        "one": "One second is too close. Keep at least 4 seconds. Try again.",
+        "two": "Two seconds isn't enough — Kentucky says keep at least 4 seconds. Try again.",
         "touch": "Stay back at least 4 seconds so you have time to stop. Try again.",
         "default": "Keep at least a 4-second following distance. Try again."
       }
@@ -29,16 +34,21 @@
       "manualRef": "Headlights",
       "interaction": "choose-one",
       "prompt": "When should your headlights be on?",
-      "scene": { "template": "row", "items": [ { "type": "card", "text": "\u2600", "decor": true } ] },
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "☀", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "nightrain", "label": "At night and when it's raining", "correct": true },
         { "id": "neveronly", "label": "Only when it's pitch black" },
-        { "id": "never", "label": "Almost never" }
+        { "id": "never", "label": "Almost never" },
+        { "id": "traffic", "label": "Only in heavy traffic" },
+        { "id": "highway", "label": "Only on the highway" }
       ],
       "feedback": {
         "correct": "Yes — use headlights at night and in rain, fog, or low light so others can see you.",
         "neveronly": "Turn them on for any low light or rain, not just full dark. Try again.",
         "never": "Headlights help others see you — use them at night and in bad weather. Try again.",
+        "traffic": "It's not about traffic — use headlights at night and in rain or fog. Try again.",
+        "highway": "Use headlights on any road at night or in bad weather, not just the highway. Try again.",
         "default": "Use headlights at night and in rain or fog. Try again."
       }
     },
@@ -49,15 +59,18 @@
       "interaction": "choose-one",
       "prompt": "You see a police car or ambulance stopped ahead with flashing lights. What should you do?",
       "scene": { "template": "road", "cars": [ { "lane": "left", "at": "top", "dir": "up", "color": "#E74C3C", "label": "EMS", "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "moveover", "label": "Slow down and move over a lane if you can", "correct": true },
         { "id": "same", "label": "Drive past at the same speed" },
-        { "id": "stop", "label": "Stop in the middle of the road" }
+        { "id": "stop", "label": "Stop in the middle of the road" },
+        { "id": "fast", "label": "Speed up to get past quickly" }
       ],
       "feedback": {
         "correct": "Yes — slow down and, if you can, move over a lane to give them room. It's the law.",
         "same": "Slow down and move over for stopped emergency vehicles. Try again.",
         "stop": "Don't stop in the lane — slow down and move over if you can. Try again.",
+        "fast": "Never speed up near a stopped emergency vehicle — slow down and move over. Try again.",
         "default": "Slow down and move over for stopped emergency vehicles. Try again."
       }
     },
@@ -67,16 +80,21 @@
       "manualRef": "Occupant Protection",
       "interaction": "choose-one",
       "prompt": "Who should wear a seat belt in the car?",
-      "scene": { "template": "row", "items": [ { "type": "card", "text": "\u2713", "decor": true } ] },
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "✓", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "everyone", "label": "Everyone in the car", "correct": true },
         { "id": "driver", "label": "Only the driver" },
-        { "id": "front", "label": "Only people in front" }
+        { "id": "front", "label": "Only people in front" },
+        { "id": "highway", "label": "Only on the highway" },
+        { "id": "kids", "label": "Only the kids" }
       ],
       "feedback": {
         "correct": "Yes — everyone should buckle up, in every seat, every trip.",
         "driver": "Not just the driver — everyone in the car should buckle up. Try again.",
         "front": "Everyone, front and back, should wear a seat belt. Try again.",
+        "highway": "Buckle up on every road, not just the highway. Everyone, every trip. Try again.",
+        "kids": "Grown-ups need seat belts too — everyone in the car. Try again.",
         "default": "Everyone in the car should wear a seat belt. Try again."
       }
     },
@@ -86,16 +104,19 @@
       "manualRef": "Distracted Driving",
       "interaction": "choose-one",
       "prompt": "You get a text while driving. What should you do?",
-      "scene": { "template": "row", "items": [ { "type": "card", "text": "\ud83d\udcf5", "decor": true } ] },
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "📵", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "wait", "label": "Leave it until you've parked", "correct": true },
         { "id": "quick", "label": "Read it quickly at a red light" },
-        { "id": "drive", "label": "Type back while driving" }
+        { "id": "drive", "label": "Type back while driving" },
+        { "id": "glance", "label": "Glance at it quickly while driving" }
       ],
       "feedback": {
         "correct": "Yes — don't text and drive. Wait until you are safely parked.",
         "quick": "It's safest to wait until you're parked, not while you're driving. Try again.",
         "drive": "Texting while driving is dangerous and against the law. Wait until parked. Try again.",
+        "glance": "Even a quick glance takes your eyes off the road. Wait until you're parked. Try again.",
         "default": "Don't text while driving — wait until you're parked. Try again."
       }
     },
@@ -106,15 +127,20 @@
       "interaction": "choose-one",
       "prompt": "You are under 18 and driving. When can you use your phone?",
       "scene": { "template": "row", "items": [ { "type": "card", "text": "📵", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "never", "label": "Not at all while you are driving", "correct": true },
         { "id": "handsfree", "label": "Only for hands-free calls" },
-        { "id": "anytime", "label": "Anytime is fine" }
+        { "id": "anytime", "label": "Anytime is fine" },
+        { "id": "short", "label": "Only for short calls" },
+        { "id": "texts", "label": "Only to send texts" }
       ],
       "feedback": {
         "correct": "Yes — if you are under 18, you may not use a phone at all while driving, not even hands-free. Park first. (Calling 911 in an emergency is okay.)",
         "handsfree": "For drivers under 18, even hands-free use is not allowed while driving. Park first. Try again.",
         "anytime": "Drivers under 18 may not use a phone while driving. Park first. Try again.",
+        "short": "No phone calls at all while driving if you are under 18 — not even short ones. Try again.",
+        "texts": "Texting is not allowed either. Under 18 means no phone use while driving. Try again.",
         "default": "If you are under 18, don't use a phone while driving. Try again."
       }
     },
@@ -125,15 +151,20 @@
       "interaction": "choose-one",
       "prompt": "Drinking alcohol changes how you drive. What is the safest choice?",
       "scene": { "template": "row", "items": [ { "type": "card", "text": "0", "decor": true } ] },
+      "choiceShow": 3,
       "choices": [
         { "id": "none", "label": "Don't drink at all before driving", "correct": true },
         { "id": "little", "label": "A little is always fine" },
-        { "id": "buzzed", "label": "Drive if you feel okay" }
+        { "id": "buzzed", "label": "Drive if you feel okay" },
+        { "id": "coffee", "label": "Drink coffee to sober up first" },
+        { "id": "wait", "label": "Wait one hour after a drink" }
       ],
       "feedback": {
         "correct": "Yes — the safest choice is zero. Alcohol slows you down even when you feel fine, and drivers under 21 must have none.",
         "little": "Even a little alcohol affects driving. The safe choice is none. Try again.",
         "buzzed": "Alcohol fools you into feeling okay. The safe choice is none before driving. Try again.",
+        "coffee": "Coffee doesn't make you safe to drive — only time helps, and the safe choice is none. Try again.",
+        "wait": "You can't rush it — one hour may not be enough, and the safe choice before driving is none. Try again.",
         "default": "The safe choice is no alcohol before driving. Try again."
       }
     }
