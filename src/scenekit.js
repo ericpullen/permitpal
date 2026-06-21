@@ -30,7 +30,12 @@
       : "";
     return '<g transform="translate(' + x + ',' + y + ') rotate(' + rot + ' 22 35)">' +
       '<rect x="3" y="2" width="38" height="66" rx="12" fill="' + color + '"/>' +
-      '<rect x="8" y="8" width="28" height="16" rx="6" fill="' + C.glass + '" opacity=".85"/>' +
+      // headlights at the front (white) + tail lights at the rear (red) — show travel direction
+      '<rect x="7" y="2" width="9" height="5" rx="2.5" fill="#fff6c8"/>' +
+      '<rect x="28" y="2" width="9" height="5" rx="2.5" fill="#fff6c8"/>' +
+      '<rect x="7" y="63" width="9" height="5" rx="2.5" fill="#e8453b"/>' +
+      '<rect x="28" y="63" width="9" height="5" rx="2.5" fill="#e8453b"/>' +
+      '<rect x="8" y="9" width="28" height="16" rx="6" fill="' + C.glass + '" opacity=".85"/>' +
       '<rect x="8" y="44" width="28" height="16" rx="6" fill="' + C.glass + '" opacity=".7"/>' +
       '<rect x="6" y="30" width="32" height="9" rx="4" fill="#ffffff" opacity=".25"/>' +
       lbl + '</g>';
@@ -275,6 +280,9 @@
       });
     } else if (control === "yield") {
       var p = CROSS_SIGN.south; svg += '<g transform="translate(' + (p[0] + 24) + ',' + p[1] + ')">' + yieldSign(0, 0, 16) + '</g>';
+    } else if (control === "stop") {
+      // single stop sign on your (south / minor-road) approach, to the right of your lane
+      svg += '<g transform="translate(286, 292)">' + stopSign(0, 0, 15) + '</g>';
     }
     // pedestrian (optional)
     if (scene.ped) {

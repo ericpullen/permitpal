@@ -90,7 +90,7 @@
       "interaction": "tap-target",
       "prompt": "Your small road ends at a bigger road. Tap the car that goes first.",
       "scene": {
-        "template": "intersection", "kind": "tee", "control": "none",
+        "template": "intersection", "kind": "tee", "control": "stop",
         "cars": [
           { "id": "you", "from": "south", "label": "YOU", "key": "you" },
           { "id": "thru", "from": "west", "correct": true }
