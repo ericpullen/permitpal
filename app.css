@@ -56,6 +56,8 @@ body.high-contrast{ --ink:#0b1b26; --ink-soft:#2a3f4d; --sky:#ffffff; --line:#9b
 .fineprint{ color:var(--ink-soft); font-size:.92rem; margin-top:18px; }
 .about-link{ color:var(--green-d); font-weight:700; }
 .home-foot{ text-align:center; margin:26px 0 8px; font-size:.95rem; }
+/* Hide "add to home screen" prompts once the app is already installed. */
+@media (display-mode:standalone){ .install-link{ display:none !important; } }
 .logo svg{ filter:drop-shadow(0 6px 12px rgba(46,158,107,.35)); }
 
 /* home */

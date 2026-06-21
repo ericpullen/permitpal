@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Add Permit Pal to your phone</title>
+  <meta name="description" content="How to add Permit Pal to your home screen on iPhone or Android, so it opens full screen and works offline." />
+  <meta name="theme-color" content="#2E9E6B" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="app.css" />
+  <style>
+    .ap{ max-width:680px; margin:0 auto;
+         padding:calc(28px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(56px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left)); }
+    .ap-hero{ text-align:center; }
+    .ap-logo svg{ filter:drop-shadow(0 6px 12px rgba(46,158,107,.35)); }
+    .ap-hero h1{ font-size:2rem; margin:14px 0 6px; letter-spacing:-.01em; }
+    .ap-lede{ color:var(--ink-soft); font-size:1.15rem; max-width:32em; margin:0 auto 8px; }
+
+    .ap-sec{ margin-top:36px; }
+    .ap-eyebrow{ font-size:.85rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em;
+                 color:var(--green-d); margin:0 0 12px; display:flex; align-items:center; gap:9px; }
+    .ap-eyebrow svg{ flex:none; }
+
+    /* Numbered steps — the order is the instruction, so the numbers carry meaning. */
+    .steps{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; counter-reset:step; }
+    .steps li{ counter-increment:step; position:relative; background:var(--card); border:1px solid var(--line);
+               border-radius:14px; padding:16px 18px 16px 60px; font-size:1.12rem; min-height:var(--tap);
+               display:flex; align-items:center; }
+    .steps li::before{ content:counter(step); position:absolute; left:14px; top:50%; transform:translateY(-50%);
+               width:32px; height:32px; border-radius:50%; background:var(--green); color:#fff;
+               font-weight:800; font-size:1.05rem; display:flex; align-items:center; justify-content:center; }
+    .steps b{ color:var(--ink); }
+    .ico{ display:inline-flex; vertical-align:-3px; }
+
+    .ap-note{ background:#e9f7f0; border-radius:14px; padding:16px 18px; margin-top:18px;
+              color:var(--green-d); font-weight:700; font-size:1.05rem; }
+
+    .ap-cta{ display:inline-flex; align-items:center; gap:10px; text-decoration:none;
+             font-weight:800; font-size:1.2rem; color:#fff; background:var(--green);
+             border-radius:var(--r); padding:16px 28px; min-height:var(--tap);
+             box-shadow:0 3px 0 var(--green-d); transition:transform .06s ease; }
+    .ap-cta:active{ transform:translateY(2px); box-shadow:0 1px 0 var(--green-d); }
+    .ap-cta-wrap{ text-align:center; margin-top:36px; }
+
+    .ap-foot{ margin-top:40px; padding-top:22px; border-top:1px solid var(--line);
+              text-align:center; color:var(--ink-soft); font-size:1rem; }
+    .ap-foot a{ color:var(--green-d); font-weight:700; }
+    .ap-foot .dot{ opacity:.5; padding:0 8px; }
+  </style>
+</head>
+<body>
+  <div class="ap">
+
+    <header class="ap-hero">
+      <div class="ap-logo" aria-hidden="true">
+        <svg viewBox="0 0 120 120" width="72" height="72">
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#37b07e"/><stop offset="1" stop-color="#2E9E6B"/></linearGradient></defs>
+          <rect width="120" height="120" rx="26" fill="url(#lg)"/>
+          <polygon points="32,120 88,120 73,10 47,10" fill="#3f464d"/>
+          <polygon points="32,120 36,120 50,10 47,10" fill="#fff" opacity=".85"/>
+          <polygon points="84,120 88,120 73,10 70,10" fill="#fff" opacity=".85"/>
+          <rect x="56.5" y="96" width="7" height="16" rx="2" fill="#F4C95D"/>
+          <rect x="57.5" y="66" width="5" height="13" rx="2" fill="#F4C95D"/>
+          <rect x="58.3" y="42" width="3.4" height="10" rx="1.5" fill="#F4C95D"/>
+          <g transform="translate(60,82)">
+            <rect x="-16" y="-21" width="32" height="44" rx="10" fill="#2F6FB0"/>
+            <rect x="-11" y="-14" width="22" height="11" rx="4" fill="#cfe7ff" opacity=".9"/>
+            <rect x="-11" y="6" width="22" height="11" rx="4" fill="#cfe7ff" opacity=".7"/>
+          </g>
+        </svg>
+      </div>
+      <h1>Add Permit Pal to your phone</h1>
+      <p class="ap-lede">Install it straight from your browser — no app store. It opens full screen and works offline, just like a regular app.</p>
+    </header>
+
+    <section class="ap-sec">
+      <p class="ap-eyebrow">
+        <!-- iOS share glyph -->
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3 V15 M8 7 L12 3 L16 7" fill="none" stroke="#247c54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 11 H5 a1 1 0 0 0 -1 1 V20 a1 1 0 0 0 1 1 H19 a1 1 0 0 0 1 -1 V12 a1 1 0 0 0 -1 -1 H18" fill="none" stroke="#247c54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        iPhone &amp; iPad (Safari)
+      </p>
+      <ol class="steps">
+        <li><span>Open Permit Pal in <b>Safari</b> (this only works in Safari, not Chrome or other browsers).</span></li>
+        <li><span>Tap the <b>Share</b> button <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 V15 M8 7 L12 3 L16 7" fill="none" stroke="#2F6FB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 11 H5 a1 1 0 0 0 -1 1 V20 a1 1 0 0 0 1 1 H19 a1 1 0 0 0 1 -1 V12 a1 1 0 0 0 -1 -1 H18" fill="none" stroke="#2F6FB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> at the bottom of the screen.</span></li>
+        <li><span>Scroll down and tap <b>Add to Home Screen</b>.</span></li>
+        <li><span>Tap <b>Add</b> in the top corner. The Permit Pal icon appears on your home screen.</span></li>
+      </ol>
+    </section>
+
+    <section class="ap-sec">
+      <p class="ap-eyebrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="5" r="2" fill="#247c54"/><circle cx="12" cy="12" r="2" fill="#247c54"/><circle cx="12" cy="19" r="2" fill="#247c54"/>
+        </svg>
+        Android (Chrome)
+      </p>
+      <ol class="steps">
+        <li><span>Open Permit Pal in <b>Chrome</b>.</span></li>
+        <li><span>Tap the <b>⋮ menu</b> in the top-right corner.</span></li>
+        <li><span>Tap <b>Add to Home screen</b> (or <b>Install app</b>).</span></li>
+        <li><span>Tap <b>Add</b>. The Permit Pal icon appears on your home screen.</span></li>
+      </ol>
+    </section>
+
+    <p class="ap-note">✅ Now open Permit Pal from your home screen like any app — full screen, and ready even with no signal.</p>
+
+    <div class="ap-cta-wrap">
+      <a class="ap-cta" href="index.html">Open Permit Pal →</a>
+    </div>
+
+    <footer class="ap-foot">
+      <a href="about.html">About Permit Pal</a>
+      <span class="dot">·</span><a href="index.html">Open the app</a>
+    </footer>
+
+  </div>
+</body>
+</html>
