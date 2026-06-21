@@ -27,8 +27,11 @@
       try {
         var a = new Audio("audio/ky/" + audioId + ".mp3");
         current = a;
-        a.play().then(function () {}).catch(function () { ttsSpeak(text); });
-        a.onerror = function () { ttsSpeak(text); };
+        // play() rejecting AND onerror can both fire when no clip exists — only fall back once.
+        var fellBack = false;
+        var fallback = function () { if (fellBack) return; fellBack = true; ttsSpeak(text); };
+        a.play().then(function () {}).catch(fallback);
+        a.onerror = fallback;
         return;
       } catch (e) { /* fall through to TTS */ }
     }
