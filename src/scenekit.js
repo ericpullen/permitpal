@@ -107,6 +107,24 @@
       : '<path d="M' + x + ' 128 V56 M' + (x - 12) + ' 78 L' + x + ' 56 L' + (x + 12) + ' 78" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>';
   }
 
+  // Center two-way left-turn lane (TWLTL): a shared middle lane bordered on each
+  // side by a solid yellow outer line and a dashed yellow inner line, with
+  // double-headed left-turn arrows painted in it (one head curves left for each
+  // travel direction). Used by the road template when scene.centerTurnLane is set.
+  function centerTurnGlyph(cy) {
+    var up = 'M200 ' + cy + ' q0 -22 -16 -22 l-11 0 M173 ' + (cy - 22) + ' l9 -7 M173 ' + (cy - 22) + ' l9 7';
+    var dn = 'M200 ' + cy + ' q0 22 16 22 l11 0 M227 ' + (cy + 22) + ' l-9 -7 M227 ' + (cy + 22) + ' l-9 7';
+    return '<path d="' + up + ' ' + dn + '" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>';
+  }
+  function centerTurnLaneMarks() {
+    var Y = C.line;
+    return '<line x1="181" y1="0" x2="181" y2="400" stroke="' + Y + '" stroke-width="4"/>' +
+      '<line x1="219" y1="0" x2="219" y2="400" stroke="' + Y + '" stroke-width="4"/>' +
+      '<line x1="189" y1="0" x2="189" y2="400" stroke="' + Y + '" stroke-width="3" stroke-dasharray="20 16"/>' +
+      '<line x1="211" y1="0" x2="211" y2="400" stroke="' + Y + '" stroke-width="3" stroke-dasharray="20 16"/>' +
+      centerTurnGlyph(120) + centerTurnGlyph(280);
+  }
+
   // Official public-domain MUTCD sign art, referenced from assets/signs/.
   // Rendered into a 2s x 2s box centered at (0,0); each sign's aspect ratio is preserved.
   // Used for the sign-recognition questions (the `row` template).
@@ -360,12 +378,18 @@
     // white edge (fog) lines on both sides of the roadway
     svg += '<line x1="139" y1="0" x2="139" y2="400" stroke="#fff" stroke-width="4"/>';
     svg += '<line x1="261" y1="0" x2="261" y2="400" stroke="#fff" stroke-width="4"/>';
-    // divider: yellow dashed = two-way (default); white dashed = lanes going the same way
-    var divCol = scene.divider === "white" ? "#fff" : C.line;
-    svg += '<line x1="200" y1="0" x2="200" y2="400" stroke="' + divCol + '" stroke-width="5" stroke-dasharray="22 18"/>';
-    // direction-of-travel arrows painted in the lanes
-    if (scene.arrows === "up") svg += laneArrow(165, "up") + laneArrow(235, "up");
-    else if (scene.arrows === "twoway") svg += laneArrow(165, "down") + laneArrow(235, "up");
+    // divider: a center two-way left-turn lane, OR a single line —
+    // yellow dashed = two-way (default); white dashed = lanes going the same way
+    if (scene.centerTurnLane) {
+      svg += centerTurnLaneMarks();
+    } else {
+      var divCol = scene.divider === "white" ? "#fff" : C.line;
+      svg += '<line x1="200" y1="0" x2="200" y2="400" stroke="' + divCol + '" stroke-width="5" stroke-dasharray="22 18"/>';
+    }
+    // direction-of-travel arrows painted in the through lanes
+    var aL = scene.centerTurnLane ? 157 : 165, aR = scene.centerTurnLane ? 243 : 235;
+    if (scene.arrows === "up") svg += laneArrow(aL, "up") + laneArrow(aR, "up");
+    else if (scene.arrows === "twoway") svg += laneArrow(aL, "down") + laneArrow(aR, "up");
     // fire hydrant on the right shoulder
     if (scene.hydrant) svg += hydrant(300, scene.hydrant.y || 150);
     if (scene.crosswalk) svg += crosswalk(80);
@@ -373,8 +397,11 @@
     // turn arrow hint on your car
     if (scene.turnArrow === "left") {
       svg += '<path d="M236 250 q0 -40 -40 -40 l24 0 M196 210 l-24 0 l16 -14 M196 210 l16 14" fill="none" stroke="#9fd9ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>';
+    } else if (scene.turnArrow === "left-lane") {
+      // white left-turn arrow painted in the left through lane — a dedicated turn lane
+      svg += '<path d="M165 300 V232 q0 -20 -22 -20 l10 0 M143 212 l10 -7 M143 212 l10 7" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>';
     }
-    var LANE = { left: 165, right: 235 };
+    var LANE = scene.centerTurnLane ? { left: 157, center: 200, right: 243 } : { left: 165, right: 235 };
     var AT = { top: 80, mid: 200, bottom: 300 };
     // zones (tap-zone)
     (scene.zones || []).forEach(function (z) {

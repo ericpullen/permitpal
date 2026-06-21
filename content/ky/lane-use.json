@@ -23,6 +23,94 @@
       }
     },
     {
+      "id": "lane-turn-into-nearest",
+      "concept": "Turn into the nearest lane",
+      "manualRef": "Turning",
+      "interaction": "choose-one",
+      "prompt": "You are turning left onto a road with two lanes going your way. Which lane should you turn into?",
+      "scene": { "template": "road", "divider": "white", "arrows": "up", "turnArrow": "left", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "near", "label": "The left lane, nearest the center line", "correct": true },
+        { "id": "far", "label": "The right lane, nearest the curb" },
+        { "id": "any", "label": "Whichever lane is open" },
+        { "id": "shoulder", "label": "The shoulder, then merge over" }
+      ],
+      "feedback": {
+        "correct": "Yes — turn into the lane closest to the one you came from. On a left turn that's the left lane.",
+        "far": "Crossing to the far lane during a turn is risky. Turn into the nearest lane — the left one. Try again.",
+        "any": "Turn into the nearest lane, not just any lane. For a left turn, that's the left lane. Try again.",
+        "shoulder": "The shoulder isn't a driving lane. Turn into the left lane, nearest the center. Try again.",
+        "default": "Turn into the nearest lane — the left lane for a left turn. Try again."
+      }
+    },
+    {
+      "id": "lane-center-turn-purpose",
+      "concept": "Center two-way left-turn lane",
+      "manualRef": "Two-Way Left Turn Lanes",
+      "interaction": "choose-one",
+      "prompt": "The middle lane has yellow arrows that curve left from both sides. What is this lane for?",
+      "scene": { "template": "road", "centerTurnLane": true, "arrows": "twoway", "cars": [ { "lane": "left", "at": "mid", "dir": "down", "color": "#E0883E", "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "turns", "label": "Making left turns from either direction", "correct": true },
+        { "id": "pass", "label": "Passing slower cars" },
+        { "id": "thru", "label": "Driving straight through" },
+        { "id": "park", "label": "Parking for a while" }
+      ],
+      "feedback": {
+        "correct": "Yes — the center lane is a shared left-turn lane. Cars from both directions use it to turn left.",
+        "pass": "Never pass in the center turn lane. It's only for making left turns. Try again.",
+        "thru": "It's not a driving lane — it's only for turning left. Try again.",
+        "park": "You can't park there. The center lane is only for making left turns. Try again.",
+        "default": "The center lane is only for making left turns. Try again."
+      }
+    },
+    {
+      "id": "lane-center-turn-use",
+      "concept": "Using the center turn lane",
+      "manualRef": "Two-Way Left Turn Lanes",
+      "interaction": "choose-one",
+      "prompt": "You want to turn left into a driveway. How should you use the center two-way left-turn lane?",
+      "scene": { "template": "road", "centerTurnLane": true, "arrows": "twoway", "cars": [ { "lane": "center", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "near", "label": "Move into it just before your turn", "correct": true },
+        { "id": "blocks", "label": "Drive in it for several blocks first" },
+        { "id": "pass", "label": "Use it to pass the car ahead" },
+        { "id": "regular", "label": "Treat it like a regular driving lane" }
+      ],
+      "feedback": {
+        "correct": "Yes — enter the center lane only a short distance before your turn, then turn when it's clear.",
+        "blocks": "Don't travel far in it. Move in only just before your turn. Try again.",
+        "pass": "Never use the center turn lane to pass. Use it only to turn left. Try again.",
+        "regular": "It's not a regular lane. Enter it only just before a left turn. Try again.",
+        "default": "Move into the center lane only just before your turn. Try again."
+      }
+    },
+    {
+      "id": "lane-turn-bay",
+      "concept": "Dedicated left-turn lane",
+      "manualRef": "Turning",
+      "interaction": "choose-one",
+      "prompt": "A separate left-turn lane with a white arrow opens up before the intersection. You're turning left. What should you do?",
+      "scene": { "template": "road", "divider": "white", "arrows": "up", "turnArrow": "left-lane", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "movein", "label": "Signal and move into the turn lane early", "correct": true },
+        { "id": "through", "label": "Turn left from the through lane instead" },
+        { "id": "last", "label": "Cut into it at the last second" },
+        { "id": "straddle", "label": "Straddle both lanes until you turn" }
+      ],
+      "feedback": {
+        "correct": "Yes — signal, then move into the dedicated turn lane early so you don't slow the through traffic.",
+        "through": "Use the marked turn lane, not the through lane. Move over early. Try again.",
+        "last": "Cutting in late is dangerous. Signal and move into the turn lane early. Try again.",
+        "straddle": "Pick one lane — move fully into the turn lane. Try again.",
+        "default": "Signal and move into the dedicated turn lane early. Try again."
+      }
+    },
+    {
       "id": "lane-change-steps",
       "concept": "Changing lanes safely",
       "manualRef": "Changing Lanes",
