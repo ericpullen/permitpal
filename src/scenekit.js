@@ -108,13 +108,15 @@
   }
 
   // Center two-way left-turn lane (TWLTL): a shared middle lane bordered on each
-  // side by a solid yellow outer line and a dashed yellow inner line, with
-  // double-headed left-turn arrows painted in it (one head curves left for each
-  // travel direction). Used by the road template when scene.centerTurnLane is set.
-  function centerTurnGlyph(cy) {
-    var up = 'M200 ' + cy + ' q0 -22 -16 -22 l-11 0 M173 ' + (cy - 22) + ' l9 -7 M173 ' + (cy - 22) + ' l9 7';
-    var dn = 'M200 ' + cy + ' q0 22 16 22 l11 0 M227 ' + (cy + 22) + ' l-9 -7 M227 ' + (cy + 22) + ' l-9 7';
-    return '<path d="' + up + ' ' + dn + '" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>';
+  // side by a solid yellow outer line and a dashed yellow inner line, with a
+  // separate yellow left-turn arrow for each travel direction (one points up and
+  // hooks left; the other points down and hooks left for oncoming traffic).
+  // Used by the road template when scene.centerTurnLane is set.
+  function centerTurnArrow(cy, dir) {
+    var p = dir === "down"
+      ? 'M200 ' + (cy - 24) + ' V' + (cy + 4) + ' q0 18 20 18 l6 0 M224 ' + (cy + 22) + ' l-9 -7 M224 ' + (cy + 22) + ' l-9 7'
+      : 'M200 ' + (cy + 24) + ' V' + (cy - 4) + ' q0 -18 -20 -18 l-6 0 M176 ' + (cy - 22) + ' l9 -7 M176 ' + (cy - 22) + ' l9 7';
+    return '<path d="' + p + '" fill="none" stroke="' + C.line + '" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>';
   }
   function centerTurnLaneMarks() {
     var Y = C.line;
@@ -122,7 +124,7 @@
       '<line x1="219" y1="0" x2="219" y2="400" stroke="' + Y + '" stroke-width="4"/>' +
       '<line x1="189" y1="0" x2="189" y2="400" stroke="' + Y + '" stroke-width="3" stroke-dasharray="20 16"/>' +
       '<line x1="211" y1="0" x2="211" y2="400" stroke="' + Y + '" stroke-width="3" stroke-dasharray="20 16"/>' +
-      centerTurnGlyph(120) + centerTurnGlyph(280);
+      centerTurnArrow(108, "up") + centerTurnArrow(292, "down");
   }
 
   // Official public-domain MUTCD sign art, referenced from assets/signs/.
