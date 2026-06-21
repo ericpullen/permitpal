@@ -11,7 +11,7 @@
     sky: "#E6F1EE", road: "#454C53", grass: "#CDE6CF", line: "#F4C95D",
     white: "#FFFFFF", you: "#2F6FB0", other: "#E0883E", third: "#5BA89A",
     correct: "#2E9E6B", ink: "#213A4A", inkSoft: "#5B7180", redSign: "#D23B3B",
-    warn: "#F6C445", orange: "#E8853B", glass: "#cfe7ff"
+    glass: "#cfe7ff"
   };
 
   /* ---- low-level helpers ---- */
@@ -46,6 +46,15 @@
       '</g>';
   }
 
+  // Official public-domain MUTCD sign art, referenced from assets/signs/.
+  // Rendered into a 2s x 2s box centered at (0,0); each sign's aspect ratio is preserved.
+  // Used for the sign-recognition questions (the `row` template).
+  function officialSign(file, s) {
+    return '<image href="assets/signs/' + file + '" x="' + (-s) + '" y="' + (-s) + '" width="' + (2 * s) + '" height="' + (2 * s) + '" preserveAspectRatio="xMidYMid meet"/>';
+  }
+
+  // Lightweight drawn stop/yield used only as small in-scene decoration (e.g. the
+  // corners of a 4-way stop, or a yield at a merge) where a full sign would be illegible.
   function stopSign(cx, cy, r) {
     var pts = [];
     for (var i = 0; i < 8; i++) {
@@ -66,18 +75,13 @@
 
   /* ---- sign library (centered at 0,0; caller translates) ---- */
   var SIGNS = {
-    stop: function (s) { return stopSign(0, 0, s); },
-    yield: function (s) { return yieldSign(0, 0, s); },
-    doNotEnter: function (s) {
-      return '<circle r="' + s + '" fill="' + C.redSign + '"/>' +
-        '<rect x="' + (-s * 0.62) + '" y="' + (-s * 0.18) + '" width="' + (s * 1.24) + '" height="' + (s * 0.36) + '" rx="3" fill="#fff"/>';
-    },
+    stop: function (s) { return officialSign("stop.svg", s); },
+    yield: function (s) { return officialSign("yield.svg", s); },
+    doNotEnter: function (s) { return officialSign("do-not-enter.svg", s); },
+    // One Way is a wide 3:1 sign, so it gets a wider box than the square officialSign helper.
     oneWay: function (s, dir) {
-      var arrow = dir === "left"
-        ? '<path d="M' + (s * 0.55) + ' 0 H' + (-s * 0.4) + ' M' + (-s * 0.15) + ' ' + (-s * 0.28) + ' L' + (-s * 0.5) + ' 0 L' + (-s * 0.15) + ' ' + (s * 0.28) + '" stroke="#fff" stroke-width="' + (s * 0.16) + '" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
-        : '<path d="M' + (-s * 0.55) + ' 0 H' + (s * 0.4) + ' M' + (s * 0.15) + ' ' + (-s * 0.28) + ' L' + (s * 0.5) + ' 0 L' + (s * 0.15) + ' ' + (s * 0.28) + '" stroke="#fff" stroke-width="' + (s * 0.16) + '" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
-      return '<rect x="' + (-s) + '" y="' + (-s * 0.42) + '" width="' + (s * 2) + '" height="' + (s * 0.84) + '" rx="4" fill="#222"/>' +
-        '<text x="0" y="' + (-s * 0.06) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 0.3) + '" fill="#fff">ONE WAY</text>' + arrow;
+      var file = dir === "left" ? "one-way-left.svg" : "one-way-right.svg";
+      return '<image href="assets/signs/' + file + '" x="' + (-1.2 * s) + '" y="' + (-0.4 * s) + '" width="' + (2.4 * s) + '" height="' + (0.8 * s) + '" preserveAspectRatio="xMidYMid meet"/>';
     },
     speedLimit: function (s, n) {
       n = n == null ? 35 : n;
@@ -86,53 +90,14 @@
         '<text x="0" y="' + (-s * 0.14) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 0.26) + '" fill="#222">LIMIT</text>' +
         '<text x="0" y="' + (s * 0.62) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 0.85) + '" fill="#222">' + n + '</text>';
     },
-    noUTurn: function (s) {
-      return '<rect x="' + (-s) + '" y="' + (-s) + '" width="' + (s * 2) + '" height="' + (s * 2) + '" rx="6" fill="#fff" stroke="#222" stroke-width="' + (s * 0.08) + '"/>' +
-        '<path d="M' + (-s * 0.4) + ' ' + (s * 0.5) + ' V' + (-s * 0.15) + ' a' + (s * 0.4) + ' ' + (s * 0.4) + ' 0 0 1 ' + (s * 0.8) + ' 0 V' + (s * 0.5) + '" fill="none" stroke="#222" stroke-width="' + (s * 0.13) + '"/>' +
-        '<path d="M' + (s * 0.22) + ' ' + (s * 0.3) + ' L' + (s * 0.4) + ' ' + (s * 0.55) + ' L' + (s * 0.58) + ' ' + (s * 0.3) + '" fill="#222"/>' +
-        '<line x1="' + (-s * 0.8) + '" y1="' + (s * 0.8) + '" x2="' + (s * 0.8) + '" y2="' + (-s * 0.8) + '" stroke="' + C.redSign + '" stroke-width="' + (s * 0.14) + '"/>';
-    },
-    noLeftTurn: function (s) {
-      return '<rect x="' + (-s) + '" y="' + (-s) + '" width="' + (s * 2) + '" height="' + (s * 2) + '" rx="6" fill="#fff" stroke="#222" stroke-width="' + (s * 0.08) + '"/>' +
-        '<path d="M' + (s * 0.45) + ' ' + (s * 0.55) + ' V0 a' + (s * 0.45) + ' ' + (s * 0.45) + ' 0 0 0 ' + (-s * 0.45) + ' ' + (-s * 0.45) + ' H' + (-s * 0.45) + '" fill="none" stroke="#222" stroke-width="' + (s * 0.13) + '"/>' +
-        '<path d="M' + (-s * 0.3) + ' ' + (-s * 0.62) + ' L' + (-s * 0.6) + ' ' + (-s * 0.45) + ' L' + (-s * 0.3) + ' ' + (-s * 0.28) + '" fill="#222"/>' +
-        '<line x1="' + (-s * 0.8) + '" y1="' + (s * 0.8) + '" x2="' + (s * 0.8) + '" y2="' + (-s * 0.8) + '" stroke="' + C.redSign + '" stroke-width="' + (s * 0.14) + '"/>';
-    },
-    warning: function (s, sym) {     // generic yellow diamond with a symbol/text
-      return '<rect x="' + (-s * 0.78) + '" y="' + (-s * 0.78) + '" width="' + (s * 1.56) + '" height="' + (s * 1.56) + '" rx="6" transform="rotate(45)" fill="' + C.warn + '" stroke="#222" stroke-width="' + (s * 0.06) + '"/>' +
-        (sym || "");
-    },
-    pedestrianXing: function (s) {
-      return SIGNS.warning(s) + '<g transform="scale(' + (s / 26) + ')">' + pedestrian(0, 4, "#222") + '</g>';
-    },
-    curve: function (s) {
-      return SIGNS.warning(s) +
-        '<path d="M' + (-s * 0.25) + ' ' + (s * 0.5) + ' C' + (-s * 0.25) + ' ' + (-s * 0.1) + ',' + (s * 0.25) + ' ' + (-s * 0.1) + ',' + (s * 0.25) + ' ' + (-s * 0.5) + '" fill="none" stroke="#222" stroke-width="' + (s * 0.14) + '" stroke-linecap="round"/>' +
-        '<path d="M' + (s * 0.05) + ' ' + (-s * 0.5) + ' L' + (s * 0.25) + ' ' + (-s * 0.5) + ' L' + (s * 0.25) + ' ' + (-s * 0.28) + '" fill="none" stroke="#222" stroke-width="' + (s * 0.14) + '" stroke-linecap="round" stroke-linejoin="round"/>';
-    },
-    merge: function (s) {
-      return SIGNS.warning(s) +
-        '<path d="M' + (-s * 0.15) + ' ' + (s * 0.55) + ' V' + (-s * 0.1) + '" stroke="#222" stroke-width="' + (s * 0.13) + '" fill="none"/>' +
-        '<path d="M' + (s * 0.45) + ' ' + (s * 0.55) + ' C' + (s * 0.45) + ' 0,' + (-s * 0.15) + ' ' + (s * 0.1) + ',' + (-s * 0.15) + ' ' + (-s * 0.1) + '" stroke="#222" stroke-width="' + (s * 0.13) + '" fill="none"/>' +
-        '<path d="M' + (-s * 0.32) + ' ' + (-s * 0.2) + ' L' + (-s * 0.15) + ' ' + (-s * 0.45) + ' L' + (s * 0.02) + ' ' + (-s * 0.2) + '" fill="#222"/>';
-    },
-    school: function (s) {           // pentagon
-      var p = [[0, -s], [s * 0.95, -s * 0.3], [s * 0.58, s * 0.85], [-s * 0.58, s * 0.85], [-s * 0.95, -s * 0.3]]
-        .map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" ");
-      return '<polygon points="' + p + '" fill="#1FA36B" stroke="#fff" stroke-width="' + (s * 0.07) + '"/>' +
-        '<g transform="translate(0,' + (s * 0.05) + ') scale(' + (s / 32) + ')">' + pedestrian(-4, 0, "#fff") + pedestrian(6, 2, "#fff") + '</g>';
-    },
-    railroad: function (s) {         // round yellow RxR
-      return '<circle r="' + s + '" fill="' + C.warn + '" stroke="#222" stroke-width="' + (s * 0.07) + '"/>' +
-        '<line x1="' + (-s * 0.7) + '" y1="' + (s * 0.7) + '" x2="' + (s * 0.7) + '" y2="' + (-s * 0.7) + '" stroke="#222" stroke-width="' + (s * 0.1) + '"/>' +
-        '<text x="' + (-s * 0.34) + '" y="' + (s * 0.12) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 0.55) + '" fill="#222">R</text>' +
-        '<text x="' + (s * 0.34) + '" y="' + (s * 0.12) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 0.55) + '" fill="#222">R</text>' +
-        '<text x="0" y="' + (s * 0.5) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 0.5) + '" fill="#222">x</text>';
-    },
-    workZone: function (s, sym) {    // orange diamond
-      return '<rect x="' + (-s * 0.78) + '" y="' + (-s * 0.78) + '" width="' + (s * 1.56) + '" height="' + (s * 1.56) + '" rx="6" transform="rotate(45)" fill="' + C.orange + '" stroke="#222" stroke-width="' + (s * 0.06) + '"/>' +
-        '<g transform="translate(0,2)"><rect x="' + (-s * 0.12) + '" y="' + (-s * 0.5) + '" width="' + (s * 0.24) + '" height="' + (s * 0.7) + '" fill="#222"/><circle cy="' + (-s * 0.55) + '" r="' + (s * 0.16) + '" fill="#222"/></g>';
-    }
+    noUTurn: function (s) { return officialSign("no-u-turn.svg", s); },
+    noLeftTurn: function (s) { return officialSign("no-left-turn.svg", s); },
+    pedestrianXing: function (s) { return officialSign("pedestrian.svg", s); },
+    curve: function (s) { return officialSign("curve.svg", s); },
+    merge: function (s) { return officialSign("merge.svg", s); },
+    school: function (s) { return officialSign("school.svg", s); },
+    railroad: function (s) { return officialSign("railroad.svg", s); },
+    workZone: function (s) { return officialSign("work-zone.svg", s); }
   };
 
   function sign(name, s, arg) {

@@ -42,6 +42,63 @@
       }
     },
     {
+      "id": "share-truck-wide-right",
+      "concept": "Trucks turn wide",
+      "manualRef": "Sharing the Road",
+      "interaction": "choose-one",
+      "prompt": "A big truck ahead is turning right. It swings out wide. What should you do?",
+      "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "top", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choices": [
+        { "id": "wait", "label": "Wait behind it — never squeeze in on its right", "correct": true },
+        { "id": "squeeze", "label": "Slip past on the right by the curb" },
+        { "id": "honk", "label": "Honk so it turns faster" }
+      ],
+      "feedback": {
+        "correct": "Yes — trucks swing wide to turn right. Stay back. Never squeeze between the truck and the curb.",
+        "squeeze": "That spot is very dangerous. The truck can turn into you. Wait behind it. Try again.",
+        "honk": "Honking won't help. Just wait behind the truck and give it room. Try again.",
+        "default": "Wait behind the truck. Don't squeeze in on its right side. Try again."
+      }
+    },
+    {
+      "id": "share-truck-cutin",
+      "concept": "Trucks need room to stop",
+      "manualRef": "Sharing the Road",
+      "interaction": "choose-one",
+      "prompt": "You just passed a big truck. When is it safe to move back in front of it?",
+      "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "mid", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "id": "you", "lane": "left", "at": "top", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choices": [
+        { "id": "seemirror", "label": "When you can see the whole truck in your mirror", "correct": true },
+        { "id": "rightaway", "label": "Right away, as soon as you pass" },
+        { "id": "tap", "label": "After you tap your brakes to warn it" }
+      ],
+      "feedback": {
+        "correct": "Yes — trucks need a lot of room to stop. Move over only when you can see the whole truck in your mirror.",
+        "rightaway": "That's too soon. Trucks can't stop fast. Wait until you see the whole truck in your mirror. Try again.",
+        "tap": "Never tap your brakes in front of a truck — it can't stop quickly. Pull ahead first. Try again.",
+        "default": "Wait until you can see the whole truck in your mirror before moving over. Try again."
+      }
+    },
+    {
+      "id": "share-truck-follow",
+      "concept": "Don't follow a truck too close",
+      "manualRef": "Sharing the Road",
+      "interaction": "choose-one",
+      "prompt": "You are driving behind a big truck. How much space should you leave?",
+      "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "top", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choices": [
+        { "id": "extra", "label": "Extra space, so you can see and stop in time", "correct": true },
+        { "id": "close", "label": "Stay close so no one cuts in" },
+        { "id": "same", "label": "The same space as behind a small car" }
+      ],
+      "feedback": {
+        "correct": "Yes — leave extra space behind a truck. You can't see ahead of it, and the driver can't see you when you're close.",
+        "close": "Too close is risky. You can't see the road ahead, and the truck can't see you. Back off. Try again.",
+        "same": "A truck needs more space than a car. You can't see past it. Leave extra room. Try again.",
+        "default": "Leave extra space behind a big truck. Try again."
+      }
+    },
+    {
       "id": "share-work-zone",
       "concept": "Work zones",
       "manualRef": "Work Zones",

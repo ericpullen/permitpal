@@ -129,9 +129,9 @@
         { "id": "c", "type": "sign", "name": "yield", "key": "yield" }
       ] },
       "feedback": {
-        "correct": "Yes — the green five-sided sign with children means a school zone. Slow down and watch for kids.",
-        "work": "That's an orange road-work sign. The school sign is the five-sided green one. Try again.",
-        "yield": "That's a yield sign. The school sign is the five-sided green one with children. Try again.",
+        "correct": "Yes — the yellow-green five-sided sign with children means a school zone. Slow down and watch for kids.",
+        "work": "That's an orange road-work sign. The school sign is the five-sided yellow-green one. Try again.",
+        "yield": "That's a yield sign. The school sign is the five-sided yellow-green one with children. Try again.",
         "default": "The school sign has five sides and shows children. Try again."
       },
       "hint": "b"

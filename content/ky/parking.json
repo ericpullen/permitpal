@@ -35,7 +35,7 @@
         { "id": "lot", "label": "In a parking lot" }
       ],
       "feedback": {
-        "correct": "Yes — never park in front of a fire hydrant. Firefighters need to reach it fast.",
+        "correct": "Yes — never park in front of a fire hydrant. Keep at least 15 feet away so firefighters can reach it fast.",
         "space": "Marked spaces are fine to park in. You can't park at a fire hydrant. Try again.",
         "lot": "Parking lots are for parking. The fire hydrant is the no-parking spot. Try again.",
         "default": "You can't park in front of a fire hydrant. Try again."

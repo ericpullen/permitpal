@@ -10,17 +10,17 @@
       "manualRef": "Following Distance",
       "interaction": "choose-one",
       "prompt": "How far behind the car in front should you stay, at least?",
-      "scene": { "template": "row", "items": [ { "type": "card", "text": "3s", "decor": true } ] },
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "4s", "decor": true } ] },
       "choices": [
-        { "id": "three", "label": "About 3 seconds of space", "correct": true },
+        { "id": "four", "label": "About 4 seconds of space", "correct": true },
         { "id": "half", "label": "Half a second" },
         { "id": "touch", "label": "As close as possible" }
       ],
       "feedback": {
-        "correct": "Yes — keep at least a 3-second gap. Add more in rain or snow.",
-        "half": "Half a second is far too close. Keep at least 3 seconds. Try again.",
-        "touch": "Stay back at least 3 seconds so you have time to stop. Try again.",
-        "default": "Keep at least a 3-second following distance. Try again."
+        "correct": "Yes — keep at least a 4-second gap. When the car ahead passes a sign, you should not reach it before you count to four. Add more in rain or snow.",
+        "half": "Half a second is far too close. Keep at least 4 seconds. Try again.",
+        "touch": "Stay back at least 4 seconds so you have time to stop. Try again.",
+        "default": "Keep at least a 4-second following distance. Try again."
       }
     },
     {
@@ -97,6 +97,25 @@
         "quick": "It's safest to wait until you're parked, not while you're driving. Try again.",
         "drive": "Texting while driving is dangerous and against the law. Wait until parked. Try again.",
         "default": "Don't text while driving — wait until you're parked. Try again."
+      }
+    },
+    {
+      "id": "fact-under18-phone",
+      "concept": "Phones and drivers under 18",
+      "manualRef": "Distracted Driving",
+      "interaction": "choose-one",
+      "prompt": "You are under 18 and driving. When can you use your phone?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "📵", "decor": true } ] },
+      "choices": [
+        { "id": "never", "label": "Not at all while you are driving", "correct": true },
+        { "id": "handsfree", "label": "Only for hands-free calls" },
+        { "id": "anytime", "label": "Anytime is fine" }
+      ],
+      "feedback": {
+        "correct": "Yes — if you are under 18, you may not use a phone at all while driving, not even hands-free. Park first. (Calling 911 in an emergency is okay.)",
+        "handsfree": "For drivers under 18, even hands-free use is not allowed while driving. Park first. Try again.",
+        "anytime": "Drivers under 18 may not use a phone while driving. Park first. Try again.",
+        "default": "If you are under 18, don't use a phone while driving. Try again."
       }
     },
     {

@@ -90,5 +90,6 @@ Permit Pal is an independent, community study aid. It is **not affiliated with o
 
 - **Code:** [MIT](LICENSE).
 - **Lesson content & illustrations:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — reuse and remix with attribution.
+- **Road sign art** (`assets/signs/`): official U.S. MUTCD signs, **public domain** (U.S. federal government work) — see [`assets/signs/README.md`](assets/signs/README.md).
 
 Made with care to help one learner, and shared so it can help anyone.
