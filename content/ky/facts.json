@@ -10,7 +10,7 @@
       "manualRef": "Following Distance",
       "interaction": "choose-one",
       "prompt": "How far behind the car in front should you stay, at least?",
-      "scene": { "template": "row", "items": [ { "type": "card", "text": "4s", "decor": true } ] },
+      "scene": { "template": "road", "cars": [ { "id": "lead", "lane": "right", "at": "top", "dir": "up", "color": "#5BA89A", "decor": true }, { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "four", "label": "About 4 seconds of space", "correct": true },

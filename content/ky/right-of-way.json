@@ -44,6 +44,46 @@
       "hint": "other"
     },
     {
+      "id": "row-4way-you-first",
+      "concept": "Four-way stop, you arrived first",
+      "manualRef": "Right-of-Way",
+      "interaction": "tap-target",
+      "prompt": "You stopped first. Then a car pulls up on your right. Tap the car that goes first.",
+      "scene": {
+        "template": "intersection", "kind": "cross", "control": "stop-all",
+        "cars": [
+          { "id": "you", "from": "south", "label": "YOU", "correct": true },
+          { "id": "other", "from": "east", "key": "other" }
+        ]
+      },
+      "feedback": {
+        "correct": "Yes! You stopped first, so you go first — even though the other car is on your right.",
+        "other": "You stopped first, so you go first. Getting there first comes before the right-side rule. Try again.",
+        "default": "The car that stopped first goes first — that's you. Try again."
+      },
+      "hint": "you"
+    },
+    {
+      "id": "row-4way-your-right",
+      "concept": "Four-way stop, you are on the right",
+      "manualRef": "Right-of-Way",
+      "interaction": "tap-target",
+      "prompt": "You both stop at the same time. The other car is on your left. Tap the car that goes first.",
+      "scene": {
+        "template": "intersection", "kind": "cross", "control": "stop-all",
+        "cars": [
+          { "id": "you", "from": "south", "label": "YOU", "correct": true },
+          { "id": "other", "from": "west", "key": "other" }
+        ]
+      },
+      "feedback": {
+        "correct": "Yes! The car on the right goes first — and that's you, because the other car is on your left.",
+        "other": "When you stop at the same time, the car on the right goes first. You're on the right here. Try again.",
+        "default": "The car on the right goes first — that's you. Try again."
+      },
+      "hint": "you"
+    },
+    {
       "id": "row-tee",
       "concept": "T-intersection",
       "manualRef": "Right-of-Way",

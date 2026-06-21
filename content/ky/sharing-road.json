@@ -9,7 +9,7 @@
       "manualRef": "Sharing the Road",
       "interaction": "choose-one",
       "prompt": "You are passing a person on a bicycle. How much room should you give?",
-      "scene": { "template": "road", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true }, { "lane": "right", "at": "top", "dir": "up", "color": "#5BA89A", "decor": true } ] },
+      "scene": { "template": "road", "cars": [ { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true }, { "id": "bike", "at": "top", "dir": "up", "bike": true, "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "three", "label": "At least 3 feet of space", "correct": true },

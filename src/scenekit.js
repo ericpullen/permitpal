@@ -46,6 +46,25 @@
       '</g>';
   }
 
+  // Top-down cyclist: two wheels, frame, handlebars, and a helmeted rider.
+  function bicycle(cx, cy, opts) {
+    opts = opts || {};
+    var jersey = opts.color || "#2F6FB0";
+    var dir = opts.dir || "up";
+    var rot = { up: 0, down: 180, left: 90, right: -90 }[dir] || 0;
+    return '<g transform="translate(' + cx + ',' + cy + ') rotate(' + rot + ')">' +
+      '<rect x="-3" y="-32" width="6" height="22" rx="3" fill="#2b2b2b"/>' +
+      '<rect x="-3" y="10" width="6" height="22" rx="3" fill="#2b2b2b"/>' +
+      '<line x1="0" y1="-20" x2="0" y2="20" stroke="#9aa0a6" stroke-width="3"/>' +
+      '<line x1="-13" y1="-16" x2="13" y2="-16" stroke="#6b7177" stroke-width="3" stroke-linecap="round"/>' +
+      '<line x1="-9" y1="-3" x2="-13" y2="-15" stroke="' + jersey + '" stroke-width="5" stroke-linecap="round"/>' +
+      '<line x1="9" y1="-3" x2="13" y2="-15" stroke="' + jersey + '" stroke-width="5" stroke-linecap="round"/>' +
+      '<rect x="-10" y="-6" width="20" height="20" rx="9" fill="' + jersey + '"/>' +
+      '<circle cx="0" cy="-1" r="8" fill="#f2d2b6"/>' +
+      '<path d="M-8 -1 a8 8 0 0 1 16 0 z" fill="#E0883E"/>' +
+      '</g>';
+  }
+
   // Official public-domain MUTCD sign art, referenced from assets/signs/.
   // Rendered into a 2s x 2s box centered at (0,0); each sign's aspect ratio is preserved.
   // Used for the sign-recognition questions (the `row` template).
@@ -274,9 +293,14 @@
         svg += wrapTap(scene.ped, pedestrian(px, scene.ped.y || 110, "#34495E"));
       }
     }
-    // cars
+    // cars (or a bicycle, when c.bike is set — cyclists ride near the right curb)
     (scene.cars || []).forEach(function (c) {
-      var cx = LANE[c.lane || "right"], cy = AT[c.at || "bottom"];
+      var cy = AT[c.at || "bottom"];
+      if (c.bike) {
+        svg += openG(c, [], c.markId) + bicycle(252, cy, { dir: c.dir || "up", color: c.color || "#2F6FB0" }) + '</g>';
+        return;
+      }
+      var cx = LANE[c.lane || "right"];
       svg += openG(c, c.roll ? ["roll"] : [], c.markId) +
         car(cx, cy, { dir: c.dir || "up", color: c.color || (c.label === "YOU" ? C.you : C.other), label: c.label || "" }) + '</g>';
     });
@@ -299,13 +323,26 @@
 
   function tplRoundabout(scene) {
     var svg = '<svg class="scene" viewBox="0 0 400 400" role="img">' + grass();
-    svg += '<circle cx="200" cy="200" r="120" fill="' + C.road + '"/><circle cx="200" cy="200" r="55" fill="' + C.grass + '"/>';
-    svg += '<circle cx="200" cy="200" r="120" fill="none" stroke="' + C.line + '" stroke-width="3" stroke-dasharray="14 12"/>';
-    svg += '<rect x="170" y="320" width="60" height="80" fill="' + C.road + '"/>';
-    svg += '<g transform="translate(248,332)">' + yieldSign(0, 0, 22) + '</g>';
+    // four approach/exit legs (drawn first, then the ring covers the middle)
+    svg += '<rect x="170" y="0" width="60" height="400" fill="' + C.road + '"/>';
+    svg += '<rect x="0" y="170" width="400" height="60" fill="' + C.road + '"/>';
+    // circulating roadway + raised landscaped center island
+    svg += '<circle cx="200" cy="200" r="118" fill="' + C.road + '"/>';
+    svg += '<circle cx="200" cy="200" r="62" fill="#bcdcc0" stroke="#98c29e" stroke-width="6"/>';
+    // lane edge hint just outside the island
+    svg += '<circle cx="200" cy="200" r="72" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="10 12" opacity=".7"/>';
+    // counter-clockwise flow arrows (top→left, right→up, bottom→right, left→down)
+    svg += '<g fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85">' +
+      '<path d="M210 110 L198 102 L210 94"/>' +
+      '<path d="M290 210 L298 198 L306 210"/>' +
+      '<path d="M190 290 L202 298 L190 306"/>' +
+      '<path d="M110 190 L102 202 L94 190"/></g>';
+    // bottom approach yield for YOU
+    svg += '<g transform="translate(250,330)">' + yieldSign(0, 0, 20) + '</g>';
     (scene.cars || []).forEach(function (c) {
-      if (c.role === "circulating") svg += openG(c, ["roll"], "carCirc") + car(120, 168, { dir: "up", color: c.color || C.other }) + "</g>";
-      else svg += openG(c, []) + car(200, 350, { dir: "up", color: C.you, label: "YOU" }) + "</g>";
+      // circulating car sits on the left of the ring, heading down (counter-clockwise) toward the entry
+      if (c.role === "circulating") svg += openG(c, ["roll"], "carCirc") + car(110, 205, { dir: "down", color: c.color || C.other }) + "</g>";
+      else svg += openG(c, []) + car(200, 355, { dir: "up", color: C.you, label: "YOU" }) + "</g>";
     });
     return svg + "</svg>";
   }
