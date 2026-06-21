@@ -59,6 +59,9 @@ body.high-contrast{ --ink:#0b1b26; --ink-soft:#2a3f4d; --sky:#ffffff; --line:#9b
 .logo svg{ filter:drop-shadow(0 6px 12px rgba(46,158,107,.35)); }
 
 /* home */
+.home-brand{ display:flex; align-items:center; gap:11px; margin:2px 0 16px; }
+.brand-mark{ filter:drop-shadow(0 3px 7px rgba(46,158,107,.30)); }
+.brand-name{ font-weight:800; font-size:1.4rem; color:var(--ink); letter-spacing:-.01em; }
 .home-head h2{ font-size:1.5rem; margin:8px 0 18px; }
 .section-label{ font-size:1rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em; margin:22px 0 10px; }
 .modes{ display:flex; flex-direction:column; gap:10px; }
