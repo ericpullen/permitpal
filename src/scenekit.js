@@ -421,7 +421,8 @@
     if (scene.railroad) svg += railroadCrossing();
     // turn arrow hint on your car
     if (scene.turnArrow === "left") {
-      svg += '<path d="M236 250 q0 -40 -40 -40 l24 0 M196 210 l-24 0 l16 -14 M196 210 l16 14" fill="none" stroke="#9fd9ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>';
+      // blue hint: your car's intended path — up out of the right lane, then left
+      svg += '<path d="M235 262 V224 Q235 200 182 200 M182 200 l14 -8 M182 200 l14 8" fill="none" stroke="#9fd9ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>';
     } else if (scene.turnArrow === "left-lane") {
       // white left-turn arrow painted in the left lane near the intersection —
       // marks it as a dedicated left-turn lane
