@@ -34,7 +34,7 @@
       "manualRef": "Headlights",
       "interaction": "choose-one",
       "prompt": "When should your headlights be on?",
-      "scene": { "template": "row", "items": [ { "type": "card", "text": "☀", "decor": true } ] },
+      "scene": { "template": "road", "cars": [ { "id": "you", "lane": "right", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "nightrain", "label": "At night and when it's raining", "correct": true },
