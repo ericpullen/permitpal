@@ -111,6 +111,28 @@
       }
     },
     {
+      "id": "lane-keep-right",
+      "concept": "Keep right except to pass",
+      "manualRef": "Choosing a Lane",
+      "interaction": "choose-one",
+      "prompt": "You're on a highway with two lanes going your way, and you're not passing anyone. Which lane should you use?",
+      "scene": { "template": "road", "divider": "white", "arrows": "up", "cars": [ { "lane": "left", "at": "top", "dir": "up", "color": "#E0883E", "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "right", "label": "The right lane", "correct": true },
+        { "id": "left", "label": "The left lane" },
+        { "id": "block", "label": "The left lane, to hold others back" },
+        { "id": "straddle", "label": "Straddle both lanes" }
+      ],
+      "feedback": {
+        "correct": "Yes — keep right except when passing. The left lane is for passing slower traffic.",
+        "left": "The left lane is for passing. When you're not passing, keep right. Try again.",
+        "block": "Don't block the left lane — it's for passing. Move right when you're not passing. Try again.",
+        "straddle": "Pick one lane and keep right when you're not passing. Try again.",
+        "default": "Keep right except when passing. Try again."
+      }
+    },
+    {
       "id": "lane-change-steps",
       "concept": "Changing lanes safely",
       "manualRef": "Changing Lanes",

@@ -55,6 +55,28 @@
       "hint": "double"
     },
     {
+      "id": "mark-solid-dash",
+      "concept": "Solid and dashed yellow together",
+      "manualRef": "Pavement Markings",
+      "interaction": "choose-one",
+      "prompt": "The center has two lines: solid on the far side, dashed on your side. May you pass?",
+      "scene": { "template": "row", "items": [ { "type": "miniRoad", "line": { "color": "yellow", "pattern": "solidDash" }, "cars": [ { "lane": "right", "dir": "up", "color": "#2F6FB0" } ], "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "yes", "label": "Yes — the dashed line is on your side, so pass when it's clear", "correct": true },
+        { "id": "never", "label": "No — you can never pass with two lines" },
+        { "id": "both", "label": "Only if both lines are dashed" },
+        { "id": "anytime", "label": "Yes — you may always cross a solid line" }
+      ],
+      "feedback": {
+        "correct": "Yes — when the dashed line is on your side, you may pass if the road ahead is clear.",
+        "never": "You can pass when the dashed line is on your side. Just be sure it's clear. Try again.",
+        "both": "You don't need both lines dashed — a dashed line on your side is enough. Try again.",
+        "anytime": "A solid line on your side means no passing. Pass only when the dashed line is on your side. Try again.",
+        "default": "Pass only when the dashed line is on your side and the way is clear. Try again."
+      }
+    },
+    {
       "id": "mark-lane-change",
       "concept": "White lines and changing lanes",
       "manualRef": "Pavement Markings",

@@ -498,6 +498,11 @@
     if (line.pattern === "double") {
       s += '<line x1="-6" y1="' + (y + 6) + '" x2="-6" y2="' + (y + h - 6) + '" stroke="' + lc + '" stroke-width="5"/>';
       s += '<line x1="6" y1="' + (y + 6) + '" x2="6" y2="' + (y + h - 6) + '" stroke="' + lc + '" stroke-width="5"/>';
+    } else if (line.pattern === "solidDash") {
+      // solid line on the left, dashed (broken) line on the right — passing is
+      // allowed only for traffic on the side with the broken line.
+      s += '<line x1="-6" y1="' + (y + 6) + '" x2="-6" y2="' + (y + h - 6) + '" stroke="' + lc + '" stroke-width="5"/>';
+      s += '<line x1="6" y1="' + (y + 6) + '" x2="6" y2="' + (y + h - 6) + '" stroke="' + lc + '" stroke-width="5" stroke-dasharray="20 16"/>';
     } else {
       var dash = line.pattern === "dashed" ? ' stroke-dasharray="20 16"' : "";
       s += '<line x1="0" y1="' + (y + 6) + '" x2="0" y2="' + (y + h - 6) + '" stroke="' + lc + '" stroke-width="6"' + dash + '/>';
