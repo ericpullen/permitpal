@@ -20,6 +20,7 @@ npm start          # python3 -m http.server 8000  → open http://localhost:8000
 - `npm test` requires the one dev dependency (`jsdom`); run `npm install` first.
 - There is no linter or formatter and no compile step. CI (`.github/workflows/validate.yml`) only runs `node scripts/validate.js`.
 - No single-test runner — `validate.js` checks all content; `test/e2e.js` is one self-contained script.
+- **Jump straight to one question** for testing: open `http://localhost:8000/#q=<scenario-id>` (or run `Engine.jump("<id>")` in the console). The hash starts a single-scenario deck — handy after tweaking a scene.
 
 ## Architecture
 

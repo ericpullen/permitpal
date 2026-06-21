@@ -72,7 +72,7 @@
       "manualRef": "Two-Way Left Turn Lanes",
       "interaction": "choose-one",
       "prompt": "You want to turn left into a driveway. How should you use the center two-way left-turn lane?",
-      "scene": { "template": "road", "centerTurnLane": true, "arrows": "twoway", "cars": [ { "lane": "center", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
+      "scene": { "template": "road", "centerTurnLane": true, "arrows": "twoway", "driveway": "left", "cars": [ { "lane": "center", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "near", "label": "Move into it just before your turn", "correct": true },

@@ -38,7 +38,8 @@
     if (root.Settings) root.Settings.apply();
     wireChrome();
     loadAll().then(function () {
-      buildHome();
+      if (!startFromHash()) buildHome();
+      root.addEventListener("hashchange", startFromHash);
     }).catch(function (e) {
       var el = $("home-modules");
       if (el) el.innerHTML = '<p class="note">Could not load lessons. If you opened this file directly, run it from a web server or host it online (GitHub Pages / S3).</p>';
@@ -94,6 +95,17 @@
     var mod = data[file]; if (!mod) return;
     startDeck((mod.scenarios || []).slice(), mod.title, false);
   }
+  // Dev shortcut: open one scenario directly via URL hash, e.g. #q=lane-center-turn-use
+  // (also callable from the console as Engine.jump("id")). Returns false if no match.
+  function startFromHash() {
+    var m = (root.location && root.location.hash || "").match(/q=([\w-]+)/);
+    if (!m) return false;
+    var sc = byId[m[1]];
+    if (!sc) { console.warn("No scenario with id:", m[1]); return false; }
+    startDeck([sc], sc.moduleTitle || "Preview", false);
+    return true;
+  }
+  function jump(id) { root.location.hash = "q=" + id; if (!startFromHash()) console.warn("Unknown id:", id); }
   function startMixed() {
     startDeck(shuffle(allScenarios.slice()), "Mixed Practice", false);
   }
@@ -368,7 +380,7 @@
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function cssEsc(s) { return String(s).replace(/"/g, '\\"'); }
 
-  root.Engine = { init: init };
+  root.Engine = { init: init, jump: jump };
   if (typeof document !== "undefined") {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
     else init();

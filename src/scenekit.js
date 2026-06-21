@@ -120,10 +120,10 @@
   }
   function centerTurnLaneMarks() {
     var Y = C.line;
-    return '<line x1="181" y1="0" x2="181" y2="400" stroke="' + Y + '" stroke-width="4"/>' +
-      '<line x1="219" y1="0" x2="219" y2="400" stroke="' + Y + '" stroke-width="4"/>' +
-      '<line x1="189" y1="0" x2="189" y2="400" stroke="' + Y + '" stroke-width="3" stroke-dasharray="20 16"/>' +
-      '<line x1="211" y1="0" x2="211" y2="400" stroke="' + Y + '" stroke-width="3" stroke-dasharray="20 16"/>' +
+    return '<line x1="166" y1="0" x2="166" y2="400" stroke="' + Y + '" stroke-width="4"/>' +
+      '<line x1="234" y1="0" x2="234" y2="400" stroke="' + Y + '" stroke-width="4"/>' +
+      '<line x1="174" y1="0" x2="174" y2="400" stroke="' + Y + '" stroke-width="3" stroke-dasharray="20 16"/>' +
+      '<line x1="226" y1="0" x2="226" y2="400" stroke="' + Y + '" stroke-width="3" stroke-dasharray="20 16"/>' +
       centerTurnArrow(108, "up") + centerTurnArrow(292, "down");
   }
 
@@ -376,10 +376,23 @@
   }
 
   function tplRoad(scene) {
-    var svg = '<svg class="scene" viewBox="0 0 400 400" role="img">' + grass() + vRoad();
+    // A center two-way left-turn lane needs three lanes, so the roadway is
+    // widened in that mode (and narrows back to two lanes otherwise).
+    var ctl = scene.centerTurnLane;
+    var roadX = ctl ? 90 : 130, roadW = ctl ? 220 : 140;
+    var edgeL = roadX + 9, edgeR = roadX + roadW - 9;
+    var svg = '<svg class="scene" viewBox="0 0 400 400" role="img">' + grass() +
+      '<rect x="' + roadX + '" y="0" width="' + roadW + '" height="400" fill="' + C.road + '"/>';
+    // a driveway leading off to the left (so "turn left into a driveway" reads)
+    if (scene.driveway === "left") {
+      svg += '<rect x="0" y="170" width="' + roadX + '" height="60" fill="#b9bfc4"/>' +
+        '<rect x="8" y="176" width="42" height="48" rx="4" fill="#d9b48c" stroke="#b8916a" stroke-width="2"/>' +
+        '<path d="M4 178 L29 160 L54 178 Z" fill="#9b6b4a"/>' +
+        '<rect x="23" y="200" width="13" height="24" fill="#7a5436"/>';
+    }
     // white edge (fog) lines on both sides of the roadway
-    svg += '<line x1="139" y1="0" x2="139" y2="400" stroke="#fff" stroke-width="4"/>';
-    svg += '<line x1="261" y1="0" x2="261" y2="400" stroke="#fff" stroke-width="4"/>';
+    svg += '<line x1="' + edgeL + '" y1="0" x2="' + edgeL + '" y2="400" stroke="#fff" stroke-width="4"/>';
+    svg += '<line x1="' + edgeR + '" y1="0" x2="' + edgeR + '" y2="400" stroke="#fff" stroke-width="4"/>';
     // divider: a center two-way left-turn lane, OR a single line —
     // yellow dashed = two-way (default); white dashed = lanes going the same way
     if (scene.centerTurnLane) {
@@ -389,7 +402,7 @@
       svg += '<line x1="200" y1="0" x2="200" y2="400" stroke="' + divCol + '" stroke-width="5" stroke-dasharray="22 18"/>';
     }
     // direction-of-travel arrows painted in the through lanes
-    var aL = scene.centerTurnLane ? 157 : 165, aR = scene.centerTurnLane ? 243 : 235;
+    var aL = ctl ? 132 : 165, aR = ctl ? 268 : 235;
     if (scene.arrows === "up") svg += laneArrow(aL, "up") + laneArrow(aR, "up");
     else if (scene.arrows === "twoway") svg += laneArrow(aL, "down") + laneArrow(aR, "up");
     // fire hydrant on the right shoulder
@@ -403,7 +416,7 @@
       // white left-turn arrow painted in the left through lane — a dedicated turn lane
       svg += '<path d="M165 300 V232 q0 -20 -22 -20 l10 0 M143 212 l10 -7 M143 212 l10 7" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>';
     }
-    var LANE = scene.centerTurnLane ? { left: 157, center: 200, right: 243 } : { left: 165, right: 235 };
+    var LANE = ctl ? { left: 132, center: 200, right: 268 } : { left: 165, right: 235 };
     var AT = { top: 80, mid: 200, bottom: 300 };
     // zones (tap-zone)
     (scene.zones || []).forEach(function (z) {
