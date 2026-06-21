@@ -70,6 +70,24 @@
       '</g>';
   }
 
+  // Top-down 18-wheeler: a short tractor (cab) coupled to a long trailer, with axles.
+  function truck(cx, cy, opts) {
+    opts = opts || {};
+    var cab = opts.color || "#4b5560";
+    var dir = opts.dir || "up";
+    var rot = { up: 0, down: 180, left: 90, right: -90 }[dir] || 0;
+    var wheel = function (y, h) { return '<rect x="-23" y="' + y + '" width="7" height="' + h + '" rx="2" fill="#222"/><rect x="16" y="' + y + '" width="7" height="' + h + '" rx="2" fill="#222"/>'; };
+    return '<g transform="translate(' + cx + ',' + cy + ') rotate(' + rot + ')">' +
+      wheel(-62, 14) + wheel(44, 12) + wheel(58, 12) +                                  // steer axle + two trailer axles
+      '<rect x="-19" y="-34" width="38" height="106" rx="5" fill="#e4e7ea" stroke="#c2c8cd" stroke-width="2"/>' +  // trailer
+      '<rect x="-19" y="-37" width="38" height="6" rx="2" fill="#b9c0c6"/>' +            // coupling line
+      '<rect x="-19" y="-74" width="38" height="40" rx="9" fill="' + cab + '"/>' +        // cab
+      '<rect x="-13" y="-71" width="26" height="11" rx="4" fill="' + C.glass + '" opacity=".9"/>' +  // windshield
+      '<rect x="-16" y="-75" width="7" height="4" rx="2" fill="#fff6c8"/><rect x="9" y="-75" width="7" height="4" rx="2" fill="#fff6c8"/>' +  // headlights
+      '<rect x="-17" y="69" width="7" height="4" rx="2" fill="#e8453b"/><rect x="10" y="69" width="7" height="4" rx="2" fill="#e8453b"/>' +    // tail lights
+      '</g>';
+  }
+
   // Side-view fire hydrant (sits on the grass shoulder).
   function hydrant(cx, cy) {
     return '<g transform="translate(' + cx + ',' + cy + ')">' +
@@ -368,6 +386,10 @@
       var cy = AT[c.at || "bottom"];
       if (c.bike) {
         svg += openG(c, [], c.markId, "bicycle") + bicycle(252, cy, { dir: c.dir || "up", color: c.color || "#2F6FB0" }) + '</g>';
+        return;
+      }
+      if (c.truck) {
+        svg += openG(c, c.roll ? ["roll"] : [], c.markId, "big truck") + truck(LANE[c.lane || "right"], cy, { dir: c.dir || "up", color: c.color }) + '</g>';
         return;
       }
       var cx = LANE[c.lane || "right"];

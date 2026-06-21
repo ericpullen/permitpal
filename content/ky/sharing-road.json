@@ -33,7 +33,7 @@
       "manualRef": "Sharing the Road",
       "interaction": "choose-one",
       "prompt": "A big truck is next to you. Where is it most dangerous to drive?",
-      "scene": { "template": "road", "cars": [ { "lane": "left", "at": "mid", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "scene": { "template": "road", "cars": [ { "lane": "left", "at": "mid", "dir": "up", "truck": true, "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
       "choices": [
         { "id": "blind", "label": "Right beside it, where the driver can't see you", "correct": true },
         { "id": "far", "label": "Far in front, where it can see you" },
@@ -52,7 +52,7 @@
       "manualRef": "Sharing the Road",
       "interaction": "choose-one",
       "prompt": "A big truck ahead is turning right. It swings out wide. What should you do?",
-      "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "top", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "top", "dir": "up", "truck": true, "decor": true }, { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "wait", "label": "Wait behind it — never squeeze in on its right", "correct": true },
@@ -74,7 +74,7 @@
       "manualRef": "Sharing the Road",
       "interaction": "choose-one",
       "prompt": "You just passed a big truck. When is it safe to move back in front of it?",
-      "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "mid", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "id": "you", "lane": "left", "at": "top", "dir": "up", "label": "YOU", "decor": true } ] },
+      "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "mid", "dir": "up", "truck": true, "decor": true }, { "id": "you", "lane": "left", "at": "top", "dir": "up", "label": "YOU", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "seemirror", "label": "When you can see the whole truck in your mirror", "correct": true },
@@ -96,7 +96,7 @@
       "manualRef": "Sharing the Road",
       "interaction": "choose-one",
       "prompt": "You are driving behind a big truck. How much space should you leave?",
-      "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "top", "dir": "up", "color": "#7A6A55", "label": "TRUCK", "decor": true }, { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "scene": { "template": "road", "cars": [ { "id": "truck", "lane": "right", "at": "top", "dir": "up", "truck": true, "decor": true }, { "id": "you", "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "extra", "label": "Extra space, so you can see and stop in time", "correct": true },
