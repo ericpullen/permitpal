@@ -1,7 +1,7 @@
 /* sw.js — offline cache for Permit Pal.
  * Bump CACHE when you change files so users get the update.
  */
-var CACHE = "permitpal-v27";
+var CACHE = "permitpal-v28";
 var ASSETS = [
   "./",
   "index.html",
