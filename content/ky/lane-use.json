@@ -94,7 +94,7 @@
       "manualRef": "Turning",
       "interaction": "choose-one",
       "prompt": "A separate left-turn lane with a white arrow opens up before the intersection. You're turning left. What should you do?",
-      "scene": { "template": "road", "divider": "white", "arrows": "up", "turnArrow": "left-lane", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "scene": { "template": "road", "divider": "white", "arrows": "up", "turnArrow": "left-lane", "crossStreet": true, "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "movein", "label": "Signal and move into the turn lane early", "correct": true },

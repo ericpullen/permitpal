@@ -401,10 +401,20 @@
       var divCol = scene.divider === "white" ? "#fff" : C.line;
       svg += '<line x1="200" y1="0" x2="200" y2="400" stroke="' + divCol + '" stroke-width="5" stroke-dasharray="22 18"/>';
     }
-    // direction-of-travel arrows painted in the through lanes
+    // a cross street ahead (the intersection you're approaching)
+    if (scene.crossStreet) {
+      svg += '<rect x="0" y="0" width="400" height="58" fill="' + C.road + '"/>';
+      svg += '<line x1="' + edgeL + '" y1="62" x2="' + edgeR + '" y2="62" stroke="#fff" stroke-width="6"/>';
+    }
+    // direction-of-travel arrows painted in the through lanes. With a dedicated
+    // left-turn lane (turnArrow:"left-lane"), the left lane shows only the turn
+    // arrow, so suppress its straight arrow.
     var aL = ctl ? 132 : 165, aR = ctl ? 268 : 235;
-    if (scene.arrows === "up") svg += laneArrow(aL, "up") + laneArrow(aR, "up");
-    else if (scene.arrows === "twoway") svg += laneArrow(aL, "down") + laneArrow(aR, "up");
+    var turnLaneLeft = scene.turnArrow === "left-lane";
+    if (scene.arrows === "up") {
+      if (!turnLaneLeft) svg += laneArrow(aL, "up");
+      svg += laneArrow(aR, "up");
+    } else if (scene.arrows === "twoway") svg += laneArrow(aL, "down") + laneArrow(aR, "up");
     // fire hydrant on the right shoulder
     if (scene.hydrant) svg += hydrant(300, scene.hydrant.y || 150);
     if (scene.crosswalk) svg += crosswalk(80);
@@ -413,8 +423,9 @@
     if (scene.turnArrow === "left") {
       svg += '<path d="M236 250 q0 -40 -40 -40 l24 0 M196 210 l-24 0 l16 -14 M196 210 l16 14" fill="none" stroke="#9fd9ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>';
     } else if (scene.turnArrow === "left-lane") {
-      // white left-turn arrow painted in the left through lane — a dedicated turn lane
-      svg += '<path d="M165 300 V232 q0 -20 -22 -20 l10 0 M143 212 l10 -7 M143 212 l10 7" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>';
+      // white left-turn arrow painted in the left lane near the intersection —
+      // marks it as a dedicated left-turn lane
+      svg += '<path d="M165 210 V118 q0 -22 -24 -22 M139 96 l12 -6 M139 96 l12 6" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>';
     }
     var LANE = ctl ? { left: 132, center: 200, right: 268 } : { left: 165, right: 235 };
     var AT = { top: 80, mid: 200, bottom: 300 };
