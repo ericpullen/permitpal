@@ -129,16 +129,22 @@
     // prompt
     var p = $("prompt"); if (p) p.textContent = sc.prompt || "";
 
-    // scene
+    // scene — for "tap the sign" rows, shuffle the items so the correct
+    // answer's position can't be memorized. Spatial scenes (intersections,
+    // roads) keep their real layout, where position carries meaning.
     var stage = $("scene");
-    if (stage) stage.innerHTML = root.SceneKit ? root.SceneKit.render(sc.scene) : "";
+    var scene = sc.scene;
+    if (scene && scene.items && scene.items.length > 1) {
+      scene = cloneScene(scene, shuffle(scene.items.slice()));
+    }
+    if (stage) stage.innerHTML = root.SceneKit ? root.SceneKit.render(scene) : "";
 
-    // choices
+    // choices — shuffle a copy too, so the right button isn't always in the same spot
     var ch = $("choices");
     if (ch) {
       if (sc.choices && sc.choices.length) {
         ch.classList.remove("hidden");
-        ch.innerHTML = sc.choices.map(function (c) {
+        ch.innerHTML = shuffle(sc.choices.slice()).map(function (c) {
           return '<button class="choice tap-btn"' + (c.correct ? ' data-correct="1"' : "") +
             (c.key ? ' data-key="' + esc(c.key) + '"' : "") + (c.id ? ' data-id="' + esc(c.id) + '"' : "") +
             '>' + esc(c.label) + '</button>';
@@ -313,6 +319,8 @@
     if (evt && fn) el.addEventListener(evt, fn);
   }
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  // shallow copy of a scene with a new items array (so we never mutate the source scenario)
+  function cloneScene(scene, items) { var o = {}; for (var k in scene) if (scene.hasOwnProperty(k)) o[k] = scene[k]; o.items = items; return o; }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function cssEsc(s) { return String(s).replace(/"/g, '\\"'); }
 
