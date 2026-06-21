@@ -23,6 +23,8 @@ Source: [Wikimedia Commons, "PD MUTCD" category](https://commons.wikimedia.org/w
 | `school.svg` | School / school crossing | S1-1 |
 | `railroad.svg` | Railroad advance warning | W10-1 |
 | `work-zone.svg` | Workers (work zone) | W21-1a |
+| `ped-walk.svg` | Pedestrian signal — Walk (walking person) | — |
+| `ped-hand.svg` | Pedestrian signal — Don't Walk (raised hand) | — |
 
 These are loaded by `src/scenekit.js` (`officialSign()`) for the sign-recognition
 questions. The small stop/yield signs drawn *inside* road scenes (4-way stops, merges)

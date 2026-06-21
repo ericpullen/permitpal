@@ -133,11 +133,13 @@
 
   function pedSignal(state, s) {     // walk / dontwalk / count
     s = s || 30;
-    var inner;
-    if (state === "walk") inner = '<g transform="scale(' + (s / 26) + ')">' + pedestrian(0, 2, "#FFFFFF") + '</g>';
-    else if (state === "count") inner = '<text x="0" y="' + (s * 0.4) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 1.1) + '" fill="#F39C12">7</text>';
-    else inner = '<path d="M' + (-s * 0.45) + ' ' + (-s * 0.2) + ' v' + (s * 0.5) + ' M' + (-s * 0.2) + ' ' + (-s * 0.45) + ' v' + (s * 0.8) + ' M' + (s * 0.05) + ' ' + (-s * 0.5) + ' v' + (s * 0.85) + ' M' + (s * 0.3) + ' ' + (-s * 0.3) + ' v' + (s * 0.6) + '" stroke="#E8853B" stroke-width="' + (s * 0.18) + '" stroke-linecap="round"/><path d="M' + (-s * 0.55) + ' 0 q' + (s * 0.55) + ' ' + (-s * 0.4) + ' ' + (s * 1.0) + ' 0" stroke="#E8853B" stroke-width="' + (s * 0.18) + '" fill="none"/>';
-    return '<rect x="' + (-s * 0.95) + '" y="' + (-s * 0.95) + '" width="' + (s * 1.9) + '" height="' + (s * 1.9) + '" rx="' + (s * 0.2) + '" fill="#1c1c1c"/>' + inner;
+    // dark signal housing + the official MUTCD pedestrian symbol (white walking
+    // person, or Portland-orange raised hand) centered on it.
+    var housing = '<rect x="' + (-s * 0.95) + '" y="' + (-s * 0.95) + '" width="' + (s * 1.9) + '" height="' + (s * 1.9) + '" rx="' + (s * 0.2) + '" fill="#1c1c1c"/>';
+    var sym;
+    if (state === "count") sym = '<text x="0" y="' + (s * 0.4) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 1.1) + '" fill="#F39C12">7</text>';
+    else sym = '<image href="assets/signs/' + (state === "walk" ? "ped-walk.svg" : "ped-hand.svg") + '" x="' + (-s * 0.75) + '" y="' + (-s * 0.7) + '" width="' + (s * 1.5) + '" height="' + (s * 1.4) + '" preserveAspectRatio="xMidYMid meet"/>';
+    return housing + sym;
   }
 
   /* ---- defs (filter for lit lamps) ---- */

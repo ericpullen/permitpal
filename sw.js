@@ -1,7 +1,7 @@
 /* sw.js — offline cache for Permit Pal.
  * Bump CACHE when you change files so users get the update.
  */
-var CACHE = "permitpal-v6";
+var CACHE = "permitpal-v7";
 var ASSETS = [
   "./",
   "index.html",
@@ -23,6 +23,8 @@ var ASSETS = [
   "assets/signs/school.svg",
   "assets/signs/railroad.svg",
   "assets/signs/work-zone.svg",
+  "assets/signs/ped-walk.svg",
+  "assets/signs/ped-hand.svg",
   "src/scenekit.js",
   "src/speech.js",
   "src/progress.js",
