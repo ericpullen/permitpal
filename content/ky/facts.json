@@ -189,6 +189,94 @@
         "wait": "Waiting 20 minutes won't clear it, and under 21 the limit is near zero. The answer is no. Try again.",
         "default": "If you are under 21, any alcohol is too much to drive. Try again."
       }
+    },
+    {
+      "id": "fact-teen-passengers",
+      "concept": "Teen passenger limit",
+      "manualRef": "Graduated Licensing",
+      "interaction": "choose-one",
+      "prompt": "You are 17 with an intermediate license. Three friends (not family) want a ride. Is that allowed?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "👥", "decor": true, "caption": "You are 17" } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "no", "label": "No — you may carry only one friend under 20 who is not family", "correct": true },
+        { "id": "belts", "label": "Yes, as many as have seat belts" },
+        { "id": "friends", "label": "Yes, friends are always fine" },
+        { "id": "careful", "label": "Yes, as long as you drive carefully" }
+      ],
+      "feedback": {
+        "correct": "Right — with an intermediate license you may carry only one passenger under 20 unless they are immediate family.",
+        "belts": "Seat belts aren't the rule here — with an intermediate license it's only one passenger under 20 who isn't family. Try again.",
+        "friends": "Extra friends are exactly what the rule limits. Only one passenger under 20 who isn't family. Try again.",
+        "careful": "Careful driving doesn't change the rule — only one passenger under 20 who isn't family. Try again.",
+        "default": "With an intermediate license, only one passenger under 20 who isn't family. Try again."
+      }
+    },
+    {
+      "id": "fact-teen-curfew",
+      "concept": "Teen nighttime curfew",
+      "manualRef": "Graduated Licensing",
+      "interaction": "choose-one",
+      "prompt": "You are 16 with an intermediate license. It is 1:00 in the morning and you want to drive around. Can you?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "🌙", "decor": true, "caption": "1:00 AM" } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "no", "label": "No — you can't drive from midnight to 6 a.m. except for work, school, or an emergency", "correct": true },
+        { "id": "anytime", "label": "Yes, anytime once you have a license" },
+        { "id": "nearhome", "label": "Yes, if you stay close to home" },
+        { "id": "empty", "label": "Yes, if the roads are empty" }
+      ],
+      "feedback": {
+        "correct": "Right — with an intermediate license you may not drive between midnight and 6 a.m., unless it's for work, school, or an emergency.",
+        "anytime": "An intermediate license has a night rule — no driving from midnight to 6 a.m. except for work, school, or an emergency. Try again.",
+        "nearhome": "Staying close to home doesn't change it — no driving from midnight to 6 a.m. except for work, school, or an emergency. Try again.",
+        "empty": "Empty roads don't change the rule — no driving from midnight to 6 a.m. except for work, school, or an emergency. Try again.",
+        "default": "With an intermediate license, no driving from midnight to 6 a.m. except for work, school, or an emergency. Try again."
+      }
+    },
+    {
+      "id": "fact-implied-consent",
+      "concept": "Implied consent",
+      "manualRef": "Implied Consent",
+      "interaction": "choose-one",
+      "prompt": "A police officer thinks you may be drunk and asks you to take a breath test. What happens if you say no?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "🚓", "decor": true, "caption": "Breath test" } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "suspend", "label": "Your license can be suspended — by driving here you already agreed to the test", "correct": true },
+        { "id": "refuse", "label": "Nothing — you can always refuse" },
+        { "id": "warning", "label": "You just get a warning" },
+        { "id": "letgo", "label": "The officer has to let you go" }
+      ],
+      "feedback": {
+        "correct": "Right — this is the 'implied consent' law. Driving in Kentucky means you already agreed to a test, so refusing can cost you your license.",
+        "refuse": "You can say no, but it has a cost — refusing can get your license suspended. Try again.",
+        "warning": "It's more than a warning — refusing the test can suspend your license. Try again.",
+        "letgo": "Refusing doesn't free you — it can suspend your license under the implied consent law. Try again.",
+        "default": "Refusing the test can get your license suspended (implied consent). Try again."
+      }
+    },
+    {
+      "id": "fact-child-seat",
+      "concept": "Child booster seat",
+      "manualRef": "Occupant Protection",
+      "interaction": "choose-one",
+      "prompt": "A 5-year-old who is too small for the seat belt to fit right rides with you. What should they use?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "🧒", "decor": true, "caption": "5 years old" } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "booster", "label": "A booster seat", "correct": true },
+        { "id": "beltonly", "label": "Just the regular seat belt" },
+        { "id": "nothing", "label": "Nothing, if they sit in the back" },
+        { "id": "lap", "label": "An adult's lap" }
+      ],
+      "feedback": {
+        "correct": "Right — a child under 8 who is 40 to 57 inches tall needs a booster seat so the belt fits safely.",
+        "beltonly": "The belt doesn't fit a small child right yet — they need a booster seat first. Try again.",
+        "nothing": "Every child needs to be secured. A small child this age needs a booster seat. Try again.",
+        "lap": "A lap is never safe in a crash. A small child needs a booster seat. Try again.",
+        "default": "A small child who doesn't fit the seat belt yet needs a booster seat. Try again."
+      }
     }
   ]
 }
