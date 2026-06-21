@@ -167,6 +167,28 @@
         "wait": "You can't rush it — one hour may not be enough, and the safe choice before driving is none. Try again.",
         "default": "The safe choice is no alcohol before driving. Try again."
       }
+    },
+    {
+      "id": "fact-under21-drink",
+      "concept": "Zero tolerance under 21",
+      "manualRef": "Alcohol and Driving",
+      "interaction": "choose-one",
+      "prompt": "You are 18 years old. You had one beer at a party. Can you legally drive home?",
+      "scene": { "template": "row", "items": [ { "type": "card", "text": "🍺", "decor": true, "caption": "You are 18" } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "no", "label": "No — under 21 means no alcohol at all before driving", "correct": true },
+        { "id": "onefine", "label": "Yes, just one drink is fine" },
+        { "id": "feelok", "label": "Yes, if you feel okay to drive" },
+        { "id": "wait", "label": "Yes, after waiting about 20 minutes" }
+      ],
+      "feedback": {
+        "correct": "Right — if you are under 21, even one drink is over the limit. The safe and legal choice is none.",
+        "onefine": "For drivers under 21, even one drink is too much. The limit is far lower than for adults. Try again.",
+        "feelok": "Alcohol fools you into feeling fine. Under 21, any amount is against the law. Try again.",
+        "wait": "Waiting 20 minutes won't clear it, and under 21 the limit is near zero. The answer is no. Try again.",
+        "default": "If you are under 21, any alcohol is too much to drive. Try again."
+      }
     }
   ]
 }

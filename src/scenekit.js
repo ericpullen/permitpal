@@ -411,6 +411,22 @@
       svg += '<rect x="0" y="0" width="400" height="58" fill="' + C.road + '"/>';
       svg += '<line x1="' + edgeL + '" y1="62" x2="' + edgeR + '" y2="62" stroke="#fff" stroke-width="6"/>';
     }
+    // weather & road-surface effects (drawn under arrows, signs, and cars)
+    if (scene.wet) {
+      svg += '<g fill="#dff1ff" opacity=".55">' +
+        '<ellipse cx="' + (roadX + 42) + '" cy="118" rx="30" ry="10"/>' +
+        '<ellipse cx="' + (roadX + roadW - 48) + '" cy="248" rx="34" ry="12"/>' +
+        '<ellipse cx="200" cy="332" rx="26" ry="9"/></g>';
+    }
+    if (scene.ice) {
+      svg += '<rect x="' + roadX + '" y="120" width="' + roadW + '" height="92" fill="#bfe6f2" opacity=".5"/>' +
+        '<path d="M' + (roadX + 16) + ' 150 q40 -16 80 0 t80 0" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/>';
+    }
+    if (scene.skid) {
+      svg += '<g fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" opacity=".4">' +
+        '<path d="M228 388 Q240 356 224 332 Q214 318 232 306"/>' +
+        '<path d="M244 388 Q256 356 240 332 Q230 318 248 306"/></g>';
+    }
     // direction-of-travel arrows painted in the through lanes. With a dedicated
     // left-turn lane (turnArrow:"left-lane"), the left lane shows only the turn
     // arrow, so suppress its straight arrow.
@@ -480,6 +496,12 @@
       svg += openG(c, c.roll ? ["roll"] : [], c.markId, c.label || "car") +
         car(cx, cy, { dir: c.dir || "up", color: c.color || (c.label === "YOU" ? C.you : C.other), label: c.label || "" }) + '</g>';
     });
+    // oncoming-headlight glare (night driving) — a soft bloom over the left lane
+    if (scene.glare) {
+      var gy = scene.glare.y || 118;
+      svg += '<g fill="#fff7cf"><circle cx="165" cy="' + gy + '" r="30" opacity=".35"/>' +
+        '<circle cx="157" cy="' + gy + '" r="15" opacity=".8"/><circle cx="173" cy="' + gy + '" r="15" opacity=".8"/></g>';
+    }
     return svg + "</svg>";
   }
 

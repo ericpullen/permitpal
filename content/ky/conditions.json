@@ -70,6 +70,116 @@
         "creep": "Don't move onto the tracks at all — stop and wait for the train. Try again.",
         "default": "Stop and wait for the train. Try again."
       }
+    },
+    {
+      "id": "cond-skid",
+      "concept": "Skid recovery",
+      "manualRef": "Adverse Conditions",
+      "interaction": "choose-one",
+      "prompt": "Your car starts to skid. What should you do?",
+      "scene": { "template": "road", "skid": true, "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "ease", "label": "Ease off the gas and steer where you want to go", "correct": true },
+        { "id": "brakehard", "label": "Brake hard and hold the wheel still" },
+        { "id": "faster", "label": "Speed up to drive out of it" },
+        { "id": "yank", "label": "Turn the wheel sharply the other way" }
+      ],
+      "feedback": {
+        "correct": "Yes — take your foot off the gas and gently steer where you want to go. Don't slam the brakes.",
+        "brakehard": "Braking hard can make the skid worse. Ease off the gas and steer where you want to go. Try again.",
+        "faster": "Speeding up makes a skid worse. Ease off the gas and steer where you want to go. Try again.",
+        "yank": "A sharp jerk can spin you. Gently steer where you want to go and ease off the gas. Try again.",
+        "default": "Ease off the gas and steer where you want to go. Try again."
+      }
+    },
+    {
+      "id": "cond-hydroplane",
+      "concept": "Hydroplaning",
+      "manualRef": "Adverse Conditions",
+      "interaction": "choose-one",
+      "prompt": "On a very wet road your tires start to ride up on the water and the steering feels light. What should you do?",
+      "scene": { "template": "road", "wet": true, "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "ease", "label": "Ease off the gas until the tires grip again", "correct": true },
+        { "id": "brake", "label": "Brake hard right away" },
+        { "id": "faster", "label": "Speed up to push through the water" },
+        { "id": "turn", "label": "Turn the wheel quickly side to side" }
+      ],
+      "feedback": {
+        "correct": "Yes — take your foot off the gas and hold the wheel steady until the tires touch the road again. Don't brake hard.",
+        "brake": "Hard braking while hydroplaning can make you skid. Ease off the gas instead. Try again.",
+        "faster": "Going faster keeps you up on the water. Ease off the gas. Try again.",
+        "turn": "Quick turns can spin you on the water. Hold the wheel steady and ease off the gas. Try again.",
+        "default": "Ease off the gas and hold the wheel steady. Try again."
+      }
+    },
+    {
+      "id": "cond-ice",
+      "concept": "Black ice",
+      "manualRef": "Adverse Conditions",
+      "interaction": "choose-one",
+      "prompt": "It is near freezing and the road looks shiny and wet. It may be icy. What should you do?",
+      "scene": { "template": "road", "ice": true, "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "slow", "label": "Slow down and avoid sudden braking or turning", "correct": true },
+        { "id": "same", "label": "Drive the same as on a dry day" },
+        { "id": "test", "label": "Brake hard to test how slick it is" },
+        { "id": "bright", "label": "Turn on your high beams" }
+      ],
+      "feedback": {
+        "correct": "Yes — slow down and make gentle moves. Ice can be invisible, and bridges freeze first.",
+        "same": "Ice is far more slippery than a wet road. Slow down and be gentle. Try again.",
+        "test": "Braking hard on ice makes you skid. Just slow down gently. Try again.",
+        "bright": "High beams don't help on ice. Slow down and make gentle moves. Try again.",
+        "default": "Slow down and avoid sudden braking or turning on ice. Try again."
+      }
+    },
+    {
+      "id": "cond-blowout",
+      "concept": "Tire blowout",
+      "manualRef": "Vehicle Emergencies",
+      "interaction": "choose-one",
+      "prompt": "A tire suddenly blows out and the car pulls to one side. What should you do?",
+      "scene": { "template": "road", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "hold", "label": "Hold the wheel firmly, ease off the gas, and slow down gently", "correct": true },
+        { "id": "brake", "label": "Slam on the brakes right away" },
+        { "id": "yank", "label": "Steer sharply onto the shoulder" },
+        { "id": "faster", "label": "Speed up to keep control" }
+      ],
+      "feedback": {
+        "correct": "Yes — grip the wheel, take your foot off the gas, and let the car slow before easing off the road.",
+        "brake": "Hard braking after a blowout can spin you. Ease off the gas and slow down gently. Try again.",
+        "yank": "A sharp turn can make you lose control. Hold the wheel steady and slow down gently. Try again.",
+        "faster": "Speeding up is dangerous with a blown tire. Ease off the gas and slow down gently. Try again.",
+        "default": "Hold the wheel firmly, ease off the gas, and slow down gently. Try again."
+      }
+    },
+    {
+      "id": "cond-night-glare",
+      "concept": "Headlight glare at night",
+      "manualRef": "Night Driving",
+      "interaction": "choose-one",
+      "prompt": "At night, a car coming toward you has bright high beams and it's hard to see. What should you do?",
+      "scene": { "template": "road", "arrows": "twoway", "glare": {}, "cars": [ { "lane": "left", "at": "top", "dir": "down", "color": "#7A8794", "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "edge", "label": "Look toward the right edge of your lane until they pass", "correct": true },
+        { "id": "stare", "label": "Look right at their headlights" },
+        { "id": "bright", "label": "Turn on your own high beams to get even" },
+        { "id": "close", "label": "Close your eyes for a second" }
+      ],
+      "feedback": {
+        "correct": "Yes — look toward the right edge of your lane so the bright lights don't blind you, and keep driving slowly.",
+        "stare": "Looking right at the lights blinds you. Look toward the right edge of your lane. Try again.",
+        "bright": "High beams back will blind you both. Look toward the right edge of your lane. Try again.",
+        "close": "Never close your eyes while driving. Look toward the right edge of your lane. Try again.",
+        "default": "Look toward the right edge of your lane until the car passes. Try again."
+      }
     }
   ]
 }

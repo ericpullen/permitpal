@@ -1,7 +1,7 @@
 /* sw.js — offline cache for Permit Pal.
  * Bump CACHE when you change files so users get the update.
  */
-var CACHE = "permitpal-v31";
+var CACHE = "permitpal-v32";
 var ASSETS = [
   "./",
   "index.html",
@@ -41,6 +41,7 @@ var ASSETS = [
   "content/ky/lane-use.json",
   "content/ky/sharing-road.json",
   "content/ky/conditions.json",
+  "content/ky/speed.json",
   "content/ky/parking.json",
   "content/ky/facts.json"
 ];

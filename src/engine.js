@@ -14,6 +14,7 @@
     { file: "lane-use", group: "rules" },
     { file: "sharing-road", group: "rules" },
     { file: "conditions", group: "rules" },
+    { file: "speed", group: "rules" },
     { file: "parking", group: "rules" },
     { file: "facts", group: "rules" }
   ];

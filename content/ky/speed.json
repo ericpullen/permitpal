@@ -1,0 +1,72 @@
+{
+  "module": "speed",
+  "title": "Speed",
+  "description": "How fast to drive — and why the posted number is only a maximum.",
+  "_note": "School-zone, residential, and interstate speed numbers vary by posting; verify any specific limit against the current Kentucky Driver Manual before adding number-specific questions.",
+  "scenarios": [
+    {
+      "id": "speed-basic",
+      "concept": "Speed limit is a maximum, not a target",
+      "manualRef": "Speed Limits",
+      "interaction": "choose-one",
+      "prompt": "The sign says 55, but it is raining hard and difficult to see. How fast should you drive?",
+      "scene": { "template": "row", "items": [ { "type": "sign", "name": "speedLimit", "arg": 55, "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "safe", "label": "Slower than 55 — only as fast as is safe", "correct": true },
+        { "id": "exact", "label": "Exactly 55, because that is the limit" },
+        { "id": "faster", "label": "Faster, to get out of the rain sooner" },
+        { "id": "stop", "label": "Stop in your lane until the rain ends" }
+      ],
+      "feedback": {
+        "correct": "Yes — the number is the most you may go in good conditions. In rain, snow, or fog you must slow down.",
+        "exact": "The limit is a maximum for good weather. In heavy rain you must go slower. Try again.",
+        "faster": "Never go faster than is safe — and never over the limit. Slow down in rain. Try again.",
+        "stop": "Don't stop in a travel lane. Slow down and keep moving carefully. Try again.",
+        "default": "Drive slower than the posted limit when the weather is bad. Try again."
+      }
+    },
+    {
+      "id": "speed-school",
+      "concept": "School zone speed",
+      "manualRef": "Speed Limits",
+      "interaction": "choose-one",
+      "prompt": "You are driving through a school zone and the yellow lights are flashing. What should you do?",
+      "scene": { "template": "row", "items": [ { "type": "sign", "name": "school", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "slow", "label": "Slow to the lower school-zone speed and watch for children", "correct": true },
+        { "id": "normal", "label": "Keep your normal speed" },
+        { "id": "fast", "label": "Speed up to clear the zone quickly" },
+        { "id": "honk", "label": "Honk so children move out of the way" }
+      ],
+      "feedback": {
+        "correct": "Yes — flashing lights mean slow to the posted school-zone speed and watch closely for kids.",
+        "normal": "Flashing lights mean a slower limit is in effect. Slow down. Try again.",
+        "fast": "Never speed up in a school zone. Slow down and watch for children. Try again.",
+        "honk": "Honking won't keep kids safe — slow to the school-zone speed. Try again.",
+        "default": "Slow to the posted school-zone speed when the lights flash. Try again."
+      }
+    },
+    {
+      "id": "speed-too-slow",
+      "concept": "Driving too slowly",
+      "manualRef": "Speed Limits",
+      "interaction": "choose-one",
+      "prompt": "Traffic around you is moving at the speed limit. Is it safe to drive much slower than everyone else?",
+      "scene": { "template": "road", "arrows": "up", "cars": [ { "lane": "left", "at": "top", "dir": "up", "color": "#5BA89A", "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "no", "label": "No — going much too slow can block traffic and cause crashes", "correct": true },
+        { "id": "yes", "label": "Yes, slower is always safer" },
+        { "id": "stop", "label": "It is fine to slow to a stop if you are unsure" }
+      ],
+      "feedback": {
+        "correct": "Right — driving far below the flow of traffic is dangerous. Keep up with traffic, up to the limit.",
+        "yes": "Too slow can be as dangerous as too fast — it makes others brake and swerve. Try again.",
+        "stop": "Never stop in a travel lane. Keep up with the flow of traffic. Try again.",
+        "default": "Going much slower than traffic is dangerous. Keep up with the flow, up to the limit. Try again."
+      }
+    }
+  ]
+}
