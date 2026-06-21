@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Permit Pal — Question Index (dev)</title>
+<style>
+  :root{ --ink:#213A4A; --soft:#52677A; --line:#dbe6e3; --green:#2E9E6B; --blue:#2F6FB0; --sky:#E6F1EE; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif;
+        color:var(--ink); background:var(--sky); line-height:1.4; }
+  .wrap{ max-width:760px; margin:0 auto; padding:24px 18px 60px; }
+  h1{ font-size:1.5rem; margin:0 0 4px; }
+  .lead{ color:var(--soft); margin:0 0 18px; font-size:.95rem; }
+  .lead code{ background:#fff; border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  .filter{ width:100%; font:inherit; padding:12px 14px; border:1px solid var(--line);
+           border-radius:12px; margin-bottom:8px; }
+  .count{ color:var(--soft); font-size:.85rem; margin:0 2px 16px; }
+  .module{ margin-bottom:22px; }
+  .module h2{ font-size:1.05rem; margin:0 0 8px; padding-bottom:6px; border-bottom:2px solid var(--line); }
+  .module h2 .n{ color:var(--soft); font-weight:600; font-size:.85rem; }
+  .q{ display:block; text-decoration:none; color:inherit; background:#fff;
+      border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:8px; }
+  .q:hover{ border-color:var(--blue); }
+  .q .prompt{ font-weight:700; }
+  .q .meta{ color:var(--soft); font-size:.8rem; margin-top:3px; }
+  .q .meta .id{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--blue); }
+  .tag{ display:inline-block; font-size:.72rem; font-weight:700; text-transform:uppercase;
+        letter-spacing:.04em; padding:1px 7px; border-radius:999px; background:#eef4f2; color:var(--soft); }
+  .err{ background:#fdeee3; color:#9a5a2c; padding:14px; border-radius:12px; }
+  .hidden{ display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Question Index <span class="tag">dev</span></h1>
+  <p class="lead">Every scenario, by lesson. Click one to open it in the app via <code>#q=&lt;id&gt;</code>. Not linked from the app.</p>
+  <input id="filter" class="filter" type="search" placeholder="Filter by word, id, or lesson…" autocomplete="off">
+  <p id="count" class="count"></p>
+  <div id="list"></div>
+</div>
+<script>
+// Mirror of MODULES in src/engine.js (file order + titles come from the JSON).
+var MODULES = ["signs","signals","markings","right-of-way","lane-use","sharing-road","conditions","parking","facts"];
+var BASE = "content/ky/";
+
+Promise.all(MODULES.map(function(f){
+  return fetch(BASE+f+".json").then(function(r){
+    if(!r.ok) throw new Error("HTTP "+r.status+" for "+f);
+    return r.json();
+  });
+})).then(render).catch(function(e){
+  document.getElementById("list").innerHTML =
+    '<p class="err">Could not load lessons — serve over HTTP (npm start), not file://.<br>'+e+'</p>';
+});
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+function render(mods){
+  var total=0, html="";
+  mods.forEach(function(mod){
+    var scns = mod.scenarios||[];
+    total += scns.length;
+    html += '<div class="module" data-mod="'+esc((mod.title||"")+" "+(mod.module||""))+'">';
+    html += '<h2>'+esc(mod.title||mod.module)+' <span class="n">'+scns.length+'</span></h2>';
+    scns.forEach(function(s){
+      var hay = ((s.prompt||"")+" "+(s.concept||"")+" "+s.id+" "+(mod.title||"")).toLowerCase();
+      html += '<a class="q" href="index.html#q='+encodeURIComponent(s.id)+'" target="_blank" rel="noopener" data-hay="'+esc(hay)+'">'
+        +   '<div class="prompt">'+esc(s.prompt||s.concept||s.id)+'</div>'
+        +   '<div class="meta"><span class="id">#q='+esc(s.id)+'</span> · '+esc(s.interaction||"")
+        +     (s.concept ? ' · '+esc(s.concept) : '')+'</div>'
+        + '</a>';
+    });
+    html += '</div>';
+  });
+  document.getElementById("list").innerHTML = html;
+  document.getElementById("count").textContent = total + " questions across " + mods.length + " lessons";
+  wireFilter();
+}
+
+function wireFilter(){
+  var box = document.getElementById("filter");
+  box.addEventListener("input", function(){
+    var q = box.value.trim().toLowerCase();
+    document.querySelectorAll(".module").forEach(function(m){
+      var any = false;
+      m.querySelectorAll(".q").forEach(function(a){
+        var hit = !q || a.getAttribute("data-hay").indexOf(q) >= 0
+                  || m.getAttribute("data-mod").toLowerCase().indexOf(q) >= 0;
+        a.classList.toggle("hidden", !hit);
+        if(hit) any = true;
+      });
+      m.classList.toggle("hidden", !any);
+    });
+  });
+}
+</script>
+</body>
+</html>
