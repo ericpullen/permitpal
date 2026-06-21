@@ -47,6 +47,28 @@
       }
     },
     {
+      "id": "lane-blind-spot",
+      "concept": "Checking your blind spot",
+      "manualRef": "Changing Lanes",
+      "interaction": "choose-one",
+      "prompt": "A car is in your blind spot — the area beside you that your mirrors can't show. Before you change lanes, what should you do?",
+      "scene": { "template": "road", "divider": "white", "arrows": "up", "cars": [ { "id": "other", "lane": "left", "at": "mid", "dir": "up", "color": "#E0883E", "decor": true }, { "id": "you", "lane": "right", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "shoulder", "label": "Look over your shoulder to check", "correct": true },
+        { "id": "mirrors", "label": "Just glance at your mirrors" },
+        { "id": "honk", "label": "Honk and move over" },
+        { "id": "speed", "label": "Speed up so no one is beside you" }
+      ],
+      "feedback": {
+        "correct": "Yes — your mirrors can't show the spot right beside you. Always look over your shoulder before you change lanes.",
+        "mirrors": "Mirrors miss the blind spot beside you. Look over your shoulder too. Try again.",
+        "honk": "Honking doesn't make it safe — check your blind spot by looking over your shoulder first. Try again.",
+        "speed": "Speeding up is risky. Look over your shoulder to check your blind spot. Try again.",
+        "default": "Look over your shoulder to check your blind spot. Try again."
+      }
+    },
+    {
       "id": "lane-roundabout-direction",
       "concept": "Roundabout direction",
       "manualRef": "Roundabouts",
