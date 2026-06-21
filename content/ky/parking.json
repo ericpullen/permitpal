@@ -23,6 +23,25 @@
       }
     },
     {
+      "id": "park-uphill",
+      "concept": "Parking facing uphill",
+      "manualRef": "Parking",
+      "interaction": "choose-one",
+      "prompt": "You park facing uphill next to a curb. Which way do you turn your front wheels?",
+      "scene": { "template": "road", "cars": [ { "lane": "right", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choices": [
+        { "id": "out", "label": "Away from the curb", "correct": true },
+        { "id": "in", "label": "Toward the curb" },
+        { "id": "straight", "label": "Keep them straight" }
+      ],
+      "feedback": {
+        "correct": "Yes — facing uphill, turn your wheels away from the curb. If the car rolls back, it rolls into the curb and stops.",
+        "in": "That's the downhill rule. Facing uphill, turn away from the curb so it rolls back into the curb. Try again.",
+        "straight": "Turn your wheels away from the curb when facing uphill. Try again.",
+        "default": "Facing uphill, turn your wheels away from the curb. Try again."
+      }
+    },
+    {
       "id": "park-no-parking",
       "concept": "Where you can't park",
       "manualRef": "Parking",

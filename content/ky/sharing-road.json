@@ -135,6 +135,28 @@
         "honk": "Honking doesn't help — slow down and watch for workers. Try again.",
         "default": "Slow down and watch for workers. Try again."
       }
+    },
+    {
+      "id": "share-motorcycle",
+      "concept": "Sharing a lane with a motorcycle",
+      "manualRef": "Sharing the Road",
+      "interaction": "choose-one",
+      "prompt": "There is a motorcycle in the lane ahead of you. What should you do?",
+      "scene": { "template": "road", "arrows": "up", "cars": [ { "moto": true, "lane": "right", "at": "top", "dir": "up", "color": "#7A4DB0", "decor": true }, { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "fulllane", "label": "Give it the whole lane and keep back a safe distance", "correct": true },
+        { "id": "share", "label": "Pull up beside it and share the lane" },
+        { "id": "tailgate", "label": "Follow close so you can pass it" },
+        { "id": "honk", "label": "Honk so it speeds up" }
+      ],
+      "feedback": {
+        "correct": "Yes — a motorcycle has the right to a full lane. Never share its lane, and keep extra following distance.",
+        "share": "Never share a lane with a motorcycle — it needs the whole lane. Stay back. Try again.",
+        "tailgate": "Following close is dangerous; motorcycles can stop quickly. Give a full lane and stay back. Try again.",
+        "honk": "Honking can startle a rider. Give the motorcycle a full lane and stay back. Try again.",
+        "default": "Give a motorcycle a full lane and keep extra distance. Try again."
+      }
     }
   ]
 }

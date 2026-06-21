@@ -88,6 +88,23 @@
       '</g>';
   }
 
+  // Top-down motorcycle: two wheels, a body, handlebars, and a helmeted rider.
+  function motorcycle(cx, cy, opts) {
+    opts = opts || {};
+    var color = opts.color || C.other;
+    var dir = opts.dir || "up";
+    var rot = { up: 0, down: 180, left: 90, right: -90 }[dir] || 0;
+    return '<g transform="translate(' + cx + ',' + cy + ') rotate(' + rot + ')">' +
+      '<rect x="-3" y="-28" width="6" height="18" rx="3" fill="#2b2b2b"/>' +   // front wheel
+      '<rect x="-3" y="12" width="6" height="18" rx="3" fill="#2b2b2b"/>' +    // rear wheel
+      '<rect x="-8" y="-14" width="16" height="30" rx="7" fill="' + color + '"/>' +  // body
+      '<line x1="-10" y1="-13" x2="10" y2="-13" stroke="#6b7177" stroke-width="3" stroke-linecap="round"/>' +  // handlebars
+      '<rect x="-7" y="-30" width="14" height="4" rx="2" fill="#fff6c8"/>' +   // headlight
+      '<circle cx="0" cy="3" r="8" fill="#33414d"/>' +                          // rider torso
+      '<circle cx="0" cy="-6" r="6" fill="#f2d2b6"/>' +                         // helmet
+      '</g>';
+  }
+
   // Side-view fire hydrant (sits on the grass shoulder).
   function hydrant(cx, cy) {
     return '<g transform="translate(' + cx + ',' + cy + ')">' +
@@ -183,7 +200,27 @@
     merge: function (s) { return officialSign("merge.svg", s); },
     school: function (s) { return officialSign("school.svg", s); },
     railroad: function (s) { return officialSign("railroad.svg", s); },
-    workZone: function (s) { return officialSign("work-zone.svg", s); }
+    workZone: function (s) { return officialSign("work-zone.svg", s); },
+    // Drawn in-house (like speedLimit) — faithful to MUTCD color + shape, legible small.
+    // Green guide sign: directions and distances (white legend + an up arrow).
+    guideSign: function (s) {
+      return '<rect x="' + (-s * 1.05) + '" y="' + (-s * 0.78) + '" width="' + (s * 2.1) + '" height="' + (s * 1.56) + '" rx="6" fill="#16793a" stroke="#fff" stroke-width="' + (s * 0.07) + '"/>' +
+        '<rect x="' + (-s * 0.82) + '" y="' + (-s * 0.34) + '" width="' + (s * 0.92) + '" height="' + (s * 0.18) + '" rx="2" fill="#fff"/>' +
+        '<rect x="' + (-s * 0.82) + '" y="' + (s * 0.04) + '" width="' + (s * 0.62) + '" height="' + (s * 0.18) + '" rx="2" fill="#fff"/>' +
+        '<path d="M' + (s * 0.62) + ' ' + (s * 0.42) + ' V' + (-s * 0.42) + ' M' + (s * 0.44) + ' ' + (-s * 0.16) + ' L' + (s * 0.62) + ' ' + (-s * 0.42) + ' L' + (s * 0.8) + ' ' + (-s * 0.16) + '" stroke="#fff" stroke-width="' + (s * 0.12) + '" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+    },
+    // Blue services sign: a white "H" (hospital) — the classic motorist-services symbol.
+    serviceSign: function (s) {
+      return '<rect x="' + (-s * 0.82) + '" y="' + (-s * 0.82) + '" width="' + (s * 1.64) + '" height="' + (s * 1.64) + '" rx="' + (s * 0.12) + '" fill="#0b5394" stroke="#fff" stroke-width="' + (s * 0.07) + '"/>' +
+        '<text x="0" y="' + (s * 0.5) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 1.3) + '" fill="#fff">H</text>';
+    },
+    // No Passing Zone pennant (MUTCD W14-3): a yellow isosceles triangle pointing right.
+    pennant: function (s) {
+      return '<polygon points="' + (-s) + ',' + (-s * 0.82) + ' ' + (-s) + ',' + (s * 0.82) + ' ' + s + ',0" fill="' + C.line + '" stroke="#222" stroke-width="' + (s * 0.08) + '" stroke-linejoin="round"/>' +
+        '<text x="' + (-s * 0.55) + '" y="' + (-s * 0.12) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 0.2) + '" fill="#222">NO</text>' +
+        '<text x="' + (-s * 0.42) + '" y="' + (s * 0.12) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 0.2) + '" fill="#222">PASSING</text>' +
+        '<text x="' + (-s * 0.26) + '" y="' + (s * 0.36) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="' + (s * 0.2) + '" fill="#222">ZONE</text>';
+    }
   };
 
   function sign(name, s, arg) {
@@ -298,7 +335,8 @@
     stop: "stop sign", yield: "yield sign", doNotEnter: "do not enter sign", oneWay: "one way sign",
     speedLimit: "speed limit sign", noUTurn: "no U-turn sign", noLeftTurn: "no left turn sign",
     pedestrianXing: "pedestrian crossing sign", curve: "curve sign", merge: "merge sign",
-    school: "school sign", railroad: "railroad crossing sign", workZone: "work zone sign"
+    school: "school sign", railroad: "railroad crossing sign", workZone: "work zone sign",
+    guideSign: "green guide sign", serviceSign: "blue services sign", pennant: "no passing zone sign"
   };
   var SIGNAL_LABEL = {
     red: "red light", yellow: "yellow light", green: "green light", greenArrowLeft: "green left arrow",
@@ -490,6 +528,10 @@
       }
       if (c.truck) {
         svg += openG(c, c.roll ? ["roll"] : [], c.markId, "big truck") + truck(LANE[c.lane || "right"], cy, { dir: c.dir || "up", color: c.color }) + '</g>';
+        return;
+      }
+      if (c.moto) {
+        svg += openG(c, c.roll ? ["roll"] : [], c.markId, "motorcycle") + motorcycle(LANE[c.lane || "right"], cy, { dir: c.dir || "up", color: c.color }) + '</g>';
         return;
       }
       var cx = LANE[c.lane || "right"];

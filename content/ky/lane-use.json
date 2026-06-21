@@ -198,6 +198,28 @@
         "clockwise": "In the US you go counter-clockwise, not clockwise. Try again.",
         "default": "Go around to the right, counter-clockwise. Try again."
       }
+    },
+    {
+      "id": "lane-merge-highway",
+      "concept": "Merging onto a highway",
+      "manualRef": "Expressway Driving",
+      "interaction": "choose-one",
+      "prompt": "You are on the on-ramp entering a highway. How should you merge?",
+      "scene": { "template": "merge", "cars": [ { "role": "main", "decor": true }, { "role": "you", "decor": true } ] },
+      "choiceShow": 3,
+      "choices": [
+        { "id": "match", "label": "Speed up to match traffic, then merge into an open gap", "correct": true },
+        { "id": "stop", "label": "Stop at the end of the ramp and wait for a gap" },
+        { "id": "slow", "label": "Merge slowly and let cars work around you" },
+        { "id": "force", "label": "Merge right away and make others brake" }
+      ],
+      "feedback": {
+        "correct": "Yes — use the on-ramp to speed up to traffic speed, then merge into an open gap.",
+        "stop": "Don't stop on the ramp unless you have to — you need speed to merge. Speed up and find a gap. Try again.",
+        "slow": "Merging too slowly is dangerous. Speed up to match traffic and pick a gap. Try again.",
+        "force": "Don't force others to brake. Match their speed and merge into a gap. Try again.",
+        "default": "Speed up to match traffic, then merge into an open gap. Try again."
+      }
     }
   ]
 }

@@ -81,7 +81,7 @@ Two to four items side by side — perfect for "tap the right one" sign/signal/l
 ] }
 ```
 Item `type`:
-- `sign` — `name` is one of: `stop, yield, doNotEnter, oneWay (arg "left"/"right"), speedLimit (arg number), noUTurn, noLeftTurn, warning, pedestrianXing, curve, merge, school, railroad, workZone`.
+- `sign` — `name` is one of: `stop, yield, doNotEnter, oneWay (arg "left"/"right"), speedLimit (arg number), noUTurn, noLeftTurn, pedestrianXing, curve, merge, school, railroad, workZone, guideSign (green directions), serviceSign (blue services), pennant (no-passing zone)`.
 - `signal` — `state`: `red, yellow, green, greenArrowLeft, redArrowLeft, flashRed, flashYellow`.
 - `pedSignal` — `state`: `walk, dontwalk, count`.
 - `miniRoad` — `line: {color:"yellow"|"white", pattern:"solid"|"dashed"|"double"}` and optional `cars:[{lane,dir,color}]`.

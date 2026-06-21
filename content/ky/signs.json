@@ -55,7 +55,7 @@
       "manualRef": "Traffic Signs",
       "interaction": "choose-one",
       "prompt": "Warning signs are yellow diamonds. Tap the warning sign.",
-      "scene": { "template": "row", "pool": "signs", "show": 3, "exclude": ["merge", "pedestrianXing", "workZone"], "items": [
+      "scene": { "template": "row", "pool": "signs", "show": 3, "exclude": ["merge", "pedestrianXing", "workZone", "pennant"], "items": [
         { "id": "b", "type": "sign", "name": "curve", "correct": true }
       ] },
       "feedback": {
@@ -151,6 +151,51 @@
       "feedback": {
         "correct": "Yes — the white sign with a number is the speed limit. Don't drive faster than that.",
         "default": "The speed limit is the white rectangle with a number. Try again."
+      },
+      "hint": "a"
+    },
+    {
+      "id": "sign-guide",
+      "concept": "Guide signs are green",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Green signs give directions and distances. Tap the green guide sign.",
+      "scene": { "template": "row", "pool": "signs", "show": 3, "items": [
+        { "id": "a", "type": "sign", "name": "guideSign", "correct": true }
+      ] },
+      "feedback": {
+        "correct": "Yes — green signs guide you. They show directions, exits, and how far away places are.",
+        "default": "Guide signs are green and show directions or distances. Try again."
+      },
+      "hint": "a"
+    },
+    {
+      "id": "sign-service",
+      "concept": "Service signs are blue",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Blue signs point to services like hospitals, gas, and food. Tap the blue service sign.",
+      "scene": { "template": "row", "pool": "signs", "show": 3, "items": [
+        { "id": "a", "type": "sign", "name": "serviceSign", "correct": true }
+      ] },
+      "feedback": {
+        "correct": "Yes — blue signs show services for drivers, like hospitals, gas, food, and rest areas.",
+        "default": "Service signs are blue. Try again."
+      },
+      "hint": "a"
+    },
+    {
+      "id": "sign-no-passing",
+      "concept": "No passing zone pennant",
+      "manualRef": "Traffic Signs",
+      "interaction": "choose-one",
+      "prompt": "Tap the sign that means NO PASSING ZONE.",
+      "scene": { "template": "row", "pool": "signs", "show": 3, "items": [
+        { "id": "a", "type": "sign", "name": "pennant", "correct": true }
+      ] },
+      "feedback": {
+        "correct": "Yes — the yellow three-sided sign that points right means no passing zone. Don't pass other cars here.",
+        "default": "The no-passing sign is a yellow pennant — a sideways triangle on the left side of the road. Try again."
       },
       "hint": "a"
     }

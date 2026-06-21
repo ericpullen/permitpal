@@ -343,7 +343,7 @@
   function cloneScene(scene, items) { var o = {}; for (var k in scene) if (scene.hasOwnProperty(k)) o[k] = scene[k]; o.items = items; return o; }
 
   // Signs the engine can drop in as distractors for "tap the sign" questions.
-  var SIGN_DISTRACTORS = ["stop", "yield", "doNotEnter", "oneWay", "speedLimit", "noUTurn", "noLeftTurn", "pedestrianXing", "curve", "merge", "school", "railroad", "workZone"];
+  var SIGN_DISTRACTORS = ["stop", "yield", "doNotEnter", "oneWay", "speedLimit", "noUTurn", "noLeftTurn", "pedestrianXing", "curve", "merge", "school", "railroad", "workZone", "guideSign", "serviceSign", "pennant"];
   function signItem(name, i) {
     var it = { type: "sign", name: name, id: "d" + i, key: name };
     if (name === "speedLimit") it.arg = [25, 35, 45, 55, 65][Math.floor(Math.random() * 5)];
