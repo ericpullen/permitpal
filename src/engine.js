@@ -129,13 +129,16 @@
     // prompt
     var p = $("prompt"); if (p) p.textContent = sc.prompt || "";
 
-    // scene — for "tap the sign" rows, shuffle the items so the correct
+    // scene — "tap the sign" rows (pool:"signs") pull a fresh random set of
+    // distractor signs each render; row items are then shuffled so the correct
     // answer's position can't be memorized. Spatial scenes (intersections,
     // roads) keep their real layout, where position carries meaning.
     var stage = $("scene");
     var scene = sc.scene;
-    if (scene && scene.items && scene.items.length > 1) {
-      scene = cloneScene(scene, shuffle(scene.items.slice()));
+    if (scene && scene.items) {
+      var items = scene.pool === "signs" ? buildSignItems(scene) : scene.items.slice();
+      if (items.length > 1) items = shuffle(items);
+      scene = cloneScene(scene, items);
     }
     if (stage) stage.innerHTML = root.SceneKit ? root.SceneKit.render(scene) : "";
 
@@ -321,6 +324,31 @@
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   // shallow copy of a scene with a new items array (so we never mutate the source scenario)
   function cloneScene(scene, items) { var o = {}; for (var k in scene) if (scene.hasOwnProperty(k)) o[k] = scene[k]; o.items = items; return o; }
+
+  // Signs the engine can drop in as distractors for "tap the sign" questions.
+  var SIGN_DISTRACTORS = ["stop", "yield", "doNotEnter", "oneWay", "speedLimit", "noUTurn", "noLeftTurn", "pedestrianXing", "curve", "merge", "school", "railroad", "workZone"];
+  function signItem(name, i) {
+    var it = { type: "sign", name: name, id: "d" + i, key: name };
+    if (name === "speedLimit") it.arg = [25, 35, 45, 55, 65][Math.floor(Math.random() * 5)];
+    else if (name === "oneWay") it.arg = Math.random() < 0.5 ? "left" : "right";
+    return it;
+  }
+  // Build a sign-recognition item set: the authored correct sign plus a fresh
+  // random pick of safe distractor signs. scene.exclude drops look-alikes so a
+  // category question (e.g. "tap the warning sign") can't get two valid answers.
+  function buildSignItems(scene) {
+    var correct = null, i;
+    for (i = 0; i < scene.items.length; i++) if (scene.items[i].correct) { correct = scene.items[i]; break; }
+    if (!correct) return scene.items.slice();
+    var show = scene.show || 3, exclude = scene.exclude || [];
+    var cands = SIGN_DISTRACTORS.filter(function (name) {
+      return name !== correct.name && exclude.indexOf(name) < 0;
+    });
+    shuffle(cands);
+    var out = [correct];
+    for (i = 0; i < cands.length && out.length < show; i++) out.push(signItem(cands[i], i));
+    return out;
+  }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function cssEsc(s) { return String(s).replace(/"/g, '\\"'); }
 

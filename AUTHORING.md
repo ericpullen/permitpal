@@ -89,6 +89,16 @@ Item `type`:
 
 Mark any item `"decor": true` to show it without making it tappable (use this when the answer is in `choices`).
 
+**Auto-pooled sign questions.** For "tap the sign" questions, set `"pool": "signs"` on the scene and list **only the correct sign** in `items`. The engine then shows that sign plus a fresh random pick of other signs each time (so the answer set and its position both vary). Control it with:
+- `"show"` — how many signs to display (default 3).
+- `"exclude"` — sign names to keep out, so a category question never gets two valid answers (e.g. the "tap the warning sign" question excludes the other yellow diamonds `merge`, `pedestrianXing`, `workZone`).
+
+```json
+{ "template":"row", "pool":"signs", "show":3, "exclude":["merge","pedestrianXing","workZone"],
+  "items":[ {"id":"b","type":"sign","name":"curve","correct":true} ] }
+```
+Wrong taps fall back to `feedback.default`, so write a `default` that describes the *correct* sign. The correct item's `id` is still what `hint` points to.
+
 ## Answer buttons (`choices`)
 
 For "what should you do?" questions, add big tappable buttons under the scene:
