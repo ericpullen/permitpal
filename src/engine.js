@@ -168,17 +168,21 @@
 
   function bindTargets(sc) {
     var stage = $("scene"), ch = $("choices");
-    var handler = function (e) {
-      if (answered) return;
-      var el = e.target.closest(".tap, .tap-btn");
-      if (!el) return;
-      var correct = el.getAttribute("data-correct") === "1";
-      var key = el.getAttribute("data-key");
-      var id = el.getAttribute("data-id");
-      evaluate(sc, correct, key, id, el);
+    var activate = function (el) {
+      if (answered || !el) return;
+      evaluate(sc, el.getAttribute("data-correct") === "1", el.getAttribute("data-key"), el.getAttribute("data-id"), el);
     };
-    if (stage) stage.onclick = handler;
-    if (ch) ch.onclick = handler;
+    var click = function (e) { activate(e.target.closest(".tap, .tap-btn")); };
+    // Keyboard support for the SVG scene targets (the <button> choices handle keys natively).
+    var keydown = function (e) {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      var el = e.target.closest(".tap");
+      if (!el) return;
+      e.preventDefault();
+      activate(el);
+    };
+    if (stage) { stage.onclick = click; stage.onkeydown = keydown; }
+    if (ch) ch.onclick = click;
   }
 
   function evaluate(sc, correct, key, id, el) {

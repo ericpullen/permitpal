@@ -80,9 +80,9 @@
       "scene": {
         "template": "road", "crosswalk": true, "marker": [235, 150],
         "zones": [
-          { "id": "before", "rect": [200, 148, 70, 182], "correct": true },
-          { "id": "onwalk", "rect": [200, 80, 70, 58], "key": "onwalk" },
-          { "id": "past", "rect": [200, 0, 70, 80], "key": "past" }
+          { "id": "before", "rect": [200, 148, 70, 182], "correct": true, "aria": "at the white line, before the crosswalk" },
+          { "id": "onwalk", "rect": [200, 80, 70, 58], "key": "onwalk", "aria": "on the crosswalk" },
+          { "id": "past", "rect": [200, 0, 70, 80], "key": "past", "aria": "past the crosswalk, in the intersection" }
         ],
         "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ]
       },

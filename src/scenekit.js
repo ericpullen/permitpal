@@ -188,13 +188,35 @@
     if (a.key) s += ' data-key="' + esc(a.key) + '"';
     return s;
   }
-  // open a <g> with a combined class list + data attrs (+ optional id)
-  function openG(a, extraClasses, domId) {
+  // open a <g> with a combined class list + data attrs (+ optional id + aria label).
+  // Tappable groups are keyboard-focusable buttons (the engine handles Enter/Space).
+  function openG(a, extraClasses, domId, aria) {
     if (a && a.decor) return "<g" + (domId ? ' id="' + domId + '"' : "") + ">";
     var cls = ["tap"].concat(extraClasses || []).join(" ");
-    return '<g class="' + cls + '"' + dataAttrs(a) + (domId ? ' id="' + domId + '"' : "") + ">";
+    var lbl = aria ? ' aria-label="' + esc(aria) + '"' : "";
+    return '<g class="' + cls + '" tabindex="0" role="button"' + lbl + dataAttrs(a) + (domId ? ' id="' + domId + '"' : "") + ">";
   }
-  function wrapTap(a, inner) { return openG(a, []) + inner + "</g>"; }
+  function wrapTap(a, inner, aria) { return openG(a, [], null, aria) + inner + "</g>"; }
+
+  // Spoken labels for screen-reader users.
+  var SIGN_LABEL = {
+    stop: "stop sign", yield: "yield sign", doNotEnter: "do not enter sign", oneWay: "one way sign",
+    speedLimit: "speed limit sign", noUTurn: "no U-turn sign", noLeftTurn: "no left turn sign",
+    pedestrianXing: "pedestrian crossing sign", curve: "curve sign", merge: "merge sign",
+    school: "school sign", railroad: "railroad crossing sign", workZone: "work zone sign"
+  };
+  var SIGNAL_LABEL = {
+    red: "red light", yellow: "yellow light", green: "green light", greenArrowLeft: "green left arrow",
+    redArrowLeft: "red left arrow", flashRed: "flashing red light", flashYellow: "flashing yellow light"
+  };
+  function rowAria(it) {
+    if (it.type === "sign") return SIGN_LABEL[it.name] || "sign";
+    if (it.type === "signal") return SIGNAL_LABEL[it.state] || "traffic light";
+    if (it.type === "pedSignal") return it.state === "walk" ? "walk signal" : "don't walk signal";
+    if (it.type === "miniRoad") return it.caption || "road";
+    if (it.type === "card") return it.text || "option";
+    return "option";
+  }
 
   /* =========================================================
    * TEMPLATES — each takes the scenario `scene` object and
@@ -239,12 +261,13 @@
     // pedestrian (optional)
     if (scene.ped) {
       var pp = { north: [200, 70], south: [200, 330], east: [330, 200], west: [70, 200] }[scene.ped.at || "north"];
-      svg += wrapTap(scene.ped, pedestrian(pp[0], pp[1], "#34495E"));
+      svg += wrapTap(scene.ped, pedestrian(pp[0], pp[1], "#34495E"), "person crossing");
     }
     // cars
     (scene.cars || []).forEach(function (c) {
       var pos = CROSS_POS[c.from] || CROSS_POS.south;
-      svg += wrapTap(c, car(pos.cx, pos.cy, { dir: c.dir || pos.dir, color: c.color || (c.label === "YOU" ? C.you : C.other), label: c.label || "" }));
+      var aria = (c.label ? c.label + ", " : "") + "car coming from the " + c.from;
+      svg += wrapTap(c, car(pos.cx, pos.cy, { dir: c.dir || pos.dir, color: c.color || (c.label === "YOU" ? C.you : C.other), label: c.label || "" }), aria);
     });
     return svg + "</svg>";
   }
@@ -266,7 +289,7 @@
     // zones (tap-zone)
     (scene.zones || []).forEach(function (z) {
       var r = z.rect;
-      svg += '<rect class="tap"' + dataAttrs(z) + ' x="' + r[0] + '" y="' + r[1] + '" width="' + r[2] + '" height="' + r[3] + '" fill="transparent"/>';
+      svg += '<rect class="tap" tabindex="0" role="button" aria-label="' + esc(z.aria || "spot on the road") + '"' + dataAttrs(z) + ' x="' + r[0] + '" y="' + r[1] + '" width="' + r[2] + '" height="' + r[3] + '" fill="transparent"/>';
     });
     // result marker placeholder for tap-zone (engine reveals)
     if (scene.marker) {
@@ -287,21 +310,21 @@
     // pedestrian (beside road, or on the crosswalk)
     if (scene.ped) {
       if (scene.ped.onCrosswalk) {
-        svg += wrapTap(scene.ped, pedestrian(205, 105, "#34495E"));
+        svg += wrapTap(scene.ped, pedestrian(205, 105, "#34495E"), "person in the crosswalk");
       } else {
         var px = scene.ped.side === "right" ? 285 : 115;
-        svg += wrapTap(scene.ped, pedestrian(px, scene.ped.y || 110, "#34495E"));
+        svg += wrapTap(scene.ped, pedestrian(px, scene.ped.y || 110, "#34495E"), "person near the road");
       }
     }
     // cars (or a bicycle, when c.bike is set — cyclists ride near the right curb)
     (scene.cars || []).forEach(function (c) {
       var cy = AT[c.at || "bottom"];
       if (c.bike) {
-        svg += openG(c, [], c.markId) + bicycle(252, cy, { dir: c.dir || "up", color: c.color || "#2F6FB0" }) + '</g>';
+        svg += openG(c, [], c.markId, "bicycle") + bicycle(252, cy, { dir: c.dir || "up", color: c.color || "#2F6FB0" }) + '</g>';
         return;
       }
       var cx = LANE[c.lane || "right"];
-      svg += openG(c, c.roll ? ["roll"] : [], c.markId) +
+      svg += openG(c, c.roll ? ["roll"] : [], c.markId, c.label || "car") +
         car(cx, cy, { dir: c.dir || "up", color: c.color || (c.label === "YOU" ? C.you : C.other), label: c.label || "" }) + '</g>';
     });
     return svg + "</svg>";
@@ -315,8 +338,8 @@
     svg += '<line x1="250" y1="205" x2="400" y2="205" stroke="' + C.line + '" stroke-width="5" stroke-dasharray="20 16"/>';
     svg += '<g transform="translate(272,300)">' + yieldSign(0, 0, 24) + '</g>';
     (scene.cars || []).forEach(function (c) {
-      if (c.role === "main") svg += openG(c, ["roll"], "carMain") + car(62, 205, { dir: "right", color: c.color || C.other }) + "</g>";
-      else svg += openG(c, []) + car(200, 335, { dir: "up", color: C.you, label: "YOU" }) + "</g>";
+      if (c.role === "main") svg += openG(c, ["roll"], "carMain", "the car already on the road") + car(62, 205, { dir: "right", color: c.color || C.other }) + "</g>";
+      else svg += openG(c, [], null, "your car") + car(200, 335, { dir: "up", color: C.you, label: "YOU" }) + "</g>";
     });
     return svg + "</svg>";
   }
@@ -341,8 +364,8 @@
     svg += '<g transform="translate(250,330)">' + yieldSign(0, 0, 20) + '</g>';
     (scene.cars || []).forEach(function (c) {
       // circulating car sits on the left of the ring, heading down (counter-clockwise) toward the entry
-      if (c.role === "circulating") svg += openG(c, ["roll"], "carCirc") + car(110, 205, { dir: "down", color: c.color || C.other }) + "</g>";
-      else svg += openG(c, []) + car(200, 355, { dir: "up", color: C.you, label: "YOU" }) + "</g>";
+      if (c.role === "circulating") svg += openG(c, ["roll"], "carCirc", "a car already in the roundabout") + car(110, 205, { dir: "down", color: c.color || C.other }) + "</g>";
+      else svg += openG(c, [], null, "your car") + car(200, 355, { dir: "up", color: C.you, label: "YOU" }) + "</g>";
     });
     return svg + "</svg>";
   }
@@ -381,7 +404,7 @@
       else if (it.type === "card") inner = '<rect x="-55" y="-60" width="110" height="120" rx="14" fill="#fff" stroke="#dbe6e3" stroke-width="2"/><text x="0" y="6" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="44">' + esc(it.text || "?") + '</text>';
       else inner = "";
       var g = '<g transform="translate(' + cx + ',' + cy + ')">' + inner + '</g>';
-      svg += wrapTap(it, g);
+      svg += wrapTap(it, g, rowAria(it));
       if (it.caption) svg += '<text x="' + cx + '" y="' + (vb - 22) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="700" font-size="17" fill="' + C.inkSoft + '">' + esc(it.caption) + '</text>';
     });
     return svg + "</svg>";
