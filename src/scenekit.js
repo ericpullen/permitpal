@@ -65,6 +65,25 @@
       '</g>';
   }
 
+  // Side-view fire hydrant (sits on the grass shoulder).
+  function hydrant(cx, cy) {
+    return '<g transform="translate(' + cx + ',' + cy + ')">' +
+      '<rect x="-13" y="16" width="26" height="6" rx="2" fill="#9b1c1c"/>' +
+      '<rect x="-10" y="-8" width="20" height="26" rx="6" fill="#e23b3b"/>' +
+      '<path d="M-10 -6 a10 10 0 0 1 20 0 z" fill="#e23b3b"/>' +
+      '<rect x="-4" y="-20" width="8" height="10" rx="3" fill="#c62828"/>' +
+      '<rect x="-16" y="0" width="7" height="9" rx="2.5" fill="#c62828"/>' +
+      '<rect x="9" y="0" width="7" height="9" rx="2.5" fill="#c62828"/>' +
+      '</g>';
+  }
+
+  // Direction-of-travel arrow painted in a lane (dir: "up" | "down").
+  function laneArrow(x, dir) {
+    return dir === "down"
+      ? '<path d="M' + x + ' 56 V128 M' + (x - 12) + ' 106 L' + x + ' 128 L' + (x + 12) + ' 106" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>'
+      : '<path d="M' + x + ' 128 V56 M' + (x - 12) + ' 78 L' + x + ' 56 L' + (x + 12) + ' 78" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>';
+  }
+
   // Official public-domain MUTCD sign art, referenced from assets/signs/.
   // Rendered into a 2s x 2s box centered at (0,0); each sign's aspect ratio is preserved.
   // Used for the sign-recognition questions (the `row` template).
@@ -169,7 +188,6 @@
 
   /* ---- road pieces ---- */
   function vRoad() { return '<rect x="130" y="0" width="140" height="400" fill="' + C.road + '"/>'; }
-  function vCenter() { return '<line x1="200" y1="0" x2="200" y2="400" stroke="' + C.line + '" stroke-width="5" stroke-dasharray="22 18"/>'; }
   function grass() { return '<rect width="400" height="400" fill="' + C.grass + '"/>'; }
 
   function crosswalk(yTop) {
@@ -273,7 +291,18 @@
   }
 
   function tplRoad(scene) {
-    var svg = '<svg class="scene" viewBox="0 0 400 400" role="img">' + grass() + vRoad() + vCenter();
+    var svg = '<svg class="scene" viewBox="0 0 400 400" role="img">' + grass() + vRoad();
+    // white edge (fog) lines on both sides of the roadway
+    svg += '<line x1="139" y1="0" x2="139" y2="400" stroke="#fff" stroke-width="4"/>';
+    svg += '<line x1="261" y1="0" x2="261" y2="400" stroke="#fff" stroke-width="4"/>';
+    // divider: yellow dashed = two-way (default); white dashed = lanes going the same way
+    var divCol = scene.divider === "white" ? "#fff" : C.line;
+    svg += '<line x1="200" y1="0" x2="200" y2="400" stroke="' + divCol + '" stroke-width="5" stroke-dasharray="22 18"/>';
+    // direction-of-travel arrows painted in the lanes
+    if (scene.arrows === "up") svg += laneArrow(165, "up") + laneArrow(235, "up");
+    else if (scene.arrows === "twoway") svg += laneArrow(165, "down") + laneArrow(235, "up");
+    // fire hydrant on the right shoulder
+    if (scene.hydrant) svg += hydrant(300, scene.hydrant.y || 150);
     if (scene.crosswalk) svg += crosswalk(80);
     if (scene.railroad) {
       svg += '<rect x="130" y="150" width="140" height="40" fill="#6b5440"/>';

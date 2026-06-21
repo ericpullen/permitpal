@@ -28,7 +28,7 @@
       "manualRef": "Parking",
       "interaction": "choose-one",
       "prompt": "Where is it against the law to park?",
-      "scene": { "template": "row", "items": [ { "type": "card", "text": "P", "decor": true } ] },
+      "scene": { "template": "road", "hydrant": { "y": 145 }, "cars": [ { "id": "car", "lane": "right", "at": "bottom", "dir": "up", "color": "#5BA89A", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "hydrant", "label": "In front of a fire hydrant", "correct": true },

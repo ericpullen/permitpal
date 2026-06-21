@@ -9,7 +9,7 @@
       "manualRef": "Turning",
       "interaction": "choose-one",
       "prompt": "You're about to turn left. Which lane should you be in?",
-      "scene": { "template": "road", "turnArrow": "left", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
+      "scene": { "template": "road", "divider": "white", "arrows": "up", "turnArrow": "left", "cars": [ { "lane": "right", "at": "bottom", "dir": "up", "label": "YOU", "decor": true } ] },
       "choices": [
         { "id": "left", "label": "The left lane", "correct": true },
         { "id": "right", "label": "The right lane" },
