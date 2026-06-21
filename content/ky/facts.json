@@ -80,7 +80,7 @@
       "manualRef": "Occupant Protection",
       "interaction": "choose-one",
       "prompt": "Who should wear a seat belt in the car?",
-      "scene": { "template": "row", "items": [ { "type": "card", "text": "✓", "decor": true } ] },
+      "scene": { "template": "road", "cars": [ { "id": "you", "lane": "right", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "everyone", "label": "Everyone in the car", "correct": true },
@@ -150,7 +150,7 @@
       "manualRef": "Alcohol and Driving",
       "interaction": "choose-one",
       "prompt": "Drinking alcohol changes how you drive. What is the safest choice?",
-      "scene": { "template": "row", "items": [ { "type": "card", "text": "0", "decor": true } ] },
+      "scene": { "template": "road", "cars": [ { "id": "you", "lane": "right", "at": "mid", "dir": "up", "label": "YOU", "decor": true } ] },
       "choiceShow": 3,
       "choices": [
         { "id": "none", "label": "Don't drink at all before driving", "correct": true },
