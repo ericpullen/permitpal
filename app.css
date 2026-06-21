@@ -129,6 +129,11 @@ body.high-contrast{ --ink:#0b1b26; --ink-soft:#2a3f4d; --sky:#ffffff; --line:#9b
 /* animations */
 @keyframes blink{ 50%{ opacity:.18; } }
 .blink{ animation:blink 1s steps(1) infinite; }
+/* alternating railroad-crossing lights */
+@keyframes blinkA{ 0%,49%{ opacity:1; } 50%,100%{ opacity:.18; } }
+@keyframes blinkB{ 0%,49%{ opacity:.18; } 50%,100%{ opacity:1; } }
+.blink-a{ animation:blinkA .9s steps(1) infinite; }
+.blink-b{ animation:blinkB .9s steps(1) infinite; }
 @keyframes pop{ 0%{ transform:scale(1);} 40%{ transform:scale(1.12);} 100%{ transform:scale(1);} }
 .chosen{ animation:pop .5s ease; transform-box:fill-box; transform-origin:center; }
 @keyframes hp{ 0%,100%{ filter:none;} 50%{ filter:drop-shadow(0 0 8px rgba(46,158,107,.95)); } }
@@ -146,7 +151,9 @@ body.high-contrast{ --ink:#0b1b26; --ink-soft:#2a3f4d; --sky:#ffffff; --line:#9b
 .scene .arrive-east{ animation:arriveE .7s ease-out both; }
 .scene .arrive-west{ animation:arriveW .7s ease-out both; }
 
-body.reduce-motion .blink{ animation:none; opacity:1; }
+body.reduce-motion .blink,
+body.reduce-motion .blink-a,
+body.reduce-motion .blink-b{ animation:none; opacity:1; }
 body.reduce-motion .chosen,
 body.reduce-motion .hintpulse,
 body.reduce-motion .tap.wrong,
@@ -155,7 +162,7 @@ body.reduce-motion .arrive-north,
 body.reduce-motion .arrive-east,
 body.reduce-motion .arrive-west{ animation:none; }
 @media (prefers-reduced-motion:reduce){
-  .blink{ animation:none; opacity:1; }
+  .blink,.blink-a,.blink-b{ animation:none; opacity:1; }
   .chosen,.hintpulse,.tap.wrong,
   .arrive-south,.arrive-north,.arrive-east,.arrive-west{ animation:none; }
 }

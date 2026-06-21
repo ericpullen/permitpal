@@ -220,6 +220,35 @@
     return stripes + '<rect x="200" y="' + (yTop + 58) + '" width="70" height="9" fill="#fff"/>';
   }
 
+  // Railroad crossing: tracks across the scene, a train approaching from the left,
+  // a crossbuck with flashing red lights, and a lowered gate arm over your lane.
+  function railroadCrossing() {
+    var ty = 150, s = "";
+    s += '<rect x="0" y="' + ty + '" width="400" height="40" fill="#6b5440"/>';
+    for (var x = 2; x < 400; x += 22) s += '<rect x="' + x + '" y="' + ty + '" width="7" height="40" fill="#5a4634"/>';
+    s += '<line x1="0" y1="' + (ty + 9) + '" x2="400" y2="' + (ty + 9) + '" stroke="#cfcfcf" stroke-width="4"/>';
+    s += '<line x1="0" y1="' + (ty + 31) + '" x2="400" y2="' + (ty + 31) + '" stroke="#cfcfcf" stroke-width="4"/>';
+    // train approaching from the left (not yet at the crossing)
+    s += '<rect x="8" y="156" width="44" height="28" rx="4" fill="#8a4a3a"/>' +
+      '<rect x="58" y="153" width="58" height="34" rx="6" fill="#37404a"/>' +
+      '<rect x="92" y="160" width="22" height="20" rx="3" fill="#2a313a"/>' +
+      '<rect x="64" y="159" width="22" height="13" rx="3" fill="' + C.glass + '" opacity=".8"/>' +
+      '<rect x="110" y="166" width="6" height="8" rx="2" fill="#fff6c8"/>';
+    // crossing signal mast on the right shoulder (your approach side)
+    s += '<rect x="283" y="148" width="7" height="80" fill="#3c3c3c"/>';
+    s += '<g transform="translate(286,140)" stroke="#222" stroke-width="2">' +
+      '<rect x="-22" y="-5" width="44" height="10" rx="2" fill="#fff" transform="rotate(45)"/>' +
+      '<rect x="-22" y="-5" width="44" height="10" rx="2" fill="#fff" transform="rotate(-45)"/></g>';
+    s += '<circle cx="277" cy="167" r="6.5" fill="#e23b3b" class="blink-a"/>';
+    s += '<circle cx="296" cy="167" r="6.5" fill="#e23b3b" class="blink-b"/>';
+    // lowered gate arm across your (right) lane
+    s += '<circle cx="285" cy="210" r="5" fill="#3c3c3c"/>';
+    s += '<rect x="198" y="206" width="86" height="9" rx="3" fill="#fff"/>';
+    s += '<rect x="198" y="206" width="22" height="9" fill="#d23b3b"/>';
+    s += '<rect x="242" y="206" width="22" height="9" fill="#d23b3b"/>';
+    return s;
+  }
+
   /* ---- attribute helpers for tappable actors ---- */
   function dataAttrs(a) {
     if (!a) return "";
@@ -340,11 +369,7 @@
     // fire hydrant on the right shoulder
     if (scene.hydrant) svg += hydrant(300, scene.hydrant.y || 150);
     if (scene.crosswalk) svg += crosswalk(80);
-    if (scene.railroad) {
-      svg += '<rect x="130" y="150" width="140" height="40" fill="#6b5440"/>';
-      svg += '<line x1="130" y1="158" x2="270" y2="158" stroke="#cfcfcf" stroke-width="4"/><line x1="130" y1="182" x2="270" y2="182" stroke="#cfcfcf" stroke-width="4"/>';
-      svg += '<g transform="translate(108,150)">' + sign("railroad", 16) + '</g>';
-    }
+    if (scene.railroad) svg += railroadCrossing();
     // turn arrow hint on your car
     if (scene.turnArrow === "left") {
       svg += '<path d="M236 250 q0 -40 -40 -40 l24 0 M196 210 l-24 0 l16 -14 M196 210 l16 14" fill="none" stroke="#9fd9ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>';
