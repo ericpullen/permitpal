@@ -54,6 +54,8 @@ body.high-contrast{ --ink:#0b1b26; --ink-soft:#2a3f4d; --sky:#ffffff; --line:#9b
 .tagline{ color:var(--green-d); font-size:1.35rem; font-weight:800; margin:14px 0 4px; letter-spacing:.2px; }
 .subtag{ color:var(--ink-soft); font-size:1.05rem; margin:0 0 22px; }
 .fineprint{ color:var(--ink-soft); font-size:.92rem; margin-top:18px; }
+.about-link{ color:var(--green-d); font-weight:700; }
+.home-foot{ text-align:center; margin:26px 0 8px; font-size:.95rem; }
 .logo svg{ filter:drop-shadow(0 6px 12px rgba(46,158,107,.35)); }
 
 /* home */

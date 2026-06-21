@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>About Permit Pal — See it. Hear it. Tap it.</title>
+  <meta name="description" content="Why Permit Pal was built: a free, visual, spoken way to practice for the Kentucky permit test — made for every kind of learner." />
+  <meta name="theme-color" content="#2E9E6B" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+
+  <!-- Social sharing. Note: set absolute URLs (https://your-domain/…) once the
+       deploy domain is known, and swap in a 1200×630 share image for a large card. -->
+  <meta property="og:title" content="Permit Pal — See it. Hear it. Tap it." />
+  <meta property="og:description" content="A free, visual, spoken way to practice for the Kentucky permit test — built for every kind of learner." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/icon-192.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Permit Pal — See it. Hear it. Tap it." />
+  <meta name="twitter:description" content="A free, visual, spoken way to practice for the Kentucky permit test — built for every kind of learner." />
+  <meta name="twitter:image" content="assets/icon-192.png" />
+
+  <link rel="stylesheet" href="app.css" />
+  <style>
+    /* Page-specific layout. The palette, Nunito font, and base styles come from
+       app.css; everything here is namespaced so it can't collide with the app. */
+    .ap{ max-width:680px; margin:0 auto;
+         padding:calc(28px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(56px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left)); }
+
+    .ap-hero{ text-align:center; }
+    .ap-logo svg{ filter:drop-shadow(0 6px 12px rgba(46,158,107,.35)); }
+    .ap-hero h1{ font-size:2.4rem; margin:14px 0 4px; letter-spacing:-.01em; }
+    .ap-tagline{ color:var(--green-d); font-size:1.5rem; font-weight:800; margin:6px 0 6px; }
+    .ap-lede{ color:var(--ink-soft); font-size:1.15rem; max-width:30em; margin:0 auto 22px; }
+
+    /* Signature: a top-down road in the app's own scene language. */
+    .ap-road{ width:100%; height:auto; display:block; border-radius:18px;
+              box-shadow:0 8px 24px rgba(33,58,74,.10); margin:6px 0 24px; }
+
+    .ap-cta{ display:inline-flex; align-items:center; gap:10px; text-decoration:none;
+             font-weight:800; font-size:1.2rem; color:#fff; background:var(--green);
+             border-radius:var(--r); padding:16px 28px; min-height:var(--tap);
+             box-shadow:0 3px 0 var(--green-d); transition:transform .06s ease; }
+    .ap-cta:active{ transform:translateY(2px); box-shadow:0 1px 0 var(--green-d); }
+    .ap-meta{ color:var(--ink-soft); font-size:.95rem; margin:14px 0 0; }
+    .ap-meta b{ color:var(--ink); }
+
+    .ap-sec{ margin-top:40px; }
+    .ap-eyebrow{ font-size:.85rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em;
+                 color:var(--green-d); margin:0 0 8px; }
+    .ap-sec h2{ font-size:1.5rem; margin:0 0 12px; }
+    .ap-sec p{ font-size:1.12rem; margin:0 0 14px; }
+    .ap-sec p:last-child{ margin-bottom:0; }
+
+    /* Story gets a soft card + a left rule, like a quiet pull-quote. */
+    .ap-story{ background:var(--card); border-left:5px solid var(--green);
+               border-radius:14px; padding:22px 24px; box-shadow:0 6px 18px rgba(33,58,74,.07); }
+
+    .ap-chips{ display:flex; flex-wrap:wrap; gap:10px; }
+    .ap-chip{ background:var(--card); border:1px solid var(--line); border-radius:999px;
+              padding:10px 16px; font-weight:700; font-size:1rem; }
+
+    .ap-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .ap-card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; }
+    .ap-card .ic{ font-size:1.6rem; line-height:1; }
+    .ap-card h3{ font-size:1.12rem; margin:10px 0 4px; }
+    .ap-card p{ font-size:1rem; color:var(--ink-soft); margin:0; }
+
+    .ap-open{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:24px;
+              text-align:center; }
+    .ap-open p{ max-width:32em; margin-left:auto; margin-right:auto; }
+    .ap-ghost{ display:inline-flex; align-items:center; gap:9px; text-decoration:none;
+               font-weight:800; font-size:1.05rem; color:var(--ink); background:#fff;
+               border:1px solid var(--line); border-radius:var(--r); padding:14px 22px;
+               box-shadow:0 3px 0 var(--line); margin-top:6px; }
+    .ap-ghost:active{ transform:translateY(2px); box-shadow:0 1px 0 var(--line); }
+
+    .ap-foot{ margin-top:44px; padding-top:22px; border-top:1px solid var(--line);
+              text-align:center; color:var(--ink-soft); font-size:1rem; }
+    .ap-foot a{ color:var(--green-d); font-weight:700; }
+    .ap-foot .dot{ opacity:.5; padding:0 8px; }
+
+    .ap-reveal{ opacity:0; transform:translateY(10px); animation:apIn .6s ease forwards; }
+    @keyframes apIn{ to{ opacity:1; transform:none; } }
+    @media (prefers-reduced-motion:reduce){ .ap-reveal{ animation:none; opacity:1; transform:none; } }
+
+    @media (max-width:460px){
+      .ap-hero h1{ font-size:2rem; }
+      .ap-grid{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ap">
+
+    <header class="ap-hero ap-reveal">
+      <div class="ap-logo" aria-hidden="true">
+        <svg viewBox="0 0 120 120" width="84" height="84">
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#37b07e"/><stop offset="1" stop-color="#2E9E6B"/></linearGradient></defs>
+          <rect width="120" height="120" rx="26" fill="url(#lg)"/>
+          <polygon points="32,120 88,120 73,10 47,10" fill="#3f464d"/>
+          <polygon points="32,120 36,120 50,10 47,10" fill="#fff" opacity=".85"/>
+          <polygon points="84,120 88,120 73,10 70,10" fill="#fff" opacity=".85"/>
+          <rect x="56.5" y="96" width="7" height="16" rx="2" fill="#F4C95D"/>
+          <rect x="57.5" y="66" width="5" height="13" rx="2" fill="#F4C95D"/>
+          <rect x="58.3" y="42" width="3.4" height="10" rx="1.5" fill="#F4C95D"/>
+          <rect x="58.8" y="24" width="2.4" height="7" rx="1.2" fill="#F4C95D"/>
+          <g transform="translate(60,82)">
+            <rect x="-16" y="-21" width="32" height="44" rx="10" fill="#2F6FB0"/>
+            <rect x="-12" y="-21" width="7" height="4" rx="2" fill="#fff6c8"/><rect x="5" y="-21" width="7" height="4" rx="2" fill="#fff6c8"/>
+            <rect x="-11" y="-14" width="22" height="11" rx="4" fill="#cfe7ff" opacity=".9"/>
+            <rect x="-11" y="6" width="22" height="11" rx="4" fill="#cfe7ff" opacity=".7"/>
+          </g>
+        </svg>
+      </div>
+      <h1>Permit Pal</h1>
+      <p class="ap-tagline">See it. Hear it. Tap it.</p>
+      <p class="ap-lede">A free, visual way to practice for the Kentucky permit test — made for every kind of learner.</p>
+
+      <!-- Signature: a top-down road scene, the same visual language as the app -->
+      <svg class="ap-road" viewBox="0 0 700 170" role="img" aria-label="A top-down road with two cars and a stop sign, like the scenes in the app.">
+        <rect width="700" height="170" fill="#CDE6CF"/>
+        <rect x="0" y="46" width="700" height="78" fill="#454C53"/>
+        <line x1="0" y1="50" x2="700" y2="50" stroke="#fff" stroke-width="3"/>
+        <line x1="0" y1="120" x2="700" y2="120" stroke="#fff" stroke-width="3"/>
+        <line x1="0" y1="85" x2="700" y2="85" stroke="#F4C95D" stroke-width="5" stroke-dasharray="34 26"/>
+        <!-- blue car (YOU), pointing right -->
+        <g transform="translate(150,103) rotate(-90)">
+          <rect x="3" y="2" width="38" height="66" rx="12" fill="#2F6FB0"/>
+          <rect x="7" y="2" width="9" height="5" rx="2.5" fill="#fff6c8"/><rect x="28" y="2" width="9" height="5" rx="2.5" fill="#fff6c8"/>
+          <rect x="8" y="9" width="28" height="16" rx="6" fill="#cfe7ff" opacity=".85"/>
+          <rect x="8" y="44" width="28" height="16" rx="6" fill="#cfe7ff" opacity=".7"/>
+          <text x="22" y="40" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="13" fill="#fff" transform="rotate(90 22 35)">YOU</text>
+        </g>
+        <!-- orange car, pointing right -->
+        <g transform="translate(430,66) rotate(-90)">
+          <rect x="3" y="2" width="38" height="66" rx="12" fill="#E0883E"/>
+          <rect x="7" y="2" width="9" height="5" rx="2.5" fill="#fff6c8"/><rect x="28" y="2" width="9" height="5" rx="2.5" fill="#fff6c8"/>
+          <rect x="8" y="9" width="28" height="16" rx="6" fill="#cfe7ff" opacity=".85"/>
+          <rect x="8" y="44" width="28" height="16" rx="6" fill="#cfe7ff" opacity=".7"/>
+        </g>
+        <!-- stop sign on the shoulder -->
+        <g transform="translate(600,150)">
+          <polygon points="-11,-26 11,-26 26,-11 26,11 11,26 -11,26 -26,11 -26,-11" transform="scale(.62)" fill="#D23B3B" stroke="#fff" stroke-width="3"/>
+          <text x="0" y="5" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="800" font-size="11" fill="#fff">STOP</text>
+        </g>
+      </svg>
+
+      <p><a class="ap-cta" href="index.html">Start practicing →</a></p>
+      <p class="ap-meta"><b>Free.</b> Works offline on your phone. No accounts, no tracking.</p>
+    </header>
+
+    <section class="ap-sec ap-reveal" aria-labelledby="why">
+      <p class="ap-eyebrow" id="why">Why I built this</p>
+      <div class="ap-story">
+        <p>I built Permit Pal for my daughter. She's more than capable of driving — but the standard permit practice tests are walls of dense text, and that format quietly shuts out a lot of people who'd do just fine behind the wheel.</p>
+        <p>So I made the test she needed: one you can <b>see, hear, and tap</b>. Every question is a picture of a real road situation, read aloud, with big simple answers — the rules of the road, made clear.</p>
+        <p>If it helps even a few other families get someone safely on the road, it was worth building.</p>
+      </div>
+    </section>
+
+    <section class="ap-sec ap-reveal" aria-labelledby="who">
+      <p class="ap-eyebrow">Who it's for</p>
+      <h2 id="who">The learners the standard test leaves behind</h2>
+      <div class="ap-chips">
+        <span class="ap-chip">🧩 Learning differences &amp; IEPs</span>
+        <span class="ap-chip">📖 New or struggling readers</span>
+        <span class="ap-chip">🌎 English language learners</span>
+        <span class="ap-chip">😮‍💨 Test anxiety</span>
+      </div>
+    </section>
+
+    <section class="ap-sec ap-reveal" aria-labelledby="diff">
+      <p class="ap-eyebrow">What makes it different</p>
+      <h2 id="diff">Built around how people actually learn the road</h2>
+      <div class="ap-grid">
+        <div class="ap-card"><div class="ic" aria-hidden="true">👁️</div><h3>See it</h3><p>Every question is a clear top-down road scene — not a paragraph to decode.</p></div>
+        <div class="ap-card"><div class="ic" aria-hidden="true">🔊</div><h3>Hear it</h3><p>Questions and answers are read aloud, so reading is never the barrier.</p></div>
+        <div class="ap-card"><div class="ic" aria-hidden="true">👆</div><h3>Tap it</h3><p>Big, simple tap targets. One decision at a time, with kind feedback.</p></div>
+        <div class="ap-card"><div class="ic" aria-hidden="true">🎛️</div><h3>Adjust it</h3><p>Easy-to-read font, higher contrast, calmer motion, sound on or off.</p></div>
+        <div class="ap-card"><div class="ic" aria-hidden="true">📴</div><h3>Works offline</h3><p>Add it to your home screen and practice anywhere — no signal needed.</p></div>
+        <div class="ap-card"><div class="ic" aria-hidden="true">🔒</div><h3>Private &amp; free</h3><p>No accounts, no ads, no tracking. Progress stays on the device.</p></div>
+      </div>
+    </section>
+
+    <section class="ap-sec ap-reveal" aria-labelledby="open">
+      <p class="ap-eyebrow">Free &amp; open source</p>
+      <div class="ap-open">
+        <h2 id="open">Want it for your state?</h2>
+        <p>Permit Pal covers the <b>Kentucky Driver Manual</b> today. It's free and open source — if you'd like to add another state, pull requests are very welcome.</p>
+        <a class="ap-ghost" href="https://github.com/ericpullen/permitpal">★ View the code on GitHub</a>
+      </div>
+    </section>
+
+    <footer class="ap-foot ap-reveal">
+      Made by <a href="https://github.com/ericpullen">Eric Pullen</a>
+      <span class="dot">·</span><a href="https://github.com/ericpullen/permitpal">GitHub</a>
+      <span class="dot">·</span><a href="index.html">Open the app</a>
+    </footer>
+
+  </div>
+</body>
+</html>

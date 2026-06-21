@@ -9,6 +9,11 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <!-- iOS "Add to Home Screen": run standalone with our icon -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Permit Pal" />
   <link rel="stylesheet" href="app.css" />
 </head>
 <body>
@@ -18,11 +23,22 @@
     <div class="start-card">
       <div class="logo" aria-hidden="true">
         <svg viewBox="0 0 120 120" width="96" height="96">
-          <rect width="120" height="120" rx="26" fill="#2E9E6B"/>
-          <rect x="50" y="20" width="20" height="80" fill="#fff" opacity=".9"/>
-          <rect x="54" y="34" width="12" height="16" fill="#2E9E6B"/>
-          <rect x="54" y="62" width="12" height="16" fill="#2E9E6B"/>
-          <circle cx="60" cy="60" r="0" fill="none"/>
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#37b07e"/><stop offset="1" stop-color="#2E9E6B"/></linearGradient></defs>
+          <rect width="120" height="120" rx="26" fill="url(#lg)"/>
+          <polygon points="32,120 88,120 73,10 47,10" fill="#3f464d"/>
+          <polygon points="32,120 36,120 50,10 47,10" fill="#fff" opacity=".85"/>
+          <polygon points="84,120 88,120 73,10 70,10" fill="#fff" opacity=".85"/>
+          <rect x="56.5" y="96" width="7" height="16" rx="2" fill="#F4C95D"/>
+          <rect x="57.5" y="66" width="5" height="13" rx="2" fill="#F4C95D"/>
+          <rect x="58.3" y="42" width="3.4" height="10" rx="1.5" fill="#F4C95D"/>
+          <rect x="58.8" y="24" width="2.4" height="7" rx="1.2" fill="#F4C95D"/>
+          <g transform="translate(60,82)">
+            <rect x="-16" y="-21" width="32" height="44" rx="10" fill="#2F6FB0"/>
+            <rect x="-12" y="-21" width="7" height="4" rx="2" fill="#fff6c8"/><rect x="5" y="-21" width="7" height="4" rx="2" fill="#fff6c8"/>
+            <rect x="-11" y="-14" width="22" height="11" rx="4" fill="#cfe7ff" opacity=".9"/>
+            <rect x="-11" y="6" width="22" height="11" rx="4" fill="#cfe7ff" opacity=".7"/>
+          </g>
         </svg>
       </div>
       <h1>Permit Pal</h1>
@@ -30,6 +46,7 @@
       <p class="subtag">Practice for the Kentucky permit test — made for every kind of learner.</p>
       <button id="btn-start" class="btn big">Start</button>
       <p class="fineprint">Free to use. Works on your phone. Your progress stays on your device.</p>
+      <p class="fineprint"><a class="about-link" href="about.html">About Permit Pal — why it was built</a></p>
     </div>
   </section>
 
@@ -47,6 +64,8 @@
 
     <h3 class="section-label">Lessons</h3>
     <div id="home-modules" class="module-grid"><p class="note">Loading…</p></div>
+
+    <p class="home-foot"><a class="about-link" href="about.html">About Permit Pal — why it was built</a></p>
 
     <button id="btn-settings" class="settings-fab" aria-label="Settings">⚙️</button>
   </section>

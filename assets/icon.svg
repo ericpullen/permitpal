@@ -1,9 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect width="512" height="512" rx="112" fill="#2E9E6B"/>
-  <rect x="232" y="96" width="48" height="320" rx="6" fill="#ffffff" opacity=".95"/>
-  <rect x="244" y="150" width="24" height="44" fill="#2E9E6B"/>
-  <rect x="244" y="234" width="24" height="44" fill="#2E9E6B"/>
-  <rect x="244" y="318" width="24" height="44" fill="#2E9E6B"/>
-  <circle cx="150" cy="360" r="34" fill="#2F6FB0"/>
-  <circle cx="362" cy="170" r="34" fill="#E0883E"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="512" height="512">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#37b07e"/><stop offset="1" stop-color="#2E9E6B"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="26" fill="url(#g)"/>
+  <!-- road in perspective (heading forward) -->
+  <polygon points="32,120 88,120 73,10 47,10" fill="#3f464d"/>
+  <polygon points="32,120 36,120 50,10 47,10" fill="#fff" opacity=".85"/>
+  <polygon points="84,120 88,120 73,10 70,10" fill="#fff" opacity=".85"/>
+  <!-- dashed center line, shrinking toward the horizon -->
+  <rect x="56.5" y="96" width="7" height="16" rx="2" fill="#F4C95D"/>
+  <rect x="57.5" y="66" width="5" height="13" rx="2" fill="#F4C95D"/>
+  <rect x="58.3" y="42" width="3.4" height="10" rx="1.5" fill="#F4C95D"/>
+  <rect x="58.8" y="24" width="2.4" height="7" rx="1.2" fill="#F4C95D"/>
+  <!-- the blue YOU car -->
+  <g transform="translate(60,82)">
+    <rect x="-16" y="-21" width="32" height="44" rx="10" fill="#2F6FB0"/>
+    <rect x="-12" y="-21" width="7" height="4" rx="2" fill="#fff6c8"/><rect x="5" y="-21" width="7" height="4" rx="2" fill="#fff6c8"/>
+    <rect x="-11" y="-14" width="22" height="11" rx="4" fill="#cfe7ff" opacity=".9"/>
+    <rect x="-11" y="6" width="22" height="11" rx="4" fill="#cfe7ff" opacity=".7"/>
+  </g>
 </svg>
